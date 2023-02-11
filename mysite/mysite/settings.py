@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     # Our pages
     'home',
+    'game',
+    'user',
 ]
 
 MIDDLEWARE = [
