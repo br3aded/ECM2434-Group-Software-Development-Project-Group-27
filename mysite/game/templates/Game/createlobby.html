@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title> Create Lobby </title>
+
+        <meta name="author" content="Kelsey Holdgate" />
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
+        <link rel="stylesheet" href="{% static 'createlobby.css' %}">
+        
+    </head>
+    <body>
+        <main class="main" id="main">
+            <form action="add_lobby" method="post">
+                {% csrf_token %}
+                <label for="lobby name">Lobby name:</label><br>
+                <input type="text" id="lobby name" name="lobby name" maxlength="20"><br>
+                <label for="lobby code">Lobby Code:</label><br>
+                <input type="text" id="lobby code" name="lobby code" maxlength="8">
+                <label for="num of players">No. Of Players:</label><br>
+                <input type="number" id="num of players" name="num of players" min="3" max = "10">
+                <label for="num of rounds">No. Of Rounds:</label><br>
+                <input type="number" id="num of rounds" name="num of rounds" min="1" max = "10">
+                <input type="submit" value="Submit">
+              </form>
+        </main>
+    </body>
+</html>
