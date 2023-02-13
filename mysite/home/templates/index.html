@@ -4,16 +4,33 @@
 <html>
     <head>
         <meta charset='utf-8'>
-        <title> TaskMaster </title>
 
-        <meta name="author" content="Matthew Wood" />
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
+        <title> Taskmaster </title>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
         <link rel="stylesheet" href="{% static 'default.css' %}">
-        
+        <meta name="author" content="Matthew Wood" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <main class="main" id="main">
-            <p> Content </p>
+        <main id="main" class="main">
+            <nav id="navbar" class="navbar"> 
+                <h1 id="title" style="position: absolute; padding-left: 20px"> Taskmaster </h1>
+                <ul>
+                    <li style="background-color: cyan"> Play </li>
+                    <li style="background-color: rgb(143, 255, 120)"> About </li>
+                    <li style="background-color: rgb(255, 127, 127)"> Signup </li>
+                </ul>
+            </nav>
+            <section id="landing-page" class="content-block" style="background-color: rgb(255, 223, 127)">
+                <div class="button-container center">
+                    <div class="user-button"> GET STARTED </div>
+                    <div class="user-button"> I HAVE AN ACCOUNT </div>
+                </div>
+            </section>
+            <section id="info" class="content-block" style="background-color: rgb(255, 134, 158); height: 100vh;"></section>
+            <footer id="footer" class="footer"></footer>
         </main>
+
+        <script src="{% static 'landing-page.js' %}"></script>
     </body>
 </html>
