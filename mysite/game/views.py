@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse
+from django.template import loader
+
+LOGGED_IN = True
 
 def create_lobby(request):
     return render(request,"game/createlobby.html")
@@ -20,3 +24,7 @@ def add_lobby(request):
 #this will change when lobby implemented
 def lobby_view(request):
     return render(request,"game/lobby.html")
+
+def members(request):
+  template = loader.get_template('lobby.html')
+  return HttpResponse(template.render())
