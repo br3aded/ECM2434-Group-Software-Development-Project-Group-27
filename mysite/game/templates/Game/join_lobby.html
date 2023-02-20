@@ -7,7 +7,7 @@
 
         <title> Taskmaster </title>
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
-        <link rel="stylesheet" href="{% static 'game.css' %}">
+        <link rel="stylesheet" href="{% static 'default.css' %}">
         <meta name="author" content="Matthew Wood" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -22,6 +22,7 @@
                 </ul>
             </nav>
             <section id="main-content" class="content-block" style="background-color: rgb(255, 223, 127)">
+                {% csrf_token %}
                 <form id="options" class="options-container center"> 
                     <label id="enter-code" > </div>
                     <input type="text" id="enter-code" class="enter-code" name="enter-code" value="Enter" maxlength="5"><br>
@@ -30,7 +31,10 @@
                 <div id="user-options" class="button-container center" style="top: 300%">
                     <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
                                                                              onmouseup="undim(this.id)" 
-                                                                             onmouseleave="undim(this.id)"> CREATE GAME </div>
+                                                                             onmouseleave="undim(this.id)"
+                                                                             onclick="window.location.href = 'http://127.0.0.1:8000/game/create_lobby'";> CREATE GAME 
+                    <a href="createlobby.html"></a>
+                    </div>
 
                     <div id="view-games" class="user-button disable-select" onmousedown="dim(this.id)"
                                                                              onmouseup="undim(this.id)" 
@@ -41,6 +45,7 @@
             <footer id="footer" class="footer"></footer>
         </main>
 
-        <script src="{% static 'page-logic-2.js' %}"></script>
+        <script> src="{% static 'page-logic.js' %}"</script>
+        <script src="{% static 'button-dim.js' %}"></script>
     </body>
 </html>

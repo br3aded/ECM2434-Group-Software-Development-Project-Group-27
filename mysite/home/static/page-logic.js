@@ -14,9 +14,7 @@ function setPageTitle() {
 }
 
 function checkGameCode() {
-    let codeInput = document.getElementById("enter-code");
-    let fieldValue = codeInput.value;
-    if (fieldValue.length >= MAX_CODE_LENGTH) console.log("Fire");
+    
 }
 
 setPageTitle();
