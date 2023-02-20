@@ -22,14 +22,14 @@ class Task(models.Model):
     class Meta:
         unique_together = ("game_id", "task_number")
 
-class Players(models.Model):
+class Player(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     game_id = models.ForeignKey(Game, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ("user_id", "game_id")
 
-class Completions(models.Model):
+class Completion(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     game_id = models.ForeignKey(Game, on_delete=models.CASCADE)
     task_number = models.ForeignKey(Task, on_delete=models.CASCADE)

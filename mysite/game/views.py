@@ -3,6 +3,9 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.urls import reverse
 from django.template import loader
+from .models import Game 
+from user.models import User
+from datetime import datetime
 
 LOGGED_IN = True
 
@@ -16,6 +19,8 @@ def add_lobby(request):
     code = request.POST['lobby code']
     player = request.POST['num of players']
     rounds = request.POST['num of rounds']
+    game = Game(start_datetime = datetime.now(),end_date = '', max_points = '', hosting_group = '') #will change when database is added
+    game.save()
     #add code here for creating a new lobby item in database when implemented
     #should add tests once completed
     return HttpResponseRedirect(reverse('game:lobby_view'))
@@ -23,8 +28,8 @@ def add_lobby(request):
 #generic lobby page
 #this will change when lobby implemented
 def lobby_view(request):
-    return render(request,"game/lobby.html")
+    return render(request,"game/gamelobby.html")
 
 def members(request):
-  template = loader.get_template('lobby.html')
+  template = loader.get_template('game/lobby.html')
   return HttpResponse(template.render())
