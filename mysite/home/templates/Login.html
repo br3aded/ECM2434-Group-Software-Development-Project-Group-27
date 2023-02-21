@@ -43,10 +43,11 @@
     <section class="wrapper">
       <div class="form signup">
         <header>Signup</header>
-        <form action="#">
-          <input type="text" placeholder="Full name" required />
-          <input type="text" placeholder="Email address" required />
-          <input type="password" placeholder="Password" required />
+        <form action="add_user" method="post">
+          {% csrf_token %}
+          <input type="text" placeholder="Username" name="Username" required />
+          <input type="text" placeholder="Email address" name="Email" required />
+          <input type="password" placeholder="Password" name="Password" required />
           <div class="checkbox">
             <input type="checkbox" id="signupCheck" />
             <label for="signupCheck">I accept all terms & conditions</label>
@@ -57,9 +58,10 @@
 
       <div class="form login">
         <header>Login</header>
-        <form action="#">
-          <input type="text" placeholder="Email address" required />
-          <input type="password" placeholder="Password" required />
+        <form action="user_login" method="post">
+          {% csrf_token %}
+          <input type="text" placeholder="Username" name="Username" required />
+          <input type="password" placeholder="Password" name="Password" required />
           <a href="#">Forgot password?</a>
           <input type="submit" value="Login" />
         </form>
