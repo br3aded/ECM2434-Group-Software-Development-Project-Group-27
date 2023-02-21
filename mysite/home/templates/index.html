@@ -7,12 +7,15 @@
 
         <title> Taskmaster </title>
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
-        <link rel="stylesheet" href="{% static 'game.css' %}">
+        <link rel="stylesheet" href="{% static 'default.css' %}">
+        <link rel="stylesheet" href="{% static 'sidebar.css' %}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <meta name="author" content="Matthew Wood" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <main id="main" class="main">
+            <!--
             <nav id="navbar" class="navbar"> 
                 <h1 id="title" style="position: absolute; padding-left: 20px"> Taskmaster </h1>
                 <ul>
@@ -20,18 +23,44 @@
                     <li style="background-color: rgb(143, 255, 120)"> About </li>
                     <li style="background-color: rgb(255, 127, 127)"> Signup </li>
                 </ul>
-            </nav>
-            <section id="landing-page" class="content-block" style="background-color: rgb(255, 223, 127)">
-                <div class="button-container center">
+            </nav>-->
+
+            <section id="landing-page" class="content-block uni-background">
+                <div class="container" style="z-index: 100;">
+                    <aside>
+                      <div class="top">
+                        <div class="logo">
+                          <h2>Task master</h2>
+                        <div>
+                        <div class="close" id="close-btn">
+                          <span class="material-icons-sharp">close</span>
+                        </div>
+                      </div>
+              
+                      <div class="sidebar">
+                        <a href="#" class="active">
+                          <span class="material-icons-sharp">person_outline</span>
+                          <h3>Profile</h3>
+                        </a>
+                        <a href="#">
+                          <span class="material-icons-sharp">grid_view</span>
+                          <h3>Dashboard</h3>
+                        </a>
+                        <a href="#">
+                          <span class="material-icons-sharp">grid_view</span>
+                          <h3>Logout</h3>
+                        </a>
+                      </div>
+                    </aside>
+                </div>
+
+                <img src="{% static 'favicon-large.png' %}" class="large-logo center">
+
+                <div class="button-container center" style="top: 70%">
                     <div id="create-account" class="user-button disable-select" onmousedown="dim(this.id)"
                                                                              onmouseup="undim(this.id)" 
                                                                              onmouseleave="undim(this.id)"
-                                                                             onclick="window.location.href = '#'";> CREATE ACCOUNT 
-                    </div>
-                    <div id="has-account" class="user-button disable-select" onmousedown="dim(this.id)"
-                                                                             onmouseup="undim(this.id)" 
-                                                                             onmouseleave="undim(this.id)"
-                                                                             onclick="window.location.href = 'http://127.0.0.1:8000/game/lobby'";> I HAVE AN ACCOUNT 
+                                                                             onclick="window.location.href = 'http://127.0.0.1:8000/login/'"> GET STARTED
                     </div>
                 </div>
             </section>
