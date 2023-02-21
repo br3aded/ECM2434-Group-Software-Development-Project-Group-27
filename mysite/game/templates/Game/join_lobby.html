@@ -15,17 +15,8 @@
     </head>
     <body>
         <main id="main" class="main">
-            <!--
-            <nav id="navbar" class="navbar"> 
-                <h1 id="title" style="position: absolute; padding-left: 20px"> Taskmaster </h1>
-                <ul>
-                    <li style="background-color: cyan"> Play </li>
-                    <li style="background-color: rgb(143, 255, 120)"> About </li>
-                    <li style="background-color: rgb(255, 127, 127)"> Signup </li>
-                </ul>
-            </nav>-->
+            <section id="main-content" class="content-block uni-background">
 
-            <section id="landing-page" class="content-block uni-background">
                 <div class="container" style="z-index: 100;">
                     <aside>
                       <div class="top">
@@ -53,22 +44,31 @@
                       </div>
                     </aside>
                 </div>
+                
+                {% csrf_token %}
+                <form id="options" class="options-container center"> 
+                    <label id="enter-code" > </div>
+                    <input type="text" id="enter-code" class="enter-code" name="enter-code" value="Enter" maxlength="5"><br>
+                </form>
 
-                <img src="{% static 'favicon-large.png' %}" class="large-logo center">
-
-                <div class="button-container center" style="top: 70%">
-                    <div id="create-account" class="user-button disable-select" onmousedown="dim(this.id)"
+                <div id="user-options" class="button-container center" style="top: 300%">
+                    <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
                                                                              onmouseup="undim(this.id)" 
                                                                              onmouseleave="undim(this.id)"
-                                                                             onclick="window.location.href = '/login/'"> GET STARTED
+                                                                             onclick="window.location.href = 'create_lobby'"> CREATE GAME 
+                    <a href="createlobby.html"></a>
                     </div>
+
+                    <div id="view-games" class="user-button disable-select" onmousedown="dim(this.id)"
+                                                                             onmouseup="undim(this.id)" 
+                                                                             onmouseleave="undim(this.id)"> VIEW GAMES </div>
                 </div>
             </section>
             <section id="info" class="content-block" style="background-color: rgb(255, 134, 158); height: 100vh;"></section>
             <footer id="footer" class="footer"></footer>
         </main>
 
-        <script src="{% static 'page-logic.js' %}"></script>
+        <script> src="{% static 'page-logic.js' %}"</script>
         <script src="{% static 'button-dim.js' %}"></script>
     </body>
 </html>

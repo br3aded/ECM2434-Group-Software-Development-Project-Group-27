@@ -30,6 +30,19 @@ def add_lobby(request):
 def lobby_view(request):
     return render(request,"game/gamelobby.html")
 
+'''
 def members(request):
-  template = loader.get_template('game/lobby.html')
-  return HttpResponse(template.render())
+    template = loader.get_template('join_lobby.html')
+    return render(request,"game/gamelobby.html")
+'''
+
+# /game url
+def members(request):
+    template = loader.get_template('game/join_lobby.html')
+    return HttpResponse(template.render())
+
+    
+def get_lobby_code(request):
+    if request.method == "POST":
+        code = request.POST["enter-code"]
+        return code

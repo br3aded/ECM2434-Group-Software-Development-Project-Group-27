@@ -47,41 +47,21 @@ li {
 
 .center {
     position: absolute;
-    top: 30%;
+    top: 60%;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
 
-.options-container {
-    width: 300px;
-    display: grid;
-    grid-row-gap: 10px;
-    background-color: aqua;
-}
-
-.enter-code {
-    --widget-height: 80px;
-    width: 300px;
-    height: var(--widget-height);
-    background-color: #cd98ff;
-
-    text-align: center;
-    font-size: var(--widget-height);
-    line-height: var(--widget-height);
-    letter-spacing: 6px;
-    text-transform: uppercase;
-}
-
 .button-container {
-    width: 250px;
+    width: 300px;
     display: grid;
     grid-row-gap: 10px;
 }
 
 .user-button {
     --button-height: 60px;
-    width: 250px;
+    width: 300px;
     height: var(--button-height);
     background-color: rgb(255, 128, 240);
 
