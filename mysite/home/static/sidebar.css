@@ -17,6 +17,9 @@ a { outline: none; }
 aside{
     height: 100vh;
     margin-left: 40px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
     }
     
     aside .top {
@@ -127,3 +130,8 @@ aside{
       h5 {
         font-size: 0.77rem;
       }
+
+.logo {
+  width: 100%;
+  text-align: center;
+}
