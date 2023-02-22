@@ -4,8 +4,10 @@ from django.urls import reverse
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/login/')
 def members(request):
   template = loader.get_template('index.html')
   return HttpResponse(template.render())
@@ -31,4 +33,9 @@ def login_user(request):
   else:
       # Return an 'invalid login' error message.
       return HttpResponseRedirect(reverse('home:login'))
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home:home'))
+
   
