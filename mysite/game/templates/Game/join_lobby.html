@@ -29,13 +29,13 @@
                       </div>
               
                       <div class="sidebar">
-                        <a href="#" class="active">
+                        <a href="/home/">
                           <span class="material-icons-sharp">person_outline</span>
-                          <h3>Profile</h3>
+                          <h3>Home</h3>
                         </a>
-                        <a href="#">
+                        <a href="/game/" class="active">
                           <span class="material-icons-sharp">grid_view</span>
-                          <h3>Dashboard</h3>
+                          <h3>Game</h3>
                         </a>
                         <a href="/home/">
                           <span class="material-icons-sharp">grid_view</span>
@@ -48,7 +48,7 @@
                 {% csrf_token %}
                 <form id="options" class="options-container center"> 
                     <label id="enter-code" > </div>
-                    <input type="text" id="enter-code" class="enter-code" name="enter-code" value="Enter" maxlength="5"><br>
+                    <input type="text" id="enter-code" class="enter-code" name="enter-code" placeholder="Enter code" maxlength="5"><br>
                 </form>
 
                 <div id="user-options" class="button-container center" style="top: 300%">

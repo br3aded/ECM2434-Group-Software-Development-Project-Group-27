@@ -2,6 +2,7 @@
 :root {
   --colour-primary: #3dca2b;
   --colour-info-dark: #7d8da1;
+  --widget-height: 80px;
 }
 
 body, html {
@@ -16,6 +17,13 @@ body, html {
 }
 
 a { outline: none; }
+
+input::placeholder {
+    font-size: 20px;
+    color: white;
+    transform: translateY(-17.5px);
+    padding-top: 1px;
+}
 
 .content-block {
     width: 100vw;
@@ -71,7 +79,6 @@ li {
 }
 
 .enter-code {
-    --widget-height: 80px;
     width: 300px;
     height: var(--widget-height);
     background-color: var(--colour-primary);
@@ -137,13 +144,13 @@ li {
 }
 
 .uni-background {
-    background-image: url(piazza-aerial.jpg);
+    background-image: url(forum-background.jpeg);
     background-position: center;
     background-repeat: no-repeat;
-    background-size:contain ;
+    background-size: cover;
 }
   
 .large-logo {
-    width: 400px;
+    max-width: 400px;
     margin: auto;
 }
