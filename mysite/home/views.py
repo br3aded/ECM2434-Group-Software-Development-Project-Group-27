@@ -27,7 +27,7 @@ def login_user(request):
   user = authenticate(request, username=request.POST['Username'], password=request.POST['Password'])
   if user is not None:
       login(request,user)
-      return HttpResponseRedirect(reverse('home:home'))
+      return HttpResponseRedirect(reverse('home:home'), {'username': user})
   else:
       # Return an 'invalid login' error message.
       return HttpResponseRedirect(reverse('home:login'))

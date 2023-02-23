@@ -28,7 +28,7 @@ def add_lobby(request):
 #generic lobby page
 #this will change when lobby implemented
 def lobby_view(request):
-    return render(request,"game/gamelobby.html")
+    return render(request,"game/gamelobby.html", {"username": "greedo"})
 
 '''
 def members(request):
@@ -46,3 +46,7 @@ def get_lobby_code(request):
     if request.method == "POST":
         code = request.POST["enter-code"]
         return code
+
+def test_get_variable(request):
+    output = "pupper"
+    return HttpResponse(request.POST[output])
