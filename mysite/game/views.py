@@ -8,12 +8,6 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
-def get_logged_in_username(request):
-    username = None
-    if request.user.is_authenticated:
-        username = request.user.username
-        return username
-
 # Create lobby page
 @login_required(login_url='/login/')
 def create_lobby(request):
