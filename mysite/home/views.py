@@ -7,11 +7,18 @@ from django.template import loader
 from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='/login/')
+def get_logged_in_username(request):
+    username = None
+    if request.user.is_authenticated:
+        username = request.user.username
+        return username
+
+# Landing page (default page)
 def members(request):
   template = loader.get_template('index.html')
   return HttpResponse(template.render())
 
+# Login page
 def login_view(request):
     return render(request,"login.html")
 
@@ -25,15 +32,17 @@ def add_user(request):
   )
   return HttpResponseRedirect(reverse('home:login'))
 
+# Authenticates user to the application
 def login_user(request):
   user = authenticate(request, username=request.POST['Username'], password=request.POST['Password'])
   if user is not None:
       login(request,user)
-      return HttpResponseRedirect(reverse('home:home'), {'username': user})
+      return HttpResponseRedirect(reverse('game:game'), {'username': get_logged_in_username(request)})
   else:
       # Return an 'invalid login' error message.
       return HttpResponseRedirect(reverse('home:login'))
 
+# Logs out user
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('home:home'))

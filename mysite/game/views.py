@@ -8,12 +8,18 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
-LOGGED_IN = True
+def get_logged_in_username(request):
+    username = None
+    if request.user.is_authenticated:
+        username = request.user.username
+        return username
 
+# Create lobby page
 @login_required(login_url='/login/')
 def create_lobby(request):
     return render(request,"game/createlobby.html")
 
+# Create lobby request
 @login_required(login_url='/login/')
 def add_lobby(request):
     #gets submitted posts from create lobby page
@@ -30,9 +36,6 @@ def add_lobby(request):
 
 #generic lobby page
 #this will change when lobby implemented
-
-#def lobby_view(request):
-    return render(request,"game/gamelobby.html", {"username": "greedo"})
 
 @login_required(login_url='/login/')
 def lobby_view(request,user_id,game_code):
@@ -97,8 +100,7 @@ def members(request):
 # /game url
 @login_required(login_url='/login/')
 def members(request):
-    template = loader.get_template('game/join_lobby.html')
-    return HttpResponse(template.render())
+    return render(request,"game/join_lobby.html", {"username": get_logged_in_username(request)})
 
 
 @login_required(login_url='/login/')    
