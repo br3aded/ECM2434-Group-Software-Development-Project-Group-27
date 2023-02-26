@@ -15,11 +15,10 @@ class Game(models.Model):
                   (3, "waitingForRanking"),
                   (4, "displayCurrentResults"),
                   (5, "endOfGame"))
-    game_name = models.CharField()
-    game_code = models.CharField()
+    game_name = models.CharField(max_length=20,default= 0)
+    game_code = models.CharField(max_length=5, default= 0)
     start_datetime = models.DateTimeField()
-    end_datetime = models.DateTimeField()
-    points = models.IntegerField()
+    #points = models.IntegerField()
     game_state = models.IntegerField(choices=GAME_STATES, default=0)
     #number_of_rounds = models.Count("AppUser__id", filter=
     

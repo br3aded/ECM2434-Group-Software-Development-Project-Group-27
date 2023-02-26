@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
@@ -23,7 +24,7 @@ def add_lobby(request):
     code = request.POST['lobby code']
     player = request.POST['num of players'] # to be added
     rounds = request.POST['num of rounds'] # to be added
-    app_user = AppUser.objects.filter(base_user = request.user)
+    app_user = get_object_or_404(AppUser, base_user=request.user)
     game = Game(game_name = name,
                 game_code = code,
                 start_datetime = datetime.now(),
