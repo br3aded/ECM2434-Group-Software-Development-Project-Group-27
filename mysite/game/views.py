@@ -8,12 +8,12 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
-LOGGED_IN = True
-
+# Create lobby page
 @login_required(login_url='/login/')
 def create_lobby(request):
     return render(request,"game/createlobby.html")
 
+# Create lobby request
 @login_required(login_url='/login/')
 def add_lobby(request):
     #gets submitted posts from create lobby page
@@ -30,8 +30,9 @@ def add_lobby(request):
 
 #generic lobby page
 #this will change when lobby implemented
+
 @login_required(login_url='/login/')
-def lobby_view(request,user_id,game_code):
+def lobby_view(request,user_id=0, game_code=0):
     '''
     rough outline of what the lobby should look like
 
@@ -67,7 +68,10 @@ def lobby_view(request,user_id,game_code):
 
     '''
 
-    return render(request,"game/gamelobby.html")
+    return render(request,"game/gamelobby.html", {"username": request.user.username, "gamecode": game_code})
+
+def set_task_view(request):
+    return render(request,"game/setting-task.html", {"username": get_logged_in_username(request)})
 
 '''
 def set_task():
@@ -93,8 +97,7 @@ def members(request):
 # /game url
 @login_required(login_url='/login/')
 def members(request):
-    template = loader.get_template('game/join_lobby.html')
-    return HttpResponse(template.render())
+    return render(request,"game/join_lobby.html", {"username": request.user.username})
 
 
 @login_required(login_url='/login/')    
@@ -102,3 +105,7 @@ def get_lobby_code(request):
     if request.method == "POST":
         code = request.POST["enter-code"]
         return code
+
+def test_get_variable(request):
+    output = "pupper"
+    return HttpResponse(request.POST[output])
