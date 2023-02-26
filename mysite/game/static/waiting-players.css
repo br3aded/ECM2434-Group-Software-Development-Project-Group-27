@@ -1,0 +1,21 @@
+:root {
+    --icon-size: 128px;
+}
+
+.icon-container {
+    max-width: calc(var(--icon-size) * 5);
+    height: --icon-size;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    background-image: url(icon-placeholder.jpg);
+    background-size: contain;
+    border: 2px solid black;
+}
