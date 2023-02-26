@@ -38,7 +38,7 @@ def add_lobby(request):
 #this will change when lobby implemented
 
 @login_required(login_url='/login/')
-def lobby_view(request,user_id,game_code):
+def lobby_view(request,user_id=0, game_code=0):
     '''
     rough outline of what the lobby should look like
 
@@ -74,7 +74,10 @@ def lobby_view(request,user_id,game_code):
 
     '''
 
-    return render(request,"game/gamelobby.html")
+    return render(request,"game/gamelobby.html", {"username": get_logged_in_username(request), "gamecode": game_code})
+
+def set_task_view(request):
+    return render(request,"game/setting-task.html", {"username": get_logged_in_username(request)})
 
 '''
 def set_task():

@@ -8,6 +8,7 @@ urlpatterns = [
     path('add_lobby',views.add_lobby ,name='add_lobby'),
 
     path('lobby',views.lobby_view,name='lobby_view'), #should include game code in lobby name
+    path('setting_task',views.lobby_view,name='setting_task'),
     path('join_lobby',views.lobby_view,name='join_lobby'),
     path('game/', views.members, name='game'),
 
