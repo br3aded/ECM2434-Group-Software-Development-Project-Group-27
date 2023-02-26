@@ -3,7 +3,7 @@ from user.models import AppUser
 from home.models import Group
 
 #Note for all ManyToMany relations, the django M2M field is stored in
-#what would be the right side of the arrow in the ER diagram
+#what would be the destination side of the arrow in the ER diagram
 
 #TODO:
 #Add total round counter as derived attribute in Game
