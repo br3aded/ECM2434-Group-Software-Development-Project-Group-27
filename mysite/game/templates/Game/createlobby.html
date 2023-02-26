@@ -8,23 +8,60 @@
 
         <meta name="author" content="Kelsey Holdgate" />
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
-        <link rel="stylesheet" href="{% static 'createlobby.css' %}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'create.css'%}">
         
     </head>
     <body>
-        <main class="main" id="main">
-            <form action="add_lobby" method="post">
-                {% csrf_token %}
-                <label for="lobby name">Lobby name:</label><br>
-                <input type="text" id="lobby name" name="lobby name" maxlength="20"><br>
-                <label for="lobby code">Lobby Code:</label><br>
-                <input type="text" id="lobby code" name="lobby code" maxlength="8">
-                <label for="num of players">No. Of Players:</label><br>
-                <input type="number" id="num of players" name="num of players" min="3" max = "10">
-                <label for="num of rounds">No. Of Rounds:</label><br>
-                <input type="number" id="num of rounds" name="num of rounds" min="1" max = "10">
-                <input type="submit" value="Submit">
-              </form>
-        </main>
+        <div class="container" >
+            <aside>
+              <div class="top">
+                <div class="logo">
+                    <img src="{% static 'favicon.png'%}">
+                    <h2>Task master</h2>
+                </div>
+                <div class="close" id="close-btn">
+                  <span class="material-icons-sharp">close</span>
+                </div>
+              </div>
+      
+              <div class="sidebar">
+                <a href="/home/">
+                  <span class="material-icons-sharp">person_outline</span>
+                  <h3>Home</h3>
+                </a>
+                <a href="/game/" class="active">
+                  <span class="material-icons-sharp">sports_esports</span>
+                  <h3>Game</h3>
+                </a>
+                <a href="/logout/">
+                  <span class="material-icons-sharp">grid_view</span>
+                  <h3>Logout</h3>
+                </a>
+              </div>
+            </aside>
+            <main>
+                <form class="form" action="add_lobby" method="post">
+                    {% csrf_token %}
+                    <div class="title"> Create Lobby</div>
+                    <div class="lobby-details">
+                        <div class="input-box">
+                            <span class="details">Lobby name</span>
+                            <input type="text" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">No. Of Players</span>                            <input type="number" id="num of players" name="num of players" min="3" max = "10">
+                        </div>
+                        <div class="input-box">
+                            <span class="details">No. Of Rounds</span>
+                            <input type="number" id="num of rounds" name="num of rounds" min="1" max = "10">
+                        </div>
+                        <div class="button">
+                            <input type="submit" value="Create">
+                        </div>
+                    </div>
+                </form>
+            </main>
+        </div>
     </body>
 </html>
