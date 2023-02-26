@@ -74,7 +74,7 @@ def lobby_view(request,user_id=0, game_code=0):
 
     '''
 
-    return render(request,"game/gamelobby.html", {"username": get_logged_in_username(request), "gamecode": game_code})
+    return render(request,"game/gamelobby.html", {"username": request.user.username, "gamecode": game_code})
 
 def set_task_view(request):
     return render(request,"game/setting-task.html", {"username": get_logged_in_username(request)})
@@ -103,7 +103,7 @@ def members(request):
 # /game url
 @login_required(login_url='/login/')
 def members(request):
-    return render(request,"game/join_lobby.html", {"username": get_logged_in_username(request)})
+    return render(request,"game/join_lobby.html", {"username": request.user.username})
 
 
 @login_required(login_url='/login/')    
