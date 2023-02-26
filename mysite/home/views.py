@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
+from user.models import AppUser
 
 # Landing page (default page)
 def members(request):
@@ -20,10 +21,13 @@ def add_user(request):
   if User.objects.filter(username = request.POST['Username']).first():
         messages.error(request, "This username is already taken")
         return HttpResponseRedirect(reverse('home:login'))
-  User.objects.create_user(username = request.POST['Username'],
+  user = User.objects.create_user(username = request.POST['Username'],
   email = request.POST['Email'],
   password = request.POST['Password']
   )
+  new_user = AppUser(base_user = user,
+                     points = 0)
+  new_user.save()
   return HttpResponseRedirect(reverse('home:login'))
 
 # Authenticates user to the application

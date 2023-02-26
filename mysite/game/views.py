@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.template import loader
 from .models import Game 
+from user.models import AppUser
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -20,9 +21,15 @@ def add_lobby(request):
     #may change when database implemented
     name = request.POST['lobby name']
     code = request.POST['lobby code']
-    player = request.POST['num of players']
-    rounds = request.POST['num of rounds']
-    game = Game(start_datetime = datetime.now(),end_date = '', max_points = '', hosting_group = '') #will change when database is added
+    player = request.POST['num of players'] # to be added
+    rounds = request.POST['num of rounds'] # to be added
+    app_user = AppUser.objects.filter(base_user = request.user)
+    game = Game(game_name = name,
+                game_code = code,
+                start_datetime = datetime.now(),
+                game_state = 0,
+                keeper_id = app_user
+                )
     game.save()
     #add code here for creating a new lobby item in database when implemented
     #should add tests once completed
@@ -71,7 +78,7 @@ def lobby_view(request,user_id=0, game_code=0):
     return render(request,"game/gamelobby.html", {"username": request.user.username, "gamecode": game_code})
 
 def set_task_view(request):
-    return render(request,"game/setting-task.html", {"username": get_logged_in_username(request)})
+    return render(request,"game/setting-task.html", {"username": request.user.username})
 
 '''
 def set_task():

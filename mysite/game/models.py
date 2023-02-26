@@ -15,6 +15,8 @@ class Game(models.Model):
                   (3, "waitingForRanking"),
                   (4, "displayCurrentResults"),
                   (5, "endOfGame"))
+    game_name = models.CharField()
+    game_code = models.CharField()
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
     points = models.IntegerField()
