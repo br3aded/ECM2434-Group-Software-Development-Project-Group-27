@@ -9,14 +9,16 @@ from home.models import Group
 #Add total round counter as derived attribute in Game
 
 class Game(models.Model):
-    GAME_STATES = (("W", "Waiting"),
-                  ("R", "In Progress"),
-                  ("J", "Judging"),
-                  ("F", "Finished"))
+    GAME_STATES = ((0, "waitingForPlayers"),
+                  (1, "settingTask"),
+                  (2, "respondToTask"),
+                  (3, "waitingForRanking"),
+                  (4, "displayCurrentResults"),
+                  (5, "endOfGame"))
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
     points = models.IntegerField()
-    game_state = models.CharField(max_length=1, choices=GAME_STATES, default='W')
+    game_state = models.IntegerField(choices=GAME_STATES, default=0)
     #number_of_rounds = models.Count("AppUser__id", filter=
     
     keeper_id = models.ForeignKey(AppUser, on_delete=models.CASCADE)
@@ -25,13 +27,15 @@ class Game(models.Model):
     users_playing = models.ManyToManyField(AppUser,through="Playing",related_name="users_playing")
 
 class Task(models.Model):
-    TASK_TYPES = (("L", "Go to location"),
-                  ("R", "Pick up litter"))
-                  #TBC
+    TASK_TYPES = (('T', "Default"),
+                  ('L', "Location"))
+                  #TBC, currently not in use
     game_id = models.ForeignKey(Game, on_delete=models.CASCADE) 
     task_number = models.IntegerField() #Effective PK. This is a weak entity on Game
-    
+
+    task_name = models.CharField(max_length=128, default="Task")
     task_type = models.CharField(max_length=1, choices=TASK_TYPES)
+    task_description = models.CharField(max_length=128, null=True)
     points = models.IntegerField()
 
     completed_by = models.ManyToManyField(AppUser,through="Completion",related_name="completions")
