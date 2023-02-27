@@ -1,15 +1,14 @@
 import secrets
 import string
 
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.urls import reverse
-from django.template import loader
-from .models import Game 
+from .models import Game , Group
 from user.models import AppUser
-from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
@@ -31,23 +30,46 @@ def add_lobby(request):
     # check if a game with this code already exists
         if not Game.objects.filter(game_code=game_code).exists():
             break
-
+    app_user = get_object_or_404(AppUser, base_user=request.user)
+    new_group = Group()
+    new_group.group_leader = app_user
+    new_group.save()
     player = request.POST['num of players'] # to be added
     rounds = request.POST['num of rounds'] # to be added
-    app_user = get_object_or_404(AppUser, base_user=request.user)
+    
     game = Game(game_name = name,
                 game_code = game_code,
                 start_datetime = datetime.now(),
                 game_state = 0,
-                keeper_id = app_user
+                keeper_id = app_user,
+                hosting_group = new_group,
                 )
     game.save()
     #add code here for creating a new lobby item in database when implemented
     #should add tests once completed
     return HttpResponseRedirect(reverse('game:lobby_view'))
 
+def check_code(request):
+    code = request.GET.get('code')
+    game = Game.objects.filter(game_code=code).first()
+    if game:
+        return JsonResponse({'exists': True})
+    else:
+        return JsonResponse({'exists': False})
+
 #generic lobby page
 #this will change when lobby implemented
+
+def join_lobby(request,game_code):
+     game = Game.objects.filter(game_code=game_code).first()
+     hosting_group = game.hosting_group
+     if request.user in hosting_group.users_playing.all():
+        return HttpResponseRedirect(reverse('game:game'))
+     else:
+        hosting_group.users_playing.add(request.user)
+        return HttpResponseRedirect(reverse('game:lobby_view'))
+        # User is not part of the hosting group
+        # Your code here
 
 @login_required(login_url='/login/')
 def lobby_view(request,user_id=0, game_code=0):
