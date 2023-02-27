@@ -34,7 +34,7 @@
                           <h3>Home</h3>
                         </a>
                         <a href="/game/" class="active">
-                          <span class="material-icons-sharp">grid_view</span>
+                          <span class="material-icons-sharp">sports_esports</span>
                           <h3>Game</h3>
                         </a>
                         <a href="/logout/">
@@ -45,48 +45,52 @@
                     </aside>
                 </div>
                 
-                {% csrf_token %}
                 <form id="options" class="options-container center"> 
-                    <label id="enter-code" > </div>
+                    {% csrf_token %}
                     <input type="text" id="enter-code" class="enter-code" name="enter-code" placeholder="Enter code" maxlength="5"><br>
                 </form>
 
                 <script>
                   const enterCodeInput = document.getElementById('enter-code');
                   enterCodeInput.addEventListener('input', () => {
-                      const code = enterCodeInput.value;
-                      if (code.length === 5) {
+                      let code = enterCodeInput.value;
+                      if (code.length >= 5) {
+                          console.log(code);
                           // Send an AJAX request to a Django view
+
+
+
+                          
                           const xhr = new XMLHttpRequest();
                           xhr.onreadystatechange = () => {
                               if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                                   const response = JSON.parse(xhr.responseText);
                                   if (response.exists) {
                                       // Code exists in the Game model, redirect to lobby_view
-                                      window.location.href = '/lobby';
+                                      window.location.href = '/game/lobby';
                                   } else {
                                       // Code does not exist in the Game model, do nothing
                                   }
                               }
                           };
-                          xhr.open('GET', `/check_code?code=${code}`);
+                          xhr.open('GET', `/game/check_code?code=${code}`);
                           xhr.send();
                       }
                   });
               </script>
             
-                <div id="user-options" class="button-container center" style="top: 300%">
-                    <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
-                                                                             onmouseup="undim(this.id)" 
-                                                                             onmouseleave="undim(this.id)"
-                                                                             onclick="window.location.href = 'create_lobby'"> CREATE GAME 
-                    <a href="createlobby.html"></a>
-                    </div>
+              <div id="user-options" class="button-container center" style="top: 300%">
+                  <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
+                                                                            onmouseup="undim(this.id)" 
+                                                                            onmouseleave="undim(this.id)"
+                                                                            onclick="window.location.href = 'create_lobby'"> CREATE GAME 
+                  <a href="createlobby.html"></a>
+                  </div>
 
-                    <div id="view-games" class="user-button disable-select" onmousedown="dim(this.id)"
-                                                                             onmouseup="undim(this.id)" 
-                                                                             onmouseleave="undim(this.id)"> VIEW GAMES </div>
-                </div>
+                  <div id="view-games" class="user-button disable-select" onmousedown="dim(this.id)"
+                                                                            onmouseup="undim(this.id)" 
+                                                                            onmouseleave="undim(this.id)"> VIEW GAMES </div>
+              </div>
             </section>
             <section id="info" class="content-block" style="background-color: rgb(255, 134, 158); height: 100vh;"></section>
             <footer id="footer" class="footer"></footer>
