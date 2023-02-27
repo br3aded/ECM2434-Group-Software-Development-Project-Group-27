@@ -11,6 +11,6 @@ urlpatterns = [
     path('setting_task',views.lobby_view,name='setting_task'),
     path('join_lobby',views.lobby_view,name='join_lobby'),
     path('game/', views.members, name='game'),
-
+    path('player_lobbys', views.player_lobbys,name='player_lobbys'),
     path('', views.members, name='game'),
 ]

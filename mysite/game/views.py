@@ -34,6 +34,7 @@ def add_lobby(request):
     new_group = Group()
     new_group.group_leader = app_user
     new_group.save()
+
     player = request.POST['num of players'] # to be added
     rounds = request.POST['num of rounds'] # to be added
     
@@ -125,15 +126,6 @@ def rank_tasks():
 
 '''
 
-
-
-
-'''
-def members(request):
-    template = loader.get_template('join_lobby.html')
-    return render(request,"game/gamelobby.html")
-'''
-
 # /game url
 @login_required(login_url='/login/')
 def members(request):
@@ -149,3 +141,7 @@ def get_lobby_code(request):
 def test_get_variable(request):
     output = "pupper"
     return HttpResponse(request.POST[output])
+
+def player_lobbys(request):
+    games_with_user = Game.objects.filter(hosting_group__group_member = get_object_or_404(AppUser, base_user=request.user))
+    return render(request,"game/player_lobbys.html", {'lobby_list' : games_with_user})
