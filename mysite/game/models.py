@@ -27,6 +27,9 @@ class Game(models.Model):
 
     users_playing = models.ManyToManyField(AppUser,through="Playing",related_name="users_playing")
 
+    def __str__(self):
+        return self.game_name
+
 class Task(models.Model):
     TASK_TYPES = (('T', "Default"),
                   ('L', "Location"))

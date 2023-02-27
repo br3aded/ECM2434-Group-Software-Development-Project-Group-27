@@ -12,6 +12,9 @@ class AppUser(models.Model):
     base_user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     points = models.IntegerField()
 
+    def __str__(self):
+        return self.base_user.username
+
 #Included here since no other entity uses cosmetics
 class Item(models.Model):
     ITEM_TYPES=(("A", "Badge"),

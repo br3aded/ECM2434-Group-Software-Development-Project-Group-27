@@ -1,3 +1,6 @@
+import secrets
+import string
+
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -21,12 +24,19 @@ def add_lobby(request):
     #gets submitted posts from create lobby page
     #may change when database implemented
     name = request.POST['lobby name']
-    code = request.POST['lobby code']
+
+    while True:
+        game_code = ''.join(secrets.choice(string.ascii_uppercase) for i in range(5))
+
+    # check if a game with this code already exists
+        if not Game.objects.filter(game_code=game_code).exists():
+            break
+
     player = request.POST['num of players'] # to be added
     rounds = request.POST['num of rounds'] # to be added
     app_user = get_object_or_404(AppUser, base_user=request.user)
     game = Game(game_name = name,
-                game_code = code,
+                game_code = game_code,
                 start_datetime = datetime.now(),
                 game_state = 0,
                 keeper_id = app_user
