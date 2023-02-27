@@ -9,7 +9,7 @@ urlpatterns = [
 
     path('lobby',views.lobby_view,name='lobby_view'), #should include game code in lobby name
     path('join_lobby',views.lobby_view,name='join_lobby'),
-    path('submit_task',views.rate_task,name='submit_task'),
+    path('submit_task',views.submit_task,name='submit_task'),
     path('game/', views.members, name='game'),
     path('game_lobby',views.lobby_view,name='lobby_view'), #should include game code in lobby name
 

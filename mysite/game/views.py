@@ -58,5 +58,5 @@ def get_lobby_code(request):
         code = request.POST["enter-code"]
         return code
 
-def rate_task(request):
+def submit_task(request):
     return render(request, 'game/submit_task.html')
