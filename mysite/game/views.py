@@ -69,6 +69,7 @@ def join_lobby(request,game_code):
         return HttpResponseRedirect(reverse('game:game'))
      else:
         hosting_group.group_members.add(get_object_or_404(AppUser, base_user=request.user))
+        #there is a bug on this line above
         return HttpResponseRedirect(reverse('game:lobby_view'))
 
 
