@@ -1,6 +1,8 @@
 from django.db import models
 from user.models import AppUser
 from home.models import Group
+from django.db import models
+from django.utils import timezone
 
 #Note for all ManyToMany relations, the django M2M field is stored in
 #what would be the destination side of the arrow in the ER diagram
@@ -17,7 +19,7 @@ class Game(models.Model):
                   (5, "endOfGame"))
     game_name = models.CharField(max_length=20,default= 0)
     game_code = models.CharField(max_length=5, default= 0)
-    start_datetime = models.DateTimeField()
+    start_datetime = models.DateTimeField(default=timezone.now)
     #points = models.IntegerField()
     game_state = models.IntegerField(choices=GAME_STATES, default=0)
     #number_of_rounds = models.Count("AppUser__id", filter=

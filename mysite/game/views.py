@@ -61,16 +61,16 @@ def check_code(request):
 #generic lobby page
 #this will change when lobby implemented
 
+@login_required(login_url='/login/')
 def join_lobby(request,game_code):
      game = Game.objects.filter(game_code=game_code).first()
      hosting_group = game.hosting_group
-     if request.user in hosting_group.users_playing.all():
+     if request.user in AppUser.objects.filter(group_members__hosting_group=game.hosting_group): 
         return HttpResponseRedirect(reverse('game:game'))
      else:
-        hosting_group.users_playing.add(request.user)
+        hosting_group.group_members.add(get_object_or_404(AppUser, base_user=request.user))
         return HttpResponseRedirect(reverse('game:lobby_view'))
-        # User is not part of the hosting group
-        # Your code here
+
 
 @login_required(login_url='/login/')
 def lobby_view(request,user_id=0, game_code=0):
