@@ -74,7 +74,7 @@ def join_lobby(request,game_code):
 
 
 @login_required(login_url='/login/')
-def lobby_view(request,user_id=0, game_code=0):
+def lobby_view(request, game_code):
     '''
     rough outline of what the lobby should look like
 
@@ -144,5 +144,7 @@ def test_get_variable(request):
     return HttpResponse(request.POST[output])
 
 def player_lobbys(request):
-    games_with_user = Game.objects.filter(hosting_group__group_member = get_object_or_404(AppUser, base_user=request.user))
-    return render(request,"game/player_lobbys.html", {'lobby_list' : games_with_user})
+    member = get_object_or_404(AppUser, base_user=request.user)
+    hosting_groups = Group.objects.filter(group_members=member)
+    games = Game.objects.filter(hosting_group__in=hosting_groups)
+    return render(request,"game/player_lobbys.html", {'lobby_list' : games})
