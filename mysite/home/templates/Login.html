@@ -15,7 +15,7 @@
         <div class="top">
           <div class="logo">
             <h2>Task master</h2>
-          <div>
+          </div>
           <div class="close" id="close-btn">
             <span class="material-icons-sharp">close</span>
           </div>
@@ -36,7 +36,7 @@
           </a>
         </div>
       </aside>
-    </div>
+    <main>
     <section class="wrapper">
       <div class="form signup">
         <header>Signup</header>
@@ -54,10 +54,17 @@
 
       <div class="form login">
         <header>Login</header>
+<<<<<<< Updated upstream
         <form action="#">
           <input type="text" placeholder="Email address" required />
           <input type="password" placeholder="Password" required />
           <a href="#">Forgot password?</a>
+=======
+        <form action="user_login" method="post">
+          {% csrf_token %}
+          <input type="text" placeholder="Username" name="Username" required />
+          <input type="password" placeholder="Password" name="Password" required />
+>>>>>>> Stashed changes
           <input type="submit" value="Login" />
         </form>
       </div>
@@ -77,15 +84,10 @@
         });
       </script>
     </section>
-    <div class="right">
-      <div class="top">
-        <button id="menu-btn">
-          <span class="material-icons-sharp">menu</span>
-        </button>
-      </div>
-    </div>
+  </main>
+</div>
 
     
-  </body>
+</body>
 </html>
 
