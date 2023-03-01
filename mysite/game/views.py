@@ -34,6 +34,7 @@ def add_lobby(request):
     new_group = Group()
     new_group.group_leader = app_user
     new_group.save()
+
     player = request.POST['num of players'] # to be added
     rounds = request.POST['num of rounds'] # to be added
     
@@ -60,16 +61,17 @@ def check_code(request):
 #generic lobby page
 #this will change when lobby implemented
 
+@login_required(login_url='/login/')
 def join_lobby(request,game_code):
      game = Game.objects.filter(game_code=game_code).first()
      hosting_group = game.hosting_group
-     if request.user in hosting_group.users_playing.all():
+     if request.user in AppUser.objects.filter(group_members__hosting_group=game.hosting_group): 
         return HttpResponseRedirect(reverse('game:game'))
      else:
-        hosting_group.users_playing.add(request.user)
+        hosting_group.group_members.add(get_object_or_404(AppUser, base_user=request.user))
+        #there is a bug on this line above
         return HttpResponseRedirect(reverse('game:lobby_view'))
-        # User is not part of the hosting group
-        # Your code here
+
 
 @login_required(login_url='/login/')
 def lobby_view(request,user_id=0, game_code=0):
@@ -125,15 +127,6 @@ def rank_tasks():
 
 '''
 
-
-
-
-'''
-def members(request):
-    template = loader.get_template('join_lobby.html')
-    return render(request,"game/gamelobby.html")
-'''
-
 # /game url
 @login_required(login_url='/login/')
 def members(request):
@@ -149,3 +142,7 @@ def get_lobby_code(request):
 def test_get_variable(request):
     output = "pupper"
     return HttpResponse(request.POST[output])
+
+def player_lobbys(request):
+    games_with_user = Game.objects.filter(hosting_group__group_member = get_object_or_404(AppUser, base_user=request.user))
+    return render(request,"game/player_lobbys.html", {'lobby_list' : games_with_user})
