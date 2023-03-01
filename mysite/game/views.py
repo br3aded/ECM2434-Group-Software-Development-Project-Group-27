@@ -60,3 +60,6 @@ def get_lobby_code(request):
 
 def submit_task(request):
     return render(request, 'game/submit_task.html')
+
+def take_picture(request):
+    return render(request, 'game/take_picture.html')

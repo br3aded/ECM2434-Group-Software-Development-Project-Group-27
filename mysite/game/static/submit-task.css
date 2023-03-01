@@ -1,24 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-:root {
-  --colour-primary: #3dca2b;
-  --colour-info-dark: #7d8da1;
-  --widget-height: 80px;
+body {
+  padding: 1%;
+  position: relative;
+  text-align: center;
+  font-size: 0.88rem;
+  font-family: poppins, sans-serif;
+  display: flex;
+  overflow-x: hidden;
 }
 
-body {
-    font-size: 0.88rem;
-    font-family: poppins, sans-serif;
-    display: flex;
-    user-select: none;
-    overflow-x: hidden;
+main {
+  position: absolute;
+  padding: 1%;
+}
+
+.container {
+    margin: 1%;
+    position: relative;
     align-items: center;
-    justify-content: center;
-  }
-  .container {
-    position: absolute;
-    display: grid;
-    width: 96%;
-    margin: 0 auto;
+    display: flex;
+    width: 50%;
     gap: 1.8rem;
-    grid-template-columns: 14rem auto 23rem;
   }

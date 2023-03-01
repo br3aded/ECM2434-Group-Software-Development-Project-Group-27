@@ -4,21 +4,33 @@
 <html>
   <head>
     <meta charset='utf-8'>
+    <meta name="author" content="Kwadwo Oppong-Mensah" />
+    
     <title> Taskmaster </title>
     <link rel="stylesheet" href="{% static 'submit-task.css' %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
-    
-    <meta name="author" content="Kwadwo Oppong-Mensah" />
-    
   </head>
   
-  <body>
+  <body> 
+    <h2>Submit Task</h2>
+    <h3>Task: <var id="task">task</var></h3>
+    
     <main class="main" id="main">
-      
-      <video id="player" autoplay></video>
-      <button id="capture">Capture</button>
-      <canvas id="canvas" width=320 height=240></canvas>
-      <script type="text/javascript" src="{% static 'take-photo.js' %}"></script>
+      <div class="container">
+        <button id="takepic">Take Picture</button>
+          <script type="text/javascript">
+          document.getElementById("takepic").onclick = function () {
+          location.href = "/game/take_picture";
+          };
+          </script>
+      </div>
+      <div class="container">
+          <form action="/action_page.js">
+            <label for="img">Select image:</label>
+            <input type="file" id="img" name="img" accept="image/*">
+            <!-- <input type="submit"> -->
+          </form> 
+      </div>  
     </main>
   </body>
 </html>
