@@ -1,23 +1,39 @@
-body {
+body, html {
+  width: 90%;
   padding: 1%;
   position: relative;
-  text-align: center;
+  left: 4%;
+  top: 15%;
   font-size: 0.88rem;
   font-family: poppins, sans-serif;
   display: flex;
   overflow-x: hidden;
 }
 
-main {
+header{
+  display: flex;
   position: absolute;
+  top: 0%;
+}
+
+main {
+  position: relative;
   padding: 1%;
+  display: flex;
 }
 
 .container {
-    margin: 1%;
-    position: relative;
-    align-items: center;
-    display: flex;
-    width: 50%;
-    gap: 1.8rem;
-  }
+  margin: 1%;
+  position: relative;
+  align-items: center;
+  display: flex;
+  height: 30%;
+  gap: 1.8rem;
+}
+
+.uni-background {
+  background-image: url(forum-background.jpeg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

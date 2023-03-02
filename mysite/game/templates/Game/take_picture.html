@@ -9,7 +9,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
     
     <meta name="author" content="Kwadwo Oppong-Mensah" />
-    
   </head>
   
   <body>
@@ -18,7 +17,15 @@
       <button id="capture">Capture</button>
       <canvas id="canvas" width=320 height=240></canvas>
       
-      <script type="text/javascript" src="{% static 'take-photo.js' %}"></script>
+      <button id="submitimage">Submit Image</button>
+      <script type="text/javascript">
+          document.getElementById("submitimage").onclick = function () {
+          storeImage(getCanvasImage());
+          location.href = "/game/test";
+        };
+        </script>
+
     </main>
+    <script type="text/javascript" src="{% static 'take-photo.js' %}"></script>
   </body>
 </html>

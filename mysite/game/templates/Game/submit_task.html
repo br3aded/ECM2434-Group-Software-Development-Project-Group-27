@@ -11,26 +11,38 @@
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
   </head>
   
-  <body> 
+  <header class="">
     <h2>Submit Task</h2>
     <h3>Task: <var id="task">task</var></h3>
-    
+  </header>
+
+  <body  class="uni-background">
+
+    <!--Player either selects take picture which will redirect
+        to /game/takepicture or submits pre-existing image on this page-->
     <main class="main" id="main">
       <div class="container">
-        <button id="takepic">Take Picture</button>
+          <button id="takepic">Take Picture</button>
           <script type="text/javascript">
-          document.getElementById("takepic").onclick = function () {
-          location.href = "/game/take_picture";
-          };
+            document.getElementById("takepic").onclick = function () {
+            location.href = "/game/take_picture";
+            };
           </script>
       </div>
+
       <div class="container">
-          <form action="/action_page.js">
-            <label for="img">Select image:</label>
-            <input type="file" id="img" name="img" accept="image/*">
-            <!-- <input type="submit"> -->
-          </form> 
-      </div>  
+        <label for="img">Select image:</label>
+        <input type="file" id="imgsub" name="img" accept="image/*">
+        <button id="submitImage">Submit</button>
+        <script type="text/javascript">
+          document.getElementById("submitImage").onclick = function () {
+            storeImage(getSelectedImage());
+            location.href = "/game/test";
+          }
+        </script>
+        <canvas id="canvas" width=320 height=240></canvas>
+      </div>
     </main>
+    <script type="text/javascript" src="{% static 'take-photo.js' %}"></script>
   </body>
 </html>

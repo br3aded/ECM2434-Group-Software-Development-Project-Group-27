@@ -24,3 +24,27 @@ navigator.mediaDevices.getUserMedia(constraints)
     .then((stream) => {
         player.srcObject = stream;
     });
+
+function getCanvasImage() {
+    const canvas = document.getElementById('canvas');
+    const img    = canvas.toDataURL('image/png');
+    return img
+}
+function getSelectedImage () {
+    var loadimg = document.getElementById('imgsub'),
+    img = loadimg.files[0];
+    out = URL.createObjectURL(img);
+    return out
+}
+
+function storeImage(img){
+    localStorage.imageSubmitted = img;
+}
+function retrieveImage(){
+    return localStorage.imageSubmitted;
+}
+function showImage(){
+    var img = document.createElement('img');
+    img.src = localStorage.imageSubmitted;
+    document.body.appendChild(img);
+}
