@@ -1,6 +1,8 @@
 from django.db import models
 from user.models import AppUser
 from home.models import Group
+from django.db import models
+from django.utils import timezone
 
 #Note for all ManyToMany relations, the django M2M field is stored in
 #what would be the destination side of the arrow in the ER diagram
@@ -15,16 +17,18 @@ class Game(models.Model):
                   (3, "waitingForRanking"),
                   (4, "displayCurrentResults"),
                   (5, "endOfGame"))
-    game_name = models.CharField(max_length=20,default= 0)
-    game_code = models.CharField(max_length=5, default= 0)
-    start_datetime = models.DateTimeField()
-    #points = models.IntegerField()
+    game_name = models.CharField(max_length=20,default="Game")
+    game_code = models.CharField(max_length=5,null=True)
+    start_datetime = models.DateTimeField(default=timezone.now)
     game_state = models.IntegerField(choices=GAME_STATES, default=0)
-    #number_of_rounds = models.Count("AppUser__id", filter=
+
+    max_rounds = models.IntegerField(default=5)
+    max_players = models.IntegerField(default=8)
+    active_task_number = models.IntegerField(default=0)
 
     keeper_id = models.ForeignKey(AppUser, on_delete=models.CASCADE)
     hosting_group = models.ForeignKey(Group, null=True, on_delete=models.SET_NULL)
-
+    
     users_playing = models.ManyToManyField(AppUser,through="Playing",related_name="users_playing")
 
     def __str__(self):
@@ -51,7 +55,6 @@ class Task(models.Model):
 class Playing(models.Model):
     user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE) 
     game_id = models.ForeignKey(Game, on_delete=models.CASCADE) 
-    active_task = models.ForeignKey(Task, on_delete=models.CASCADE)
     final_position = models.IntegerField()
 
     class Meta:

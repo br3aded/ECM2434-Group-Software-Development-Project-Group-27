@@ -1,0 +1,19 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'default.css' %}">
+
+<header> TO-DO List </header>
+
+
+{% if lobby_list %}
+    <ul>
+    {% for lobby in lobby_list %}
+    <tr>
+        <th> {{lobby.game_name}} </th>
+        <!--Display number of users in lobby -->
+        <th><a class = "cell" href="{% url 'game:lobby_view' game_code=lobby.game_code %}"> <button>Join</button></a></th>
+        <!--this line above will have to be changed when lobby view is finished-->
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You don't have any active lobbys</p>
+{% endif %}
