@@ -1,24 +1,23 @@
 body, html {
-  width: 90%;
-  padding: 1%;
+  background-image: url(forum-background.jpeg);
+  width: 95%;
   position: relative;
-  left: 4%;
-  top: 15%;
-  font-size: 0.88rem;
+  left: 5%;
+  top: 10%;
+  font-size: 1rem;
   font-family: poppins, sans-serif;
   display: flex;
   overflow-x: hidden;
 }
 
-header{
-  display: flex;
+.header{
   position: absolute;
   top: 0%;
+  left: 0%;
 }
 
 main {
   position: relative;
-  padding: 1%;
   display: flex;
 }
 
@@ -27,7 +26,7 @@ main {
   position: relative;
   align-items: center;
   display: flex;
-  height: 30%;
+  /* height: 30%; */
   gap: 1.8rem;
 }
 

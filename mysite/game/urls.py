@@ -12,6 +12,7 @@ urlpatterns = [
     path('game/join_lobby/<str:game_code>/', views.join_lobby, name='join_lobby'),
     path('submit_task',views.submit_task,name='submit_task'),
     path('take_picture',views.take_picture,name='take_picture'),
+    path('test',views.test,name='test'),
     path('game/', views.members, name='game'),
     path('player_lobbys', views.player_lobbys,name='player_lobbys'),
     path('', views.members, name='game'),

@@ -24,7 +24,7 @@ navigator.mediaDevices.getUserMedia(constraints)
     .then((stream) => {
         player.srcObject = stream;
     });
-
+    
 function getCanvasImage() {
     const canvas = document.getElementById('canvas');
     const img    = canvas.toDataURL('image/png');

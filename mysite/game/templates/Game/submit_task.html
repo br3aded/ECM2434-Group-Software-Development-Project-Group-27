@@ -11,12 +11,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
   </head>
   
-  <header class="">
+  <div class="header">
     <h2>Submit Task</h2>
     <h3>Task: <var id="task">task</var></h3>
-  </header>
+  </div>
 
-  <body  class="uni-background">
+  <body>
 
     <!--Player either selects take picture which will redirect
         to /game/takepicture or submits pre-existing image on this page-->
@@ -40,7 +40,7 @@
             location.href = "/game/test";
           }
         </script>
-        <canvas id="canvas" width=320 height=240></canvas>
+        <canvas id="canvas" width=250 height=300></canvas>
       </div>
     </main>
     <script type="text/javascript" src="{% static 'take-photo.js' %}"></script>
