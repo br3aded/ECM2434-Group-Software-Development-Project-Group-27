@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+
+        <title> Taskmaster </title>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
+
+        <link rel="stylesheet" href="{% static 'default.css' %}">
+        <link rel="stylesheet" href="{% static 'sidebar.css' %}">
+        <link rel="stylesheet" href="{% static 'waiting-players.css' %}">
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <meta name="author" content="Matthew Wood" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <main id="main" class="main">
+            <section id="main-content" class="content-block uni-background">
+                <div class="container" style="z-index: 100;">
+                    <aside>
+                      <div class="top">
+                        <div class="logo">
+                          <h3>{{username}}</h3>
+                          <h2>Taskmaster</h2>
+                        <div>
+                        <div class="close" id="close-btn">
+                          <span class="material-icons-sharp">close</span>
+                        </div>
+                      </div>
+              
+                      <div class="sidebar">
+                        <a href="/home/">
+                          <span class="material-icons-sharp">person_outline</span>
+                          <h3>Home</h3>
+                        </a>
+                        <a href="/game/" class="active">
+                          <span class="material-icons-sharp">sports_esports</span>
+                          <h3>Game</h3>
+                        </a>
+                        <a href="/home/">
+                          <span class="material-icons-sharp">grid_view</span>
+                          <h3>Logout</h3>
+                        </a>
+                      </div>
+                    </aside>
+                </div>
+
+                <div id="game-display" class="game-display">
+                  
+                </div>
+				
+				<form class="form" id="set_task" action="set_task" method="post">
+					{% csrf_token %}
+					<div class="title"> Set Task</div>
+					<div class="task-description">
+						<select name="eco-tasks" id="eco-tasks">
+							<option value="task1">Use a reusable coffee mug instead of a disposable cup.</option>
+							<option value="task2">Eat locally sourced and vegetarian or vegan meals.</option>
+							<option value="task3">Use environmentally friendly cleaning products and personal care items.</option>
+							<option value="task4">Recycle paper, plastic, and glass waste.</option>
+							<option value="task5">Reduce energy consumption by turning off lights and electronics when not in use.</option>
+							<option value="task6">Participating in litter clean-up initiatives.</option>
+							<option value="task7">Use reusable bags instead of plastic bags.</option>
+							<option value="task8">Use a refillable water bottle instead of disposable plastic bottles.</option>
+							<option value="task9">Use a cloth napkin instead of paper napkins.</option>
+						</select>
+						<div class="input-box">
+							<span class="details">Task Description</span>
+                            <input type="text" id="task-desc" name="task description">
+						</div>
+						<div class="button">
+                            <input type="submit" value="Set">
+                        </div>
+					</div>
+				</form>
+				
+				
+            </section>
+            <footer id="footer" class="footer"></footer>
+        </main>
+
+        <script> src="{% static 'page-logic.js' %}"</script>
+        <script src="{% static 'button-dim.js' %}"></script>
+    </body>
+</html>
