@@ -6,16 +6,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
     <title>Login & Signup Form</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'style.css'%}" />
+    <link rel="stylesheet" href="{% static 'style1.css'%}" />
   </head>
   <body>
     <div class="container">
       <aside>
         <div class="top">
           <div class="logo">
-            <h2>Task master</h2>
+              <img src="{% static 'favicon.png'%}">
+              <h2>Task master</h2>
           </div>
           <div class="close" id="close-btn">
             <span class="material-icons-sharp">close</span>
@@ -23,15 +25,15 @@
         </div>
 
         <div class="sidebar">
-          <a href="#" class="active">
+          <a href="/home/">
             <span class="material-icons-sharp">person_outline</span>
-            <h3>Profile</h3>
+            <h3>Home</h3>
           </a>
-          <a href="#">
-            <span class="material-icons-sharp">grid_view</span>
-            <h3>Dashboard</h3>
+          <a href="/game/" class="active">
+            <span class="material-icons-sharp">sports_esports</span>
+            <h3>Game</h3>
           </a>
-          <a href="#">
+          <a href="/logout/">
             <span class="material-icons-sharp">grid_view</span>
             <h3>Logout</h3>
           </a>
