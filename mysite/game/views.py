@@ -167,3 +167,9 @@ def get_lobby_code(request):
 def test_get_variable(request):
     output = "pupper"
     return HttpResponse(request.POST[output])
+
+def player_lobbys(request):
+    member = get_object_or_404(AppUser, base_user=request.user)
+    hosting_groups = Group.objects.filter(group_members=member)
+    games = Game.objects.filter(hosting_group__in=hosting_groups)
+    return render(request,"game/player_lobbys.html", {'lobby_list' : games})
