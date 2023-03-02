@@ -1,6 +1,6 @@
-# Welcome to the Exeter Orienteering Project
 
-### Group Z
+
+### Group 21
 ___
 
 The group members are:
