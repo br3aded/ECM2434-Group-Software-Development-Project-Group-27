@@ -23,7 +23,7 @@
                     <aside>
                       <div class="top">
                         <div class="logo">
-                          <h3>{{username}}</h3>
+                          <h3 id="username"> {{username}}</h3>
                           <h2>Taskmaster</h2>
                         <div>
                         <div class="close" id="close-btn">
@@ -49,13 +49,28 @@
                 </div>
 
                 <div id="game-display" class="game-display">
-                  
+                    <div id="task" class="task center" style="top: 20%">
+                        Task: Take the best picture of the campus cat. 
+                    </div>
+
+                    <div id="player-container" class="icon-container center" style="top: 50%">
+                    </div>
+
+                    <div id="user-options" class="button-container center" style="top: 85%">
+                      <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
+                                                                                onmouseup="undim(this.id)" 
+                                                                                onmouseleave="undim(this.id)"
+                                                                                onclick="window.location.href = '/game/'"> Finish
+                      </div>
+                    </div>
+
                 </div>
             </section>
             <footer id="footer" class="footer"></footer>
         </main>
 
-        <script> src="{% static 'page-logic.js' %}"</script>
+        <script src="{% static 'page-logic.js' %}"></script>
         <script src="{% static 'button-dim.js' %}"></script>
+        <script src="{% static 'display-results.js' %}"></script>
     </body>
 </html>

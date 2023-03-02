@@ -49,12 +49,20 @@
                 </div>
 
                 <div id="game-display" class="game-display">
-                  <div id="player-container" class="icon-container center" style="top: 55%">
+                  <div id="player-container" class="icon-container center" style="top: 50%">
                     <div id="info" class="info">
                       <div id="name" class="name-plate"> name </div>
                       <div id="code" class="name-plate"> code </div>
-                      <div id="host" class="name-plate"> </div>
+                      <div id="host" class="name-plate"> Host: You </div>
                       <div id="host" class="name-plate"> Waiting... </div>
+                    </div>
+                  </div>
+
+                  <div id="user-options" class="button-container center" style="top: 80%">
+                    <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
+                                                                              onmouseup="undim(this.id)" 
+                                                                              onmouseleave="undim(this.id)"
+                                                                              onclick="window.location.href = 'setting_task'"> Start
                     </div>
                   </div>
                 </div>

@@ -49,14 +49,29 @@
                 </div>
 
                 <div id="game-display" class="game-display">
-                  <div id="player-container" class="icon-container center" style="top: 55%">
-                    <div id="info" class="info">
-                      <div id="name" class="name-plate"> name </div>
-                      <div id="code" class="name-plate"> code </div>
-                      <div id="host" class="name-plate"> </div>
-                      <div id="host" class="name-plate"> Waiting... </div>
+                    <div id="task" class="task center" style="top: 20%">
+                      Current task: Take the best picture of the campus cat. 
                     </div>
-                  </div>
+
+                    <div id="responses" class="responses center" style="top: 55%">
+                      <div id="pic1" class="response-picture a")></div>
+                      <div id="pic2" class="response-picture b")></div>
+                      <div id="pic3" class="response-picture c")></div>
+
+                      <input type="text" id="1"></input>
+                      <input type="text" id="2"></input>
+                      <input type="text" id="3"></input>
+                    </div>
+
+                    <div id="user-options" class="button-container center" style="top: 85%">
+                      <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
+                                                                                onmouseup="undim(this.id)" 
+                                                                                onmouseleave="undim(this.id)"
+                                                                                onclick="sort()"> Results
+                      </div>
+                      <!-- window.location.href = 'results' -->
+                    </div>
+
                 </div>
             </section>
             <footer id="footer" class="footer"></footer>
@@ -64,7 +79,7 @@
 
         <script src="{% static 'page-logic.js' %}"></script>
         <script src="{% static 'button-dim.js' %}"></script>
-        <!-- <script src="{% static 'main.js' %}"></script> -->
-        <script src="{% static 'populate-lobby.js' %}"></script>
+        <script src="{% static 'populate-tasks-demo.js' %}"></script>
+        <script src="{% static 'ranking.js' %}"></script>
     </body>
 </html>

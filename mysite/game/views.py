@@ -112,7 +112,10 @@ def lobby_view(request,user_id=0, game_code=0):
     return render(request,"game/gamelobby-client.html", {"username": request.user.username, "gamecode": game_code})
 
 def set_task_view(request):
-    return render(request,"game/setting-task.html", {"username": request.user.username})
+    return render(request,"game/setting-task-demo.html", {"username": request.user.username})
+
+def results_view(request):
+    return render(request,"game/results-demo.html", {"username": request.user.username})
 
 '''
 def set_task():
