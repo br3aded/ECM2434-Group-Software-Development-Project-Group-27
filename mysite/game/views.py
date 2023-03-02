@@ -115,10 +115,22 @@ def lobby_view(request, game_code):
 def set_task_view(request):
     return render(request,"game/setting-task.html", {"username": request.user.username})
 
-'''
-def set_task():
-    code for setting task here
 
+def set_task(request):
+    #code for setting task here
+    if request.method == 'POST':
+        dropdown = request.POST["eco-tasks"]
+        input_box = request.POST["task-desc"]
+        task_final = ""
+        if input_box == "":
+            task_final = dropdown
+        else:
+            task_final = input_box
+        task = task_final
+        task.save()
+    return HttpResponseRedirect(reverse('game:lobby_view'))
+
+'''
 def response_task():
     code for responding to task here
 
