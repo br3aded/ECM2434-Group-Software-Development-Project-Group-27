@@ -33,6 +33,7 @@ def add_lobby(request):
     app_user = get_object_or_404(AppUser, base_user=request.user)
     new_group = Group()
     new_group.group_leader = app_user
+    #new_group.group_members.add(app_user)
     new_group.save()
     player = request.POST['num of players'] # to be added
     rounds = request.POST['num of rounds'] # to be added
@@ -47,7 +48,7 @@ def add_lobby(request):
     game.save()
     #add code here for creating a new lobby item in database when implemented
     #should add tests once completed
-    return HttpResponseRedirect(reverse('game:lobby_view'))
+    return HttpResponseRedirect(reverse('game:lobby_view' ,kwargs={'game_code': game_code}))
 
 def check_code(request):
     code = request.GET.get('code')
@@ -72,7 +73,7 @@ def join_lobby(request,game_code):
         # Your code here
 
 @login_required(login_url='/login/')
-def lobby_view(request,user_id=0, game_code=0):
+def lobby_view(request, game_code):
     '''
     rough outline of what the lobby should look like
 
