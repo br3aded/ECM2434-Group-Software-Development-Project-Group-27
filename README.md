@@ -1,13 +1,13 @@
-# Welcome to the Exeter Orienteering Project
+# Welcome to the Eco-Taskmaster project
 
-### Group Z
+### Group 27
 ___
 
 The group members are:
 
 1. Matthew Wood
 2. Kelsey Holdgate
-3. Isaac Wing
+3. Isaac Ng
 4. Nicholas O’Connor
 5. Molly Berridge
 6. OPPONG-MENSAH, Kwadwo 
