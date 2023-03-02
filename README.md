@@ -1,4 +1,4 @@
-# Welcome to the Eco-Taskmaster project
+# Welcome to the GamesForLife project
 
 ### Group 27
 ___
@@ -10,7 +10,7 @@ The group members are:
 3. Isaac Ng
 4. Nicholas O’Connor
 5. Molly Berridge
-6. OPPONG-MENSAH, Kwadwo 
+6. Kwadwo Oppong-Mensah
 
 
 This is a submission for Sprint 1. There are three types of document that you will find the following places.
