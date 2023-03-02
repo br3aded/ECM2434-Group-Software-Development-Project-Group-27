@@ -1,0 +1,38 @@
+body, html {
+  background-image: url(forum-background.jpeg);
+  width: 95%;
+  position: relative;
+  left: 5%;
+  top: 10%;
+  font-size: 1rem;
+  font-family: poppins, sans-serif;
+  display: flex;
+  overflow-x: hidden;
+}
+
+.header{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
+
+main {
+  position: relative;
+  display: flex;
+}
+
+.container {
+  margin: 1%;
+  position: relative;
+  align-items: center;
+  display: flex;
+  /* height: 30%; */
+  gap: 1.8rem;
+}
+
+.uni-background {
+  background-image: url(forum-background.jpeg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

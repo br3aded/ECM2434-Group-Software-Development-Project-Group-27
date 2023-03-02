@@ -173,3 +173,12 @@ def player_lobbys(request):
     hosting_groups = Group.objects.filter(group_members=member)
     games = Game.objects.filter(hosting_group__in=hosting_groups)
     return render(request,"game/player_lobbys.html", {'lobby_list' : games})
+
+def submit_task(request):
+    return render(request, 'game/submit_task.html')
+
+def take_picture(request):
+    return render(request, 'game/take_picture.html')
+
+def test(request):
+    return render(request, 'game/test.html')
