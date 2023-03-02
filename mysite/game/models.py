@@ -21,7 +21,7 @@ class Game(models.Model):
     #points = models.IntegerField()
     game_state = models.IntegerField(choices=GAME_STATES, default=0)
     #number_of_rounds = models.Count("AppUser__id", filter=
-    
+
     keeper_id = models.ForeignKey(AppUser, on_delete=models.CASCADE)
     hosting_group = models.ForeignKey(Group, null=True, on_delete=models.SET_NULL)
 

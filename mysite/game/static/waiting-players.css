@@ -1,15 +1,29 @@
 :root {
-    --icon-size: 128px;
+    --icon-size: 64px;
 }
 
-.icon-container {
-    max-width: calc(var(--icon-size) * 5);
-    height: --icon-size;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 32px;
-    align-items: flex-start;
+.players {
+    width: 80vw;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.player {
+    display: grid;
+    grid-template-columns: 1fr 2fr 5fr;
+    height: calc(var(--icon-size) + 4px);
+    width: 40vw;
+    background-color: rgba(70, 70, 70, 0.8);
+    margin: 5px;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    height: calc(var(--icon-size) + 4px);
+    width: 40vw;
+    background-color: rgba(30, 231, 127, 0.8);
+    margin: 5px;
 }
 
 .icon {
@@ -18,4 +32,15 @@
     background-image: url(icon-placeholder.jpg);
     background-size: contain;
     border: 2px solid black;
+}
+
+.name-plate {
+    width: 2fr;
+    color: white;
+    font-size: calc(var(--icon-size) / 2);
+    line-height: var(--icon-size);
+}
+
+.dimmed {
+    opacity: 0.6;
 }

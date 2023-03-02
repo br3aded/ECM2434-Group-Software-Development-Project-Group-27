@@ -11,6 +11,9 @@ from .models import Game , Group
 from user.models import AppUser
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
+import json
 
 # Create lobby page
 @login_required(login_url='/login/')
@@ -49,27 +52,25 @@ def add_lobby(request):
     #should add tests once completed
     return HttpResponseRedirect(reverse('game:lobby_view'))
 
-def check_code(request):
+def get_game_data(request):
     code = request.GET.get('code')
-    game = Game.objects.filter(game_code=code).first()
+    game = Game.objects.filter(game_code=code).all()
     if game:
-        return JsonResponse({'exists': True})
+        data = (game.values()[0])
+        app_user = get_object_or_404(AppUser, base_user=request.user)
+        group = Group.objects.get(id=data["hosting_group_id"])
+        group.group_members.add(app_user)
+
+        users = []
+
+        for user in group.group_members.all():
+            users.append(user.base_user.username)
+
+        print(users)
+
+        return JsonResponse({'exists': True, 'data': data, 'users': users})
     else:
         return JsonResponse({'exists': False})
-
-#generic lobby page
-#this will change when lobby implemented
-
-def join_lobby(request,game_code):
-     game = Game.objects.filter(game_code=game_code).first()
-     hosting_group = game.hosting_group
-     if request.user in hosting_group.users_playing.all():
-        return HttpResponseRedirect(reverse('game:game'))
-     else:
-        hosting_group.users_playing.add(request.user)
-        return HttpResponseRedirect(reverse('game:lobby_view'))
-        # User is not part of the hosting group
-        # Your code here
 
 @login_required(login_url='/login/')
 def lobby_view(request,user_id=0, game_code=0):
@@ -108,7 +109,7 @@ def lobby_view(request,user_id=0, game_code=0):
 
     '''
 
-    return render(request,"game/gamelobby.html", {"username": request.user.username, "gamecode": game_code})
+    return render(request,"game/gamelobby-client.html", {"username": request.user.username, "gamecode": game_code})
 
 def set_task_view(request):
     return render(request,"game/setting-task.html", {"username": request.user.username})
