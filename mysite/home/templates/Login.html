@@ -1,37 +1,37 @@
 {% load static %}
 
 <!DOCTYPE html>
-<!-- Coding by CodingLab || www.codinglabweb.com -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login & Signup Form</title>
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
+    <title>Login & Signup Form</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link rel="stylesheet" href="{% static 'style1.css'%}" />
   </head>
   <body>
     <div class="container">
       <aside>
         <div class="top">
           <div class="logo">
-            <h2>Task master</h2>
-          <div>
+              <img src="{% static 'favicon.png'%}">
+              <h2>Task master</h2>
+          </div>
           <div class="close" id="close-btn">
             <span class="material-icons-sharp">close</span>
           </div>
         </div>
 
         <div class="sidebar">
-          <a href="#" class="active">
+          <a href="/home/">
             <span class="material-icons-sharp">person_outline</span>
-            <h3>Profile</h3>
+            <h3>Home</h3>
           </a>
-          <a href="/game/">
-            <span class="material-icons-sharp">grid_view</span>
-            <h3>Dashboard</h3>
+          <a href="/game/" class="active">
+            <span class="material-icons-sharp">sports_esports</span>
+            <h3>Game</h3>
           </a>
           <a href="/logout/">
             <span class="material-icons-sharp">grid_view</span>
@@ -39,19 +39,14 @@
           </a>
         </div>
       </aside>
-    </div>
+    <main>
     <section class="wrapper">
       <div class="form signup">
         <header>Signup</header>
-        <form action="add_user" method="post">
-          {% csrf_token %}
-          <input type="text" placeholder="Username" name="Username" required />
-          <input type="text" placeholder="Email address" name="Email" required />
-          <input type="password" placeholder="Password" name="Password" required />
-          <div class="checkbox">
-            <input type="checkbox" id="signupCheck" />
-            <label for="signupCheck">I accept all terms & conditions</label>
-          </div>
+        <form action="#">
+          <input type="text" placeholder="Full name" required />
+          <input type="text" placeholder="Email address" required />
+          <input type="password" placeholder="Password" required />
           <input type="submit" value="Signup" />
         </form>
       </div>
@@ -62,10 +57,11 @@
           {% csrf_token %}
           <input type="text" placeholder="Username" name="Username" required />
           <input type="password" placeholder="Password" name="Password" required />
-          <a href="#">Forgot password?</a>
           <input type="submit" value="Login" />
         </form>
       </div>
+      
+    
 
       <script>
         const wrapper = document.querySelector(".wrapper"),
@@ -80,15 +76,10 @@
         });
       </script>
     </section>
-    <div class="right">
-      <div class="top">
-        <button id="menu-btn">
-          <span class="material-icons-sharp">menu</span>
-        </button>
-      </div>
-    </div>
+  </main>
+</div>
 
     
-  </body>
+</body>
 </html>
 

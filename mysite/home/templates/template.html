@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+
+        <title> Taskmaster </title>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
+        <link rel="stylesheet" href="{% static 'default.css' %}">
+        <link rel="stylesheet" href="{% static 'sidebar.css' %}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <meta name="author" content="Matthew Wood" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <main id="main" class="main">
+            <section id="main-content" class="content-block uni-background">
+
+                <div class="container" style="z-index: 100;">
+                    <aside>
+                      <div class="top">
+                        <div class="logo">
+                          <h2>Task master</h2>
+                        <div>
+                        <div class="close" id="close-btn">
+                          <span class="material-icons-sharp">close</span>
+                        </div>
+                      </div>
+              
+                      <div class="sidebar">
+                        <a href="/home/">
+                          <span class="material-icons-sharp">person_outline</span>
+                          <h3>Home</h3>
+                        </a>
+                        <a href="/game/" class="active">
+                          <span class="material-icons-sharp">grid_view</span>
+                          <h3>Game</h3>
+                        </a>
+                        <a href="/home/">
+                          <span class="material-icons-sharp">grid_view</span>
+                          <h3>Logout</h3>
+                        </a>
+                      </div>
+                    </aside>
+                </div>
+            </section>
+            <footer id="footer" class="footer"></footer>
+        </main>
+
+        <script> src="{% static 'page-logic.js' %}"</script>
+        <script src="{% static 'button-dim.js' %}"></script>
+    </body>
+</html>
