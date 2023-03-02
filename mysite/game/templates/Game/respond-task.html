@@ -49,25 +49,21 @@
                 </div>
 
                 <div id="game-display" class="game-display">
-                  <div class="icon-container center" style="top: 55%">
-                    <div class="icon"></div>
-                    <div class="icon"></div>
-                    <div class="icon"></div>
-                    <div class="icon"></div>
-                  </div>
-                  <div class="button-container center">
-                    <div id="next" class="user-button disable-select" onmousedown="dim(this.id)"
-                                                                             onmouseup="undim(this.id); next();" 
-                                                                             onmouseleave="undim(this.id)"> CREATE GAME 
-                    </div>
-                  </div>
+                  
                 </div>
+				
+				<form enctype="multipart/form-data" id="respond_task" action="respond_task" method="post">
+					{% csrf_token %}
+					<input type="file" name="image" class="form-control" required>
+					<input type = "submit" value = "Submit">
+				</form>
+				
+				
             </section>
             <footer id="footer" class="footer"></footer>
         </main>
 
-        <script src="{% static 'page-logic.js' %}"></script>
+        <script> src="{% static 'page-logic.js' %}"</script>
         <script src="{% static 'button-dim.js' %}"></script>
-        <script src="{% static 'main.js' %}"></script>
     </body>
 </html>
