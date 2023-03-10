@@ -1,5 +1,6 @@
 import secrets
 import string
+import random
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -109,7 +110,16 @@ def lobby_view(request,user_id=0, game_code=0):
     return render(request,"game/gamelobby-client.html", {"username": request.user.username, "gamecode": game_code})
 
 def set_task_view(request):
-    return render(request,"game/setting-task.html", {"username": request.user.username})
+    f = open("game/static/tasks.txt","r")
+    tasks = []
+    randomTask = []
+    for line in f:
+        tasks.append(line)
+    randomTaskNum = random.sample(range(len(tasks)),3)
+    for num in randomTaskNum:
+        randomTask.append(tasks[num])
+    f.close()
+    return render(request,"game/setting-task.html", {"username": request.user.username,"tasks": randomTask})
 
 
 def set_task(request):
