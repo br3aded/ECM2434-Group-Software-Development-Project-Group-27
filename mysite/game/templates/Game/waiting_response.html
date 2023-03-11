@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title> Task submitted </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="isaac" />
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'waiting.css'%}">
+    </head>
+    <body>
+        <div class="container" >
+            <aside>
+              <div class="top">
+                <div class="logo">
+                    <img src="{% static 'favicon.png' %}">
+                    <h2>Task master</h2>
+                </div>
+                <div class="close" id="close-btn">
+                  <span class="material-icons-sharp">close</span>
+                </div>
+              </div>
+              <div class="sidebar">
+                <a href="/home/">
+                  <span class="material-icons-sharp">person_outline</span>
+                  <h3>Home</h3>
+                </a>
+                <a href="/game/" class="active">
+                  <span class="material-icons-sharp">sports_esports</span>
+                  <h3>Game</h3>
+                </a>
+                <a href="/logout/">
+                  <span class="material-icons-sharp">logout</span>
+                  <h3>Logout</h3>
+                </a>
+              </div>
+            </aside>
+            <main>
+                <div class="continer">
+                    <div class="popup">
+                        <img src="https://www.freepnglogos.com/uploads/tick-png/tick-icon-with-png-and-vector-format-for-unlimited-15.png"/>
+                        <h2>Thank You!</h2>
+                        <p>Your image has been successfully submitted. Good job!</p>
+                        <button type="button">OK</button>
+                    </div>
+                </div>
+
+
+            </main>
+        </div>
+    </body>
+
+
+
+</html>
+
