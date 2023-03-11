@@ -7,8 +7,11 @@
 
         <title> Taskmaster </title>
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
+
         <link rel="stylesheet" href="{% static 'default.css' %}">
         <link rel="stylesheet" href="{% static 'sidebar.css' %}">
+        <link rel="stylesheet" href="{% static 'waiting-players.css' %}">
+
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <meta name="author" content="Matthew Wood" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +23,7 @@
                     <aside>
                       <div class="top">
                         <div class="logo">
-                          <h3>{{username}}</h3>
+                          <h3 id="username"> {{username}}</h3>
                           <h2>Taskmaster</h2>
                         <div>
                         <div class="close" id="close-btn">
@@ -37,41 +40,37 @@
                           <span class="material-icons-sharp">sports_esports</span>
                           <h3>Game</h3>
                         </a>
-                        <a href="/logout/">
+                        <a href="/home/">
                           <span class="material-icons-sharp">logout</span>
                           <h3>Logout</h3>
                         </a>
                       </div>
                     </aside>
                 </div>
-                
-                <form id="options" class="options-container center"> 
-                    {% csrf_token %}
-                    <input type="text" id="enter-code" class="enter-code" name="enter-code" placeholder="Enter code" maxlength="5"><br>
-                </form>
-            
-              <div id="user-options" class="button-container center" style="top: 60%">
-                  <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
-                                                                            onmouseup="undim(this.id)" 
-                                                                            onmouseleave="undim(this.id)"
-                                                                            onclick="window.location.href = 'create_lobby'"> CREATE GAME 
-                  <a href="createlobby.html"></a>
-                  </div>
 
-                  <div id="view-games" class="user-button disable-select" onmousedown="dim(this.id)"
-                                                                            onmouseup="undim(this.id)" 
-                                                                            onmouseleave="undim(this.id)"
-                                                                            onclick = "window.location.href = 'player_lobbys'"> VIEW GAMES 
-                  <a href="player_lobbys.html"></a>
-                  </div>
-              </div>
+                <div id="game-display" class="game-display">
+                    <div id="task" class="task center" style="top: 20%">
+                        Task: Take the best picture of the campus cat. 
+                    </div>
+
+                    <div id="player-container" class="icon-container center" style="top: 50%">
+                    </div>
+
+                    <div id="user-options" class="button-container center" style="top: 85%">
+                      <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
+                                                                                onmouseup="undim(this.id)" 
+                                                                                onmouseleave="undim(this.id)"
+                                                                                onclick="window.location.href = '/game/'"> Finish
+                      </div>
+                    </div>
+
+                </div>
             </section>
-            <section id="info" class="content-block" style="background-color: rgb(255, 134, 158); height: 100vh;"></section>
             <footer id="footer" class="footer"></footer>
         </main>
 
-        <script> src="{% static 'page-logic.js' %}"</script>
+        <script src="{% static 'page-logic.js' %}"></script>
         <script src="{% static 'button-dim.js' %}"></script>
-        <script src="{% static 'verify-lobby-code.js' %}"></script>
+        <script src="{% static 'display-results.js' %}"></script>
     </body>
 </html>

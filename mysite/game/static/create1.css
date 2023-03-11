@@ -52,6 +52,7 @@ aside .top{
   align-items: center;
   margin-top: 1.4rem;
   height: 10vh;
+  width: 100%;
 }
 
 aside .logo{
@@ -272,19 +273,29 @@ form .button input:hover{
     background: white;
     width: 12rem;
     z-index: 3;
-    box-shadow: 1rem 3rem 4rem var(--box-shadow);
+    box-shadow: 1rem 3rem 4rem var(--color-light);
     height: 80vh;
-    padding-right: 1.8rem;
     display: none;
-    animation: showMenu, 400ms ease forwards;
+    animation: showMenu 400ms ease forwards;
+  }
+
+  @keyframes showMenu {
+    to{
+      left: 0;
+    }
   }
 
   aside .logo{
     margin-left: 1rem;
   }
 
+  aside .logo img{
+    margin-top: 1rem;
+  }
+
   aside .logo h2{
     display: inline;
+    align-content: center;
   }
 
   aside .sidebar h3{

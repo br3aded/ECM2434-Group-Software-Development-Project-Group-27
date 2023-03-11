@@ -1,19 +1,60 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'default.css' %}">
 
-<header> TO-DO List </header>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title> Create Lobby </title>
 
-
-{% if lobby_list %}
-    <ul>
-    {% for lobby in lobby_list %}
-    <tr>
-        <th> {{lobby.game_name}} </th>
-        <!--Display number of users in lobby -->
-        <th><a class = "cell" href="{% url 'game:lobby_view' game_code=lobby.game_code %}"> <button>Join</button></a></th>
-        <!--this line above will have to be changed when lobby view is finished-->
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>You don't have any active lobbys</p>
-{% endif %}
+        <meta name="author" content="Kelsey Holdgate" />
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'create.css'%}">
+        
+    </head>
+    <body>
+        <div class="container" >
+            <aside>
+              <div class="top">
+                <div class="logo">
+                    <img src="{% static 'favicon.png'%}">
+                    <h2>Task master</h2>
+                </div>
+                <div class="close" id="close-btn">
+                  <span class="material-icons-sharp">close</span>
+                </div>
+              </div>
+      
+              <div class="sidebar">
+                <a href="/home/">
+                  <span class="material-icons-sharp">person_outline</span>
+                  <h3>Home</h3>
+                </a>
+                <a href="/game/" class="active">
+                  <span class="material-icons-sharp">sports_esports</span>
+                  <h3>Game</h3>
+                </a>
+                <a href="/logout/">
+                  <span class="material-icons-sharp">grid_view</span>
+                  <h3>Logout</h3>
+                </a>
+              </div>
+            </aside>
+            <main>
+                {% if lobby_list %}
+                    <ul>
+                    {% for lobby in lobby_list %}
+                    <tr>
+                        <th> {{lobby.game_name}} </th>
+                        <!--Display number of users in lobby -->
+                        <th><a class = "cell" href="{% url 'game:lobby_view' game_code=lobby.game_code %}"> <button>Join</button></a></th>
+                        <!--this line above will have to be changed when lobby view is finished-->
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>You don't have any active lobbys</p>
+                {% endif %}
+            </main>
+        </div>
+    </body>
+</html>

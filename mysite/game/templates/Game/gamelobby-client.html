@@ -23,7 +23,7 @@
                     <aside>
                       <div class="top">
                         <div class="logo">
-                          <h3>{{username}}</h3>
+                          <h3 id="username"> {{username}}</h3>
                           <h2>Taskmaster</h2>
                         <div>
                         <div class="close" id="close-btn">
@@ -49,16 +49,20 @@
                 </div>
 
                 <div id="game-display" class="game-display">
-                  <div class="icon-container center" style="top: 55%">
-                    <div class="icon"></div>
-                    <div class="icon"></div>
-                    <div class="icon"></div>
-                    <div class="icon"></div>
+                  <div id="player-container" class="icon-container center" style="top: 50%">
+                    <div id="info" class="info">
+                      <div id="name" class="name-plate"> name </div>
+                      <div id="code" class="name-plate"> code </div>
+                      <div id="host" class="name-plate"> Host: You </div>
+                      <div id="host" class="name-plate"> Waiting... </div>
+                    </div>
                   </div>
-                  <div class="button-container center">
-                    <div id="next" class="user-button disable-select" onmousedown="dim(this.id)"
-                                                                             onmouseup="undim(this.id); next();" 
-                                                                             onmouseleave="undim(this.id)"> CREATE GAME 
+
+                  <div id="user-options" class="button-container center" style="top: 80%">
+                    <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
+                                                                              onmouseup="undim(this.id)" 
+                                                                              onmouseleave="undim(this.id)"
+                                                                              onclick="window.location.href = 'setting_task'"> Start
                     </div>
                   </div>
                 </div>
@@ -68,6 +72,7 @@
 
         <script src="{% static 'page-logic.js' %}"></script>
         <script src="{% static 'button-dim.js' %}"></script>
-        <script src="{% static 'main.js' %}"></script>
+        <!-- <script src="{% static 'main.js' %}"></script> -->
+        <script src="{% static 'populate-lobby.js' %}"></script>
     </body>
 </html>

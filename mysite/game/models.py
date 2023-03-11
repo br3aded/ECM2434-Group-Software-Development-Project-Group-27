@@ -55,6 +55,7 @@ class Playing(models.Model):
     user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE) 
     game_id = models.ForeignKey(Game, on_delete=models.CASCADE) 
     final_position = models.IntegerField()
+    points_earned = models.IntegerField(default=0) #keeps a tally of points over the whole game
 
     class Meta:
         unique_together = ("user_id", "game_id")
