@@ -35,13 +35,15 @@ def add_lobby(request):
     new_group = Group()
     new_group.group_leader = app_user
     new_group.save()
-    player = request.POST['num of players'] # to be added
-    rounds = request.POST['num of rounds'] # to be added
+    player = request.POST['num of players'] 
+    rounds = request.POST['num of rounds']
     
     game = Game(game_name = name,
                 game_code = game_code,
                 start_datetime = datetime.now(),
                 game_state = 0,
+                max_rounds = rounds,
+                max_players = player,
                 keeper_id = app_user,
                 hosting_group = new_group,
                 )
@@ -53,10 +55,10 @@ def add_lobby(request):
 def get_game_data(request):
     code = request.GET.get('code')
     game = Game.objects.filter(game_code=code).all()
-    if game:
+    group = Group.objects.get(id=data["hosting_group_id"])
+    if game and len(group) < game.max_players:
         data = (game.values()[0])
         app_user = get_object_or_404(AppUser, base_user=request.user)
-        group = Group.objects.get(id=data["hosting_group_id"])
         group.group_members.add(app_user)
 
         users = []
