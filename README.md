@@ -46,3 +46,45 @@ The UI and design documents for the client have also been archived under the lin
 
 [https://drive.google.com/drive/folders/1f4gxSqQ7yZP-JuRolXVzUcP13yPViaar?usp=sharing](./product-documents/UI/)
 
+## Onboarding
+
+This is a guide for someone new joining the project or would like to get started extending the project.
+The code is split into 3 apps users,home,game. These 3 apps each deal with there own part of the application.
+
+### User
+
+User is the most simple of the apps.
+
+All it contains is the AppUser Model. All this is is the Prebuilt in django User model with a points field added to keep track of the users total points within the game. (See User Manual to see how the points system works).
+
+We use the prebuilt in User model as it comes with authentication features that makes implementing logging and out a user simple.
+
+### Home
+
+The home app is where the user logs in and out takes place and where the user will go to when first accessing the App.
+
+The first page the user sees is rendered in the Members View(home/) which uses the index.html file found in the templates file and styled in the static folder.
+
+When first accessing the page you will see a sidebar that is being used through out all the pages this is a resuable and can be found in most html files.
+
+The other views used within home are:
+
+login_view(login/) - used to render the login.html template , the user can create a new account or login from this page.
+
+add_user(login/add_user) - creates a new User and AppUser model and adds to the database ,returns a HttpRedirect to login.
+
+login_user(login/user_login) - called when attempting to login. Uses django Authetication Features to verify is the details the person is trying to login with exist if so they are logged in and sent the game page if not they are sent back to login page.
+
+logout_user(logout/) - Called when the logout button is pressed on the side bar at anytime and Uses Django logout feature to log the userout and returns them back to home.
+
+The only model in home/models.py is the group model which is mainly used in the game app this consists of 3 fields which is a group name , the group_leader which is used to store who a 'Game master' of a game is and group_members which used to store the players of the game.
+
+### Game 
+
+The game app is where most of the functionality of the game is. The user is first taken to a page where they can enter a game code , create a new game or view there lobbys.
+
+Game lobbys are created through the model of [add game model descrption here after changes have been made]
+
+
+
+
