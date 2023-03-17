@@ -25,6 +25,6 @@ jobs:
     - name: Run tests
       run: |
         echo "Running tests..."
-        python manage.py test
+        python /home/runner/work/ECM2434-Group-Software-Development-Project-Group-27/ECM2434-Group-Software-Development-Project-Group-27/mysite/manage.py test
 
 
