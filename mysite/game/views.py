@@ -56,7 +56,7 @@ def get_game_data(request):
     code = request.GET.get('code')
     game = Game.objects.filter(game_code=code).all()
     group = Group.objects.get(id=data["hosting_group_id"])
-    if game and len(group) < game.max_players:
+    if game and len(group) < game.max_players+1:
         data = (game.values()[0])
         app_user = get_object_or_404(AppUser, base_user=request.user)
         group.group_members.add(app_user)
@@ -179,8 +179,8 @@ def test_get_variable(request):
     return HttpResponse(request.POST[output])
 
 def player_lobbys(request):
-    member = get_object_or_404(AppUser, base_user=request.user)
-    hosting_groups = Group.objects.filter(group_members=member)
+    app_user = get_object_or_404(AppUser, base_user=request.user)
+    hosting_groups = Group.objects.filter(group_members=app_user)
     games = Game.objects.filter(hosting_group__in=hosting_groups)
     return render(request,"game/player_lobbys.html", {'lobby_list' : games})
 
