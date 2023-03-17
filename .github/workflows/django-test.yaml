@@ -22,6 +22,9 @@ jobs:
         pip install -r requirements.txt
     - name: Run database migrations
       run: python /home/runner/work/ECM2434-Group-Software-Development-Project-Group-27/ECM2434-Group-Software-Development-Project-Group-27/mysite/manage.py migrate
-    - name: Run Tests
-      run: python /home/runner/work/ECM2434-Group-Software-Development-Project-Group-27/ECM2434-Group-Software-Development-Project-Group-27/mysite/manage.py test
+    - name: Run tests
+      run: |
+        echo "Running tests..."
+        python manage.py test
+
 
