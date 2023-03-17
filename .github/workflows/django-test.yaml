@@ -1,29 +1,32 @@
-name : Django Test
+name: Django Test
 
 on:
-  workflow_call:
-  workflow_dispatch:
   push:
-    branches: [main]
-  pull_request:
-    branches : [main]
-    
+    branches:
+      - main
+
 jobs:
-  simple_build:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-           python-version: 3.8
-      - name: Install requirements
-        run: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
-      - name: Run tests
-        run: |
-            cd mysite
-            python manage.py test
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Set environment variables
+      run: |
+        echo "SECRET_KEY=my_secret_key" >> $GITHUB_ENV
+        echo "DEBUG=True" >> $GITHUB_ENV
+    - name: Run database migrations
+      run: |
+        python manage.py migrate
+    - name: Run Tests
+      run: |
+        python manage.py test
