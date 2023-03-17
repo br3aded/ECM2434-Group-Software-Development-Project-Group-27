@@ -1,28 +1,31 @@
-name : Django Test
+name: Django Test
 
 on:
-  workflow_call:
-  workflow_dispatch:
   push:
-    branches: [main]
-  pull_request:
-    branches : [main]
-    
+    branches:
+      - main
+
 jobs:
-  simple_build:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-           python-version: 3.8
-      - name: Install requirements
-        run: |
-            pip install -r requirements.txt
-      - name: Run tests
-        run: |
-            cd mysite
-            python manage.py test
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run database migrations
+      run: python /home/runner/work/ECM2434-Group-Software-Development-Project-Group-27/ECM2434-Group-Software-Development-Project-Group-27/mysite/manage.py migrate
+    - name: Run tests
+      run: |
+        echo "Running tests..."
+        python /home/runner/work/ECM2434-Group-Software-Development-Project-Group-27/ECM2434-Group-Software-Development-Project-Group-27/mysite/manage.py test
+
+
+
