@@ -5,7 +5,7 @@ The group members are:
 
 1. Matthew Wood
 2. Kelsey Holdgate
-3. Isaac Wing
+3. Isaac Ng
 4. Nicholas O’Connor
 5. Molly Berridge
 6. OPPONG-MENSAH, Kwadwo 
