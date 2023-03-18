@@ -7,75 +7,80 @@
 
         <title> Taskmaster </title>
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
-
-        <link rel="stylesheet" href="{% static 'default.css' %}">
-        <link rel="stylesheet" href="{% static 'sidebar.css' %}">
-        <link rel="stylesheet" href="{% static 'waiting-players.css' %}">
-
+        <link rel="stylesheet" href="{% static 'sidebar2.css' %}">
+        <link rel="stylesheet" href="{% static 'setting-task.css' %}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <meta name="author" content="Matthew Wood" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+      <div class="container">
+        <aside>
+          <div class="top">
+            <div class="logo">
+                <img src="{% static 'favicon.png'%}">
+                <h2>Task master</h2>
+            </div>
+            <div class="close" id="close-btn">
+              <span class="material-icons-sharp">close</span>
+            </div>
+          </div>
+  
+          <div class="sidebar">
+            <a href="/home/">
+              <span class="material-icons-sharp">person_outline</span>
+              <h3>Home</h3>
+            </a>
+            <a href="/game/" class="active">
+              <span class="material-icons-sharp">sports_esports</span>
+              <h3>Game</h3>
+            </a>
+            <a href="/logout/">
+              <span class="material-icons-sharp">logout</span>
+              <h3>Logout</h3>
+            </a>
+          </div>
+        </aside>
         <main id="main" class="main">
-            <section id="main-content" class="content-block uni-background">
-                <div class="container" style="z-index: 100;">
-                    <aside>
-                      <div class="top">
-                        <div class="logo">
-                          <h3>{{username}}</h3>
-                          <h2>Taskmaster</h2>
-                        <div>
-                        <div class="close" id="close-btn">
-                          <span class="material-icons-sharp">close</span>
-                        </div>
-                      </div>
-              
-                      <div class="sidebar">
-                        <a href="/home/">
-                          <span class="material-icons-sharp">person_outline</span>
-                          <h3>Home</h3>
-                        </a>
-                        <a href="/game/" class="active">
-                          <span class="material-icons-sharp">sports_esports</span>
-                          <h3>Game</h3>
-                        </a>
-                        <a href="/home/">
-                          <span class="material-icons-sharp">logout</span>
-                          <h3>Logout</h3>
-                        </a>
-                      </div>
-                    </aside>
+          <section id="main-content" class="content-block uni-background">
+            <form class="form" id="set_task" action="set_task" method="post">
+              {% csrf_token %}
+                <div class="title"> Set Task</div>
+                <div class="task-description">
+                  <div class="select-box">
+                    <span class="details">Select your task here!</span>
+                    <select name="eco-tasks" id="eco-tasks">
+                      {% for task in tasks %}
+                      <option value="task1">{{task}}</option>
+                      {% endfor %}
+                      </select>
+                  </div>
+                  <div class="input-box">
+                    <span class="details">Task Description</span>
+                    <input type="text" id="task-desc" name="task description">
+                  </div>
+                  <div class="button">
+                    <input type="submit" value="Set">
+                  </div>
                 </div>
-
-                <div id="game-display" class="game-display">
-                  
-                </div>
-				
-				<form class="form" id="set_task" action="set_task" method="post">
-					{% csrf_token %}
-					<div class="title"> Set Task</div>
-					<div class="task-description">
-						<select name="eco-tasks" id="eco-tasks">
-              {% for task in tasks %}
-              <option value="task1">{{task}}</option>
-							{% endfor %}
-						</select>
-						<div class="input-box">
-							<span class="details">Task Description</span>
-                            <input type="text" id="task-desc" name="task description">
-						</div>
-						<div class="button">
-                            <input type="submit" value="Set">
-                        </div>
-					</div>
-				</form>
-				
-				
-            </section>
-            <footer id="footer" class="footer"></footer>
-        </main>
-
+            </form>
+          </section>
+          <footer id="footer" class="footer"></footer>
+      </main>
+        <div class="right">
+          <div class="top">
+            <button id="menu-btn">
+              <span class="material-icons-sharp">menu</span>
+            </button>
+            <div class="profile">
+              <div class="info">
+                <h3>{{username}}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <script src="{% static 'create2.js'%}"></script>
         <script> src="{% static 'page-logic.js' %}"</script>
         <script src="{% static 'button-dim.js' %}"></script>
     </body>
