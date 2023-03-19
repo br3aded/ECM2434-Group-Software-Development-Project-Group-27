@@ -1,7 +1,6 @@
 from django.db import models
 from user.models import AppUser
 from home.models import Group
-from game.models import Task
 from django.db import models
 from django.utils import timezone
 
