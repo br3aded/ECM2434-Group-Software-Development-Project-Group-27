@@ -26,7 +26,9 @@ class Game(models.Model):
     #keeper_id = models.ForeignKey(AppUser, on_delete=models.CASCADE)
     hosting_group = models.ForeignKey(Group, null=True, on_delete=models.SET_NULL)
     
-    #users_playing = models.ManyToManyField(AppUser,through="Playing",related_name="users_playing")
+    submissions = models.ManyToManyField(AppUser,through="Submission",related_name="game_submissions")
+    #completed_by = models.ManyToManyField(AppUser,through="Completion",related_name="completions")
+
 
     @property
     def points_per_round(self):
@@ -41,26 +43,23 @@ class Task(models.Model):
     task_number = models.IntegerField() #Effective PK. This is a weak entity on Game
 
     task_name = models.CharField(max_length=128, default="Task")
-
-    completed_by = models.ManyToManyField(AppUser,through="Completion",related_name="completions")
     
     class Meta:
         unique_together = ("game_id", "task_number")
 
-##class Playing(models.Model):
-##    user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE) 
-##    game_id = models.ForeignKey(Game, on_delete=models.CASCADE) 
-##    final_position = models.IntegerField(default=0)
-##    points_earned = models.IntegerField(default=0) #keeps a tally of points over the whole game
+class Submission(models.Model):
+    user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE) 
+    game_id = models.ForeignKey(Game, on_delete=models.CASCADE) 
+    submission = models.BinaryField(null=True)
+    
+    class Meta:
+        unique_together = ("user_id", "game_id")
+
+###Task submission
+##class Completion(models.Model):
+##    user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE)
+##    game_id = models.ForeignKey(Game, on_delete=models.CASCADE)
+##    submission = models.BinaryField(null=True)
 ##
 ##    class Meta:
 ##        unique_together = ("user_id", "game_id")
-
-#Task submission
-class Completion(models.Model):
-    user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE)
-    task_id = models.ForeignKey(Task, on_delete=models.CASCADE)
-    submission = models.BinaryField(null=True)
-
-    class Meta:
-        unique_together = ("user_id", "task_id")
