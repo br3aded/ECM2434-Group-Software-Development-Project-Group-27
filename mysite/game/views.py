@@ -44,7 +44,8 @@ def add_lobby(request):
                 game_state = 0,
                 max_rounds = rounds,
                 max_players = player,
-                keeper_id = app_user,
+                active_task_number = 0,
+                #keeper_id = app_user,
                 hosting_group = new_group,
                 )
     game.save()
