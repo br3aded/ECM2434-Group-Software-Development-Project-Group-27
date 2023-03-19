@@ -7,68 +7,80 @@
 
         <title> Taskmaster </title>
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
-        <link rel="stylesheet" href="{% static 'default.css' %}">
-        <link rel="stylesheet" href="{% static 'sidebar.css' %}">
+        <link rel="stylesheet" href="{% static 'sidebar1.css' %}">
+        <link rel="stylesheet" href="{% static 'default1.css' %}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <meta name="author" content="Matthew Wood" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+      <div class="container">
+        <aside>
+          <div class="top">
+            <div class="logo">
+                <img src="{% static 'favicon.png'%}">
+                <h2>Task master</h2>
+            </div>
+            <div class="close" id="close-btn">
+              <span class="material-icons-sharp">close</span>
+            </div>
+          </div>
+  
+          <div class="sidebar">
+            <a href="/home/">
+              <span class="material-icons-sharp">person_outline</span>
+              <h3>Home</h3>
+            </a>
+            <a href="/game/" class="active">
+              <span class="material-icons-sharp">sports_esports</span>
+              <h3>Game</h3>
+            </a>
+            <a href="/logout/">
+              <span class="material-icons-sharp">logout</span>
+              <h3>Logout</h3>
+            </a>
+          </div>
+        </aside>
         <main id="main" class="main">
-            <section id="main-content" class="content-block uni-background">
-                <div class="container" style="z-index: 100;">
-                    <aside>
-                      <div class="top">
-                        <div class="logo">
-                          <h3>{{username}}</h3>
-                          <h2>Taskmaster</h2>
-                        <div>
-                        <div class="close" id="close-btn">
-                          <span class="material-icons-sharp">close</span>
-                        </div>
-                      </div>
-              
-                      <div class="sidebar">
-                        <a href="/home/">
-                          <span class="material-icons-sharp">person_outline</span>
-                          <h3>Home</h3>
-                        </a>
-                        <a href="/game/" class="active">
-                          <span class="material-icons-sharp">sports_esports</span>
-                          <h3>Game</h3>
-                        </a>
-                        <a href="/logout/">
-                          <span class="material-icons-sharp">logout</span>
-                          <h3>Logout</h3>
-                        </a>
-                      </div>
-                    </aside>
+          <section id="main-content" class="content-block">
+              <form id="options" class="options-container center"> 
+                  {% csrf_token %}
+                  <input type="text" id="enter-code" class="enter-code" name="enter-code" placeholder="Enter code" maxlength="5"><br>
+              </form>
+          
+            <div id="user-options" class="button-container center" style="top: 60%">
+                <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
+                                                                          onmouseup="undim(this.id)" 
+                                                                          onmouseleave="undim(this.id)"
+                                                                          onclick="window.location.href = 'create_lobby'"> CREATE GAME 
+                <a href="createlobby.html"></a>
                 </div>
-                
-                <form id="options" class="options-container center"> 
-                    {% csrf_token %}
-                    <input type="text" id="enter-code" class="enter-code" name="enter-code" placeholder="Enter code" maxlength="5"><br>
-                </form>
-            
-              <div id="user-options" class="button-container center" style="top: 60%">
-                  <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
-                                                                            onmouseup="undim(this.id)" 
-                                                                            onmouseleave="undim(this.id)"
-                                                                            onclick="window.location.href = 'create_lobby'"> CREATE GAME 
-                  <a href="createlobby.html"></a>
-                  </div>
 
-                  <div id="view-games" class="user-button disable-select" onmousedown="dim(this.id)"
-                                                                            onmouseup="undim(this.id)" 
-                                                                            onmouseleave="undim(this.id)"
-                                                                            onclick = "window.location.href = 'player_lobbys'"> VIEW GAMES 
-                  <a href="player_lobbys.html"></a>
-                  </div>
-              </div>
-            </section>
-            <section id="info" class="content-block" style="background-color: rgb(255, 134, 158); height: 100vh;"></section>
-            <footer id="footer" class="footer"></footer>
-        </main>
+                <div id="view-games" class="user-button disable-select" onmousedown="dim(this.id)"
+                                                                          onmouseup="undim(this.id)" 
+                                                                          onmouseleave="undim(this.id)"
+                                                                          onclick = "window.location.href = 'player_lobbys'"> VIEW GAMES 
+                <a href="player_lobbys.html"></a>
+                </div>
+            </div>
+          </section>
+          <section id="info" class="content-block" style="background-color: rgb(255, 134, 158); height: 100vh;"></section>
+          <footer id="footer" class="footer"></footer>
+      </main>
+      <div class="right">
+        <div class="top">
+          <button id="menu-btn">
+            <span class="material-icons-sharp">menu</span>
+          </button>
+          <div class="profile">
+            <div class="info">
+              <h3>{{username}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+        
 
         <script> src="{% static 'page-logic.js' %}"</script>
         <script src="{% static 'button-dim.js' %}"></script>
