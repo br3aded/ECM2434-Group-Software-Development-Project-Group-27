@@ -55,11 +55,4 @@ class Submission(models.Model):
     class Meta:
         unique_together = ("user_id", "game_id")
 
-###Task submission
-##class Completion(models.Model):
-##    user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE)
-##    game_id = models.ForeignKey(Game, on_delete=models.CASCADE)
-##    submission = models.BinaryField(null=True)
-##
-##    class Meta:
-##        unique_together = ("user_id", "game_id")
+
