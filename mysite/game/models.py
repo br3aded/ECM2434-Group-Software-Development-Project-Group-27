@@ -29,7 +29,6 @@ class Game(models.Model):
     submissions = models.ManyToManyField(AppUser,through="Submission",related_name="game_submissions")
     #completed_by = models.ManyToManyField(AppUser,through="Completion",related_name="completions")
 
-
     @property
     def points_per_round(self):
         return hosting_group.group_members.objects.count() * ROUND_POINTS_PER_USER
