@@ -4,11 +4,10 @@ from home.models import Group
 from django.db import models
 from django.utils import timezone
 
+ROUND_POINTS_PER_USER = 100
+
 #Note for all ManyToMany relations, the django M2M field is stored in
 #what would be the destination side of the arrow in the ER diagram
-
-#TODO:
-#Add total round counter as derived attribute in Game
 
 class Game(models.Model):
     GAME_STATES = ((0, "waitingForPlayers"),
@@ -22,7 +21,6 @@ class Game(models.Model):
     start_datetime = models.DateTimeField(default=timezone.now)
     game_state = models.IntegerField(choices=GAME_STATES, default=0)
     max_rounds = models.IntegerField(default=5)
-    max_players = models.IntegerField(default=8)
 
     active_task_number = models.IntegerField(default=0) #defacto foreign key
     #keeper_id = models.ForeignKey(AppUser, on_delete=models.CASCADE)
@@ -32,7 +30,7 @@ class Game(models.Model):
 
     @property
     def points_per_round(self):
-        return hosting_group.group_members.objects.count()
+        return hosting_group.group_members.objects.count() * ROUND_POINTS_PER_USER
         #double check this works
 
     def __str__(self):
