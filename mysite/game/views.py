@@ -49,7 +49,7 @@ def add_lobby(request):
     game.save()
     #add code here for creating a new lobby item in database when implemented
     #should add tests once completed
-    return HttpResponseRedirect(reverse('game:lobby_view'))
+    return HttpResponseRedirect(reverse('game:lobby_view', {'game_code' : game_code}))
 
 #this need to be changed to reflect database changes
 def get_game_data(request):
@@ -74,46 +74,50 @@ def get_game_data(request):
 
 #pass the game code to here
 @login_required(login_url='/login/')
-def lobby_view(request,user_id=0, game_code=0):
+def lobby_view(request, game_code):
     '''
     rough outline of what the lobby should look like
 
-    lobby = get game_code lobby
+    game = Game.objects.filter(game_code=code).all()
 
+    if game.game_state == 0:
+        # add a condition here that will change the state to 1 if condition met
+        return render(request,"game/waiting_for_players.html", {"game_code" : game_code})
     if lobby state == 1:
-        return render waiting for players to join html
+        if user_id == game get group_leader:
+            return HttpResponseRedirect(reverse('game:setting_task_view', {'game_code' : game_code}))
+        else:
+            return render(request,"game/waiting_for_task.html", {"game_code" : game_code})
     if lobby state == 2:
-        if user_id == lobby get game_master:
-            return render set tasks html
+        #need a condition for if submisions == max_players change to state 3
+        if user_id == game get group_leader:
+            return render(request,"game/waiting_for_response", {"game_code" : game_code})
         else:
-            return render waiting for task html
+            if user_id not in submission:
+                return HttpResponseRedirect(reverse('game:response_task_view', {'game_code' : game_code}))
+            else:
+                return render(request,"game/waiting_for_response", {"game_code" : game_code})
     if lobby state == 3:
-        if user_id == lobby get game_master:
-            return render waiting for response html (possibly display active number of responses)
+        if user_id == game get group_leader:
+            return HttpResponseRedirect(reverse('game:rank_view', {'game_code' : game_code}))
         else:
-            return render response to task html
+            return render(request,"game/waiting_for_ranking", {"game_code" : game_code})
     if lobby state == 4:
-        if user_id == lobby get game_master:
-            return render for ranking tasks html
-        else:
-            return render waiting for ranking html
-        return render template 4
+        return render(request,"game/results.html", {"game_code" : game_code})
+        #need a condition here for when moving onto state 5
     if lobby state == 5:
-        return render results html (possibly add a button that will move state once all players have clicked it)
-    if lobby state == 6:
         if lobby current round == total rounds:
             return render display final results (possibly add a button here to delete lobby once all players have clicked it)
         else:
             lobby current round += 1
             lobby current state = 2
-            return render lobby view
+            return HttpResponseRedirect(reverse('game:lobby_view', {'game_code' : game_code}))
 
     '''
-
-    return render(request,"game/gamelobby-client.html", {"username": request.user.username, "gamecode": game_code})
+    return render(request,"game/gamelobby-client.html", {"username": request.user.username, "game_code": game_code})
 
 #pass the game code to here
-def set_task_view(request):
+def set_task_view(request, game_code):
     f = open("game/static/tasks.txt","r")
     tasks = []
     randomTask = []
@@ -123,10 +127,10 @@ def set_task_view(request):
     for num in randomTaskNum:
         randomTask.append(tasks[num])
     f.close()
-    return render(request,"game/setting-task.html", {"username": request.user.username,"tasks": randomTask})
+    return render(request,"game/setting-task.html", {"username": request.user.username,"tasks": randomTask , "game_code" : game_code})
 
 #pass the gamecode to here
-def set_task(request):
+def set_task(request, game_code):
     #code for setting task here
     if request.method == 'POST':
         dropdown = request.POST["eco-tasks"]
@@ -139,14 +143,14 @@ def set_task(request):
                     #assign game id here
                     )
         task.save()
-    return HttpResponseRedirect(reverse('game:lobby_view'))
+    return HttpResponseRedirect(reverse('game:lobby_view' , {'game_code' : game_code}))
 
 #pass the game code to here
-def response_task_view(request):
+def response_task_view(request, game_code):
     return render(request,"game/respond-task.html", {"username": request.user.username})
 
 #pass the game code to here
-def response_task():
+def response_task(request , game_code):
     #code for responding to task here
     
     return HttpResponseRedirect(reverse('game:lobby_view'))
@@ -189,13 +193,13 @@ def player_lobbys(request):
     return render(request,"game/player_lobbys.html", {'lobby_list' : games})
 
 #pass the game code to here
-def submit_task(request):
-    return render(request, 'game/submit_task.html')
+def submit_task(request,game_code):
+    return render(request, 'game/submit_task.html', {'game_code' : game_code})
 
 #pass the game code to here
-def take_picture(request):
-    return render(request, 'game/take_picture.html')
+def take_picture(request,game_code):
+    return render(request, 'game/take_picture.html', {'game_code' : game_code})
 
-#pass the game code to here
+
 def test(request):
     return render(request, 'game/test.html')

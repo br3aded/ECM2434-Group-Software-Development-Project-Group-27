@@ -43,7 +43,7 @@
         </aside>
         <main id="main" class="main">
           <section id="main-content" class="content-block uni-background">
-            <form class="form" id="set_task" action="set_task" method="post">
+            <form class="form" id="set_task" action="{% url 'game:set_task' game_code=game_code %}" method="post">
               {% csrf_token %}
                 <div class="title"> Set Task</div>
                 <div class="task-description">
