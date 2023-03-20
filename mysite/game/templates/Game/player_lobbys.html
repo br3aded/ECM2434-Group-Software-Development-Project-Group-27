@@ -4,12 +4,14 @@
 <html>
     <head>
         <meta charset='utf-8'>
-        <title> Create Lobby </title>
+        <title> Player Lobby </title>
 
-        <meta name="author" content="Kelsey Holdgate" />
+        <meta name="author" content="Kelsey Holdgate, isaac" />
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'create.css'%}">
+        <link rel="stylesheet" href="{% static 'playerlobby.css'%}">
+        <link rel="stylesheet" href="{% static 'sidebar1.css'%}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
     </head>
     <body>
@@ -41,20 +43,35 @@
               </div>
             </aside>
             <main>
-                {% if lobby_list %}
-                    <ul>
-                    {% for lobby in lobby_list %}
-                    <tr>
-                        <th> {{lobby.game_name}} </th>
-                        <!--Display number of users in lobby -->
-                        <th><a class = "cell" href="{% url 'game:lobby_view' game_code=lobby.game_code %}"> <button>Join</button></a></th>
-                        <!--this line above will have to be changed when lobby view is finished-->
-                    {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>You don't have any active lobbys</p>
-                {% endif %}
+              <div class="display">
+                  {% if lobby_list %}
+                  <ul>
+                  {% for lobby in lobby_list %}
+                  <tr>
+                      <th> {{lobby.game_name}} </th>
+                      <!--Display number of users in lobby -->
+                      <th><a class = "cell" href="{% url 'game:lobby_view' game_code=lobby.game_code %}"> <button>Join</button></a></th>
+                      <!--this line above will have to be changed when lobby view is finished-->
+                  {% endfor %}
+                  </ul>
+              {% else %}
+                  <p>You don't have any active lobbys</p>
+              {% endif %}
+              </div>
             </main>
+            <div class="right">
+              <div class="top">
+                <button id="menu-btn">
+                  <span class="material-icons-sharp">menu</span>
+                </button>
+                <div class="profile">
+                  <div class="info">
+                    {% csrf_token %}
+                    <h3>{{username}}</h3>
+                  </div>
+                </div>
+              </div>
+          </div>
         </div>
     </body>
 </html>
