@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.urls import reverse
-from .models import Game , Group
+from .models import Game , Group , Task
 from user.models import AppUser
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -31,20 +31,19 @@ def add_lobby(request):
     # check if a game with this code already exists
         if not Game.objects.filter(game_code=game_code).exists():
             break
-    app_user = get_object_or_404(AppUser, base_user=request.user)
-    new_group = Group()
-    new_group.group_leader = app_user
-    new_group.save()
     player = request.POST['num of players'] 
     rounds = request.POST['num of rounds']
-    
+    app_user = get_object_or_404(AppUser, base_user=request.user)
+    new_group = Group(group_leader = app_user,
+                      max_players = player,)
+    new_group.save()
+  
     game = Game(game_name = name,
                 game_code = game_code,
                 start_datetime = datetime.now(),
                 game_state = 0,
                 max_rounds = rounds,
-                max_players = player,
-                keeper_id = app_user,
+                active_task_number = 0,
                 hosting_group = new_group,
                 )
     game.save()
@@ -52,6 +51,7 @@ def add_lobby(request):
     #should add tests once completed
     return HttpResponseRedirect(reverse('game:lobby_view'))
 
+#this need to be changed to reflect database changes
 def get_game_data(request):
     code = request.GET.get('code')
     game = Game.objects.filter(game_code=code).all()
@@ -72,6 +72,7 @@ def get_game_data(request):
     else:
         return JsonResponse({'exists': False})
 
+#pass the game code to here
 @login_required(login_url='/login/')
 def lobby_view(request,user_id=0, game_code=0):
     '''
@@ -111,6 +112,7 @@ def lobby_view(request,user_id=0, game_code=0):
 
     return render(request,"game/gamelobby-client.html", {"username": request.user.username, "gamecode": game_code})
 
+#pass the game code to here
 def set_task_view(request):
     f = open("game/static/tasks.txt","r")
     tasks = []
@@ -123,25 +125,27 @@ def set_task_view(request):
     f.close()
     return render(request,"game/setting-task.html", {"username": request.user.username,"tasks": randomTask})
 
-
+#pass the gamecode to here
 def set_task(request):
     #code for setting task here
     if request.method == 'POST':
         dropdown = request.POST["eco-tasks"]
         input_box = request.POST["task-desc"]
-        task_final = ""
         if input_box == "":
-            task_final = dropdown
+            task_name = dropdown
         else:
-            task_final = input_box
-        task = task_final
+            task_name = input_box
+        task = Task(task_name = task_name,
+                    #assign game id here
+                    )
         task.save()
     return HttpResponseRedirect(reverse('game:lobby_view'))
 
-
+#pass the game code to here
 def response_task_view(request):
     return render(request,"game/respond-task.html", {"username": request.user.username})
 
+#pass the game code to here
 def response_task():
     #code for responding to task here
     
@@ -184,11 +188,14 @@ def player_lobbys(request):
     games = Game.objects.filter(hosting_group__in=hosting_groups)
     return render(request,"game/player_lobbys.html", {'lobby_list' : games})
 
+#pass the game code to here
 def submit_task(request):
     return render(request, 'game/submit_task.html')
 
+#pass the game code to here
 def take_picture(request):
     return render(request, 'game/take_picture.html')
 
+#pass the game code to here
 def test(request):
     return render(request, 'game/test.html')
