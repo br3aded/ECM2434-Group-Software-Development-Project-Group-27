@@ -72,6 +72,7 @@ def get_game_data(request):
     else:
         return JsonResponse({'exists': False})
 
+#pass the game code to here
 @login_required(login_url='/login/')
 def lobby_view(request,user_id=0, game_code=0):
     '''
@@ -111,6 +112,7 @@ def lobby_view(request,user_id=0, game_code=0):
 
     return render(request,"game/gamelobby-client.html", {"username": request.user.username, "gamecode": game_code})
 
+#pass the game code to here
 def set_task_view(request):
     f = open("game/static/tasks.txt","r")
     tasks = []
@@ -123,7 +125,7 @@ def set_task_view(request):
     f.close()
     return render(request,"game/setting-task.html", {"username": request.user.username,"tasks": randomTask})
 
-
+#pass the gamecode to here
 def set_task(request):
     #code for setting task here
     if request.method == 'POST':
@@ -139,10 +141,11 @@ def set_task(request):
         task.save()
     return HttpResponseRedirect(reverse('game:lobby_view'))
 
-
+#pass the game code to here
 def response_task_view(request):
     return render(request,"game/respond-task.html", {"username": request.user.username})
 
+#pass the game code to here
 def response_task():
     #code for responding to task here
     
@@ -185,11 +188,14 @@ def player_lobbys(request):
     games = Game.objects.filter(hosting_group__in=hosting_groups)
     return render(request,"game/player_lobbys.html", {'lobby_list' : games})
 
+#pass the game code to here
 def submit_task(request):
     return render(request, 'game/submit_task.html')
 
+#pass the game code to here
 def take_picture(request):
     return render(request, 'game/take_picture.html')
 
+#pass the game code to here
 def test(request):
     return render(request, 'game/test.html')
