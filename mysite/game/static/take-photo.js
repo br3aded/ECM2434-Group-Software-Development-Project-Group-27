@@ -1,4 +1,14 @@
+// import Submission from submission.models;
+
 const isMobile = isMobileDevice();
+
+const imgSubmitButton = document.getElementById('submitImage');
+imgSubmitButton.addEventListener('click', () => {
+    storeImage(getSelectedImage());
+    submit = Submission(submission= retrieveImage());
+    submit.save();
+    location.href = '/game/test';
+});
 
 function isMobileDevice() {
     if(/Android|webOS|iPhone|iPad/i.test(navigator.userAgent)) return true;
@@ -40,9 +50,11 @@ function getSelectedImage () {
 function storeImage(img){
     localStorage.imageSubmitted = img;
 }
+
 function retrieveImage(){
     return localStorage.imageSubmitted;
 }
+
 function showImage(){
     var img = document.createElement('img');
     img.src = localStorage.imageSubmitted;

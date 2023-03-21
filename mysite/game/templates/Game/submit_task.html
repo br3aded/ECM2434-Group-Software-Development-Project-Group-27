@@ -1,48 +1,92 @@
-<!DOCTYPE html>
 {% load static %}
 
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta name="author" content="Kwadwo Oppong-Mensah" />
+    <head>
+        <meta charset='utf-8'>
+
+        <title> Taskmaster </title>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
+        <link rel="stylesheet" href="{% static 'submit-task.css' %}">
+        <link rel="stylesheet" href="{% static 'sidebar1.css' %}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <meta name="author" content="Kwadwo Oppong-Mensah" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
     
-    <title> Taskmaster </title>
-    <link rel="stylesheet" href="{% static 'submit-task.css' %}">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
-  </head>
-  
-  <div class="header">
-    <h2>Submit Task</h2>
-    <h3>Task: <var id="task">task</var></h3>
-  </div>
-
-  <body>
-
-    <!--Player either selects take picture which will redirect
-        to /game/takepicture or submits pre-existing image on this page-->
-    <main class="main" id="main">
+    <body>
       <div class="container">
-          <button id="takepic">Take Picture</button>
-          <script type="text/javascript">
-            document.getElementById("takepic").onclick = function () {
-            location.href = "/game/take_picture";
-            };
-          </script>
-      </div>
+          <aside>
+            <div class="top">
+              <div class="logo">
+                  <img src="{% static 'favicon.png'%}">
+                  <h2>Task master</h2>
+              </div>
+              <div class="close" id="close-btn">
+                <span class="material-icons-sharp">close</span>
+              </div>
+            </div>
 
-      <div class="container">
-        <label for="img">Select image:</label>
-        <input type="file" id="imgsub" name="img" accept="image/*">
-        <button id="submitImage">Submit</button>
-        <script type="text/javascript">
-          document.getElementById("submitImage").onclick = function () {
-            storeImage(getSelectedImage());
-            location.href = "/game/test";
-          }
-        </script>
-        <canvas id="canvas" width=250 height=300></canvas>
+            <div class="sidebar">
+              <a href="/home/">
+                <span class="material-icons-sharp">person_outline</span>
+                <h3>Home</h3>
+              </a>
+              <a href="/game/" class="active">
+                <span class="material-icons-sharp">sports_esports</span>
+                <h3>Game</h3>
+              </a>
+              <a href="/logout/">
+                <span class="material-icons-sharp">logout</span>
+                <h3>Logout</h3>
+              </a>
+            </div>
+          </aside>
+          
+          <!--Player either selects take picture which will redirect
+              to /game/takepicture or submits pre-existing image on this page-->
+          <main>
+            <div class="main-container">
+              <div class="container1">
+                <h2>Submission</h2>
+                <label for="img">Select image:</label>
+                <input type="file" id="imgsub" name="img" accept="image/*">
+                <button class="button" id="submitImage">Submit</button>
+                <!-- <script type="text/javascript">
+                  document.getElementById("submitImage").onclick = function () {
+                    storeImage(getSelectedImage());
+                    submit = Submission(submission= retrieveImage());
+                    submit.save();
+                    location.href = '/game/test';
+                  }
+                  </script> -->
+              </div>
+              
+              <div class="container1">
+                <h3>PC Users:</h3>
+                <button class="button" id="takepic">Take Picture</button>
+                <script type="text/javascript">
+                  document.getElementById("takepic").onclick = function () {
+                  location.href = "/game/take_picture";
+                  };
+                </script>
+              </div>
+            </div>
+          </main>
+
+          <div class="right">
+            <div class="top">
+              <button id="menu-btn">
+                <span class="material-icons-sharp">menu</span>
+              </button>
+              <div class="profile">
+                <div class="info">
+                  <h3>{{username}}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
-    </main>
-    <script type="text/javascript" src="{% static 'take-photo.js' %}"></script>
-  </body>
+    </body>
+    <script type="module" src="{% static 'take-photo.js' %}"></script>
 </html>
