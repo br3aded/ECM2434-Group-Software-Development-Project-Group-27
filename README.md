@@ -63,23 +63,38 @@ We use the prebuilt in User model as it comes with authentication features that 
 
 The home app is where the user logs in and out takes place and where the user will go to when first accessing the App.
 
-Within the home/static folder can be found all the javascript , css and image files used within the home App. 
+Within the home/static folder can be found all the javascript , css and image files used within the home App.
+
 Here is a list of all files:
+
 button-dim.js
+
 default.css
+
 favicon-large.png
+
 favicon.png
+
 forum-background.jpeg
+
 main.js
+
 page-logic.js
+
 piazza-aerial.jpg
+
 sidebar.css
+
 style1.css
 
 Within the home/templates folder are all the html files related to the home app.
+
 Here is a list of all the files within that folder:
+
 index.html
+
 login.html
+
 template.html
 
 The first page the user sees is rendered in the Members View(home/) which uses the index.html file found in the templates file and styled in the static folder.
@@ -102,50 +117,108 @@ The only model in home/models.py is the group model which is mainly used in the 
 
 The game app is where most of the functionality of the game is. The user is first taken to a page where they can enter a game code , create a new game or view there lobbys.
 
-Game lobbys are created through the model of [add game model descrption here after changes have been made].
+Game lobbys are created through Game model this contains the fields game_name which is the lobby name the player submits , game_code which is a randomly generated 5 letter that is used to access game data, start_datetime which is just the time when the lobby is created , game_state which is at what point the game is (all the game states are defined inside of game model) , max_rounds which is also submitted by the user when the game is created and is how many tasks will be played through out the game, Current_round_number is used to track what round of the game is being played , current_round_name is where we store the task name for each round, hosting_group is a Group model and submissions is part of the submissions model.
+
+The submissions model also contained in game app and is used for submitting images for task. It contains 3 fields user_id which stores the the AppUser for the submission , game_id which stores what game the submission is used for and submission which is a Binary Field that is used to store the actual image.
 
 Inside of game/static can found found all the javascript , css , file images and a text file called tasks.txt that is used to store already made task suggestions. All these files are used within the game app.
+
 Here are all the files within this folder:
+
 create1.css
+
 create2.js
+
 default1.css
+
 display-results.js
+
 favicon.png
+
 forum-background.jpeg
+
 gamelobby.css
+
 icon-placeholder.jpg
+
 playerlobby.css
+
 populate-lobby.js
+
 populate-tasks-demo.js
+
 ranking.js
+
 setting-task.css
+
 sidebar1.css
+
 sidebar2.css
+
 submit-task.css
+
 take-photo.js
+
 tasks.txt
+
 verify-lobby-code.js
+
 waiting-players.css
+
 waiting.css
 
 Within the game/templates are all the html files used within the folder.
+
 Here are all the files within this folder:
+
 createlobby.html
+
 gamelobby-client.html
+
 join_lobby.html
+
 player_lobbys.html
+
 results-demo.html
+
 setting-task-demo.html
+
 setting-task.html
+
 submit_task.html
+
 take_picture.html
+
 temp.html
+
 test.html
+
 waiting_for_players.html
+
 waiting_for_task.html
+
 waiting_ranking.html
+
 waiting_reponse.html
 
 The views used within game app are:
 
+create_lobby(/create_lobby) - this view is used to render the createlobby.html template
 
+add_lobby(/add_lobby) -  this is called from within createlobby.html and creates a new Game model for the details the user has entered it then renders the lobby view
+
+get_game_data(/get_game_data) -  this is used when joining a lobby through game code and retrevies all the data related to a game lobby and returns a JsonResponse
+
+lobby_view(/lobby/<str:game_code>) - this is where all the correct view and pages are rendered based on the game state and is where the main functionality of game code is contained
+
+set_task_view(/setting_task/<str:game_code>) -  this randomly gets 3 tasks from task.txt file and then renders setting-task.html passing these 3 tasks to it
+
+set_task(/set_task/<str:game_code>) - this takes the POST from setting-task.html and saves a task under game.current_round_name and then goes back to the lobby view
+
+members(/game) - this renders the join_lobby.html page which is the page the user goes to after logging in
+
+player_lobbys(/player_lobbys) - this filters through all the games that the current user is logged into and then renders the player_lobbys.html page passing this list of games. On this page the user can load into any lobby they are a part of
+
+submit_task(/submit_task/<str:game_code>) - renders player_lobbys.html page
+
+take_picture(/take_picture/<str:game_code>) -  this renders the take_picture.html page
