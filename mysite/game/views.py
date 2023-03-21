@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.urls import reverse
-from .models import Game , Group , Task
+from .models import Game , Group
 from user.models import AppUser
 from datetime import datetime
 from django.contrib.auth.decorators import login_required

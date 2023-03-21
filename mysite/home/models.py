@@ -9,6 +9,10 @@ class Group(models.Model):
 
     group_members = models.ManyToManyField(AppUser, through="GroupMembers", related_name="group_members")
 
+    @property
+    def all_members(self):
+        return [self.group_leader] + list(self.group_members.all())
+    
 class GroupMembers(models.Model):
     user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE) 
     group_id = models.ForeignKey(Group, on_delete=models.CASCADE) 
