@@ -2,6 +2,7 @@ import secrets
 import string
 import random
 
+from django.db.models import BooleanField, Case, When
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
@@ -43,13 +44,14 @@ def add_lobby(request):
                 start_datetime = datetime.now(),
                 game_state = 0,
                 max_rounds = rounds,
-                active_task_number = 0,
+                current_round_number = 1,
+                current_round_name = "",
                 hosting_group = new_group,
                 )
     game.save()
     #add code here for creating a new lobby item in database when implemented
     #should add tests once completed
-    return HttpResponseRedirect(reverse('game:lobby_view', {'game_code' : game_code}))
+    return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
 
 #this need to be changed to reflect database changes
 def get_game_data(request):
@@ -134,16 +136,15 @@ def set_task(request, game_code):
     #code for setting task here
     if request.method == 'POST':
         dropdown = request.POST["eco-tasks"]
-        input_box = request.POST["task-desc"]
-        if input_box == "":
+        input_box = request.POST["Task desc"]
+        if input_box == None:
             task_name = dropdown
         else:
             task_name = input_box
-        task = Task(task_name = task_name,
-                    #assign game id here
-                    )
-        task.save()
-    return HttpResponseRedirect(reverse('game:lobby_view' , {'game_code' : game_code}))
+        game = Game.objects.get(game_code=game_code)
+        game.current_round_name = task_name
+        game.save()
+    return HttpResponseRedirect(reverse('game:lobby_view' , kwargs={'game_code' : game_code}))
 
 #pass the game code to here
 def response_task_view(request, game_code):
@@ -188,8 +189,16 @@ def test_get_variable(request):
 
 def player_lobbys(request):
     app_user = get_object_or_404(AppUser, base_user=request.user)
-    hosting_groups = Group.objects.filter(group_members=app_user)
-    games = Game.objects.filter(hosting_group__in=hosting_groups)
+    groups = Group.objects.annotate(
+        is_member=Case(
+            When(group_leader=app_user, then=True),
+            When(group_members=app_user, then=True),
+            default=False,
+            output_field=BooleanField(),
+        )
+    ).filter(is_member=True)
+
+    games = Game.objects.filter(hosting_group__in=groups)
     return render(request,"game/player_lobbys.html", {'lobby_list' : games})
 
 #pass the game code to here

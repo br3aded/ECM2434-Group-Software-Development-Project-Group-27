@@ -51,14 +51,14 @@
                     <span class="details">Select your task here!</span>
                     <select name="eco-tasks" id="eco-tasks">
                       {% for task in tasks %}
-                      <option value="task1">{{task}}</option>
+                      <option value="{{task}}">{{task}}</option>
                       {% endfor %}
-                      </select>
+                    </select>
                   </div>
                   <div class="input-box">
-                    <span class="details">Task Description</span>
-                    <input type="text" id="task-desc" name="task description">
-                  </div>
+                    <span class="details">Task description</span>
+                    <input type="text" id="Task desc" name="Task desc">
+                </div>
                   <div class="button">
                     <input type="submit" value="Set">
                   </div>
