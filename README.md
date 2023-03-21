@@ -63,6 +63,25 @@ We use the prebuilt in User model as it comes with authentication features that 
 
 The home app is where the user logs in and out takes place and where the user will go to when first accessing the App.
 
+Within the home/static folder can be found all the javascript , css and image files used within the home App. 
+Here is a list of all files:
+button-dim.js
+default.css
+favicon-large.png
+favicon.png
+forum-background.jpeg
+main.js
+page-logic.js
+piazza-aerial.jpg
+sidebar.css
+style1.css
+
+Within the home/templates folder are all the html files related to the home app.
+Here is a list of all the files within that folder:
+index.html
+login.html
+template.html
+
 The first page the user sees is rendered in the Members View(home/) which uses the index.html file found in the templates file and styled in the static folder.
 
 When first accessing the page you will see a sidebar that is being used through out all the pages this is a resuable and can be found in most html files.
@@ -77,14 +96,56 @@ login_user(login/user_login) - called when attempting to login. Uses django Auth
 
 logout_user(logout/) - Called when the logout button is pressed on the side bar at anytime and Uses Django logout feature to log the userout and returns them back to home.
 
-The only model in home/models.py is the group model which is mainly used in the game app this consists of 3 fields which is a group name , the group_leader which is used to store who a 'Game master' of a game is and group_members which used to store the players of the game.
+The only model in home/models.py is the group model which is mainly used in the game app to store that users that are playing each game. The group model contains the fields group_leader which is just an AppUser and is the person who created the lobby. Max_players which is just an integer and is value stored when the player creates a game to decide they number of players in a game and group_members which store multiple GroupMembers fields which come from the GroupMembers Model. The group members model contains the fields user_id which is just an AppUser , group_id which is just a group and points_earned which is used to track the points earned in a single game.
 
 ### Game 
 
 The game app is where most of the functionality of the game is. The user is first taken to a page where they can enter a game code , create a new game or view there lobbys.
 
-Game lobbys are created through the model of [add game model descrption here after changes have been made]
+Game lobbys are created through the model of [add game model descrption here after changes have been made].
 
+Inside of game/static can found found all the javascript , css , file images and a text file called tasks.txt that is used to store already made task suggestions. All these files are used within the game app.
+Here are all the files within this folder:
+create1.css
+create2.js
+default1.css
+display-results.js
+favicon.png
+forum-background.jpeg
+gamelobby.css
+icon-placeholder.jpg
+playerlobby.css
+populate-lobby.js
+populate-tasks-demo.js
+ranking.js
+setting-task.css
+sidebar1.css
+sidebar2.css
+submit-task.css
+take-photo.js
+tasks.txt
+verify-lobby-code.js
+waiting-players.css
+waiting.css
 
+Within the game/templates are all the html files used within the folder.
+Here are all the files within this folder:
+createlobby.html
+gamelobby-client.html
+join_lobby.html
+player_lobbys.html
+results-demo.html
+setting-task-demo.html
+setting-task.html
+submit_task.html
+take_picture.html
+temp.html
+test.html
+waiting_for_players.html
+waiting_for_task.html
+waiting_ranking.html
+waiting_reponse.html
+
+The views used within game app are:
 
 
