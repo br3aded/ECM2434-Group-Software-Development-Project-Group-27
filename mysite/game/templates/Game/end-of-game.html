@@ -7,7 +7,7 @@
         <title> Taskmaster </title>
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
         <link rel="stylesheet" href="{% static 'sidebar2.css' %}">
-        <link rel="stylesheet" href="{% static 'end-game.css' %}">
+        <link rel="stylesheet" href="{% static 'end-game1.css' %}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <meta name="author" content="isaac" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +33,14 @@
                   <a href="/game/" class="active">
                     <span class="material-icons-sharp">sports_esports</span>
                     <h3>Game</h3>
+                  </a>
+                  <a href="">
+                    <span class="material-icons-sharp">add_business</span>
+                    <h3>Create Lobby</h3>
+                  </a>
+                  <a href="" >
+                    <span class="material-icons-sharp">view_list</span>
+                    <h3>View Lobby</h3>
                   </a>
                   <a href="/logout/">
                     <span class="material-icons-sharp">logout</span>
@@ -92,7 +100,9 @@
                                         100 points
                                     </div>
                                 </div>
+                                
                             </div>
+                            <div class="join-button"><a class="cell" href=""><button>Ready for next round</button></a></div>
                         </div>
                     </div>
                 </div>
