@@ -41,10 +41,18 @@ class Submission(models.Model):
     user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE) 
     game_id = models.ForeignKey(Game, on_delete=models.CASCADE) 
     # submission = models.BinaryField(null=True, editable=True)
-    submission = models.ImageField(null=True, editable=True)
+    submission = models.ImageField(upload_to='media/',
+                                   null=True, editable=True)
     
+    def delete(self, *args, **kwargs):
+        storage = self.submission.storage
+        path = self.submission.path
+        storage.delete(path)
+        super(Submission, self).delete(*args, **kwargs)
     
     class Meta:
         unique_together = ("user_id", "game_id")
+
+
 
 
