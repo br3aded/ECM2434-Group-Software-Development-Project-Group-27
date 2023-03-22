@@ -55,36 +55,26 @@ def add_lobby(request):
     return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
 
 #this need to be changed to reflect database changes
-def get_game_data(request):
-    code = request.GET.get('code')
-    game = Game.objects.filter(game_code=code).all()
+def add_user(request):
+    game_code = (request.GET.get('code')).upper()
+    game = Game.objects.get(game_code=game_code)
+    app_user = get_object_or_404(AppUser, base_user=request.user)
 
-    group = Group.objects.get(id=data["hosting_group_id"])
-    if game and len(group) < game.max_players+1:
-        data = (game.values()[0])
-        app_user = get_object_or_404(AppUser, base_user=request.user)
-        group.group_members.add(app_user)
+    if game and (game.hosting_group.group_members.all()).count() < game.hosting_group.max_players and game.game_state == 0 and game.hosting_group.group_leader != app_user:
+        game.hosting_group.group_members.add(app_user)
 
-        users = []
-
-        for user in group.group_members.all():
-            users.append(user.base_user.username)
-
-        print(users)
-
-        return JsonResponse({'exists': True, 'data': data, 'users': users})
+        return JsonResponse({'exists': True})
     else:
         return JsonResponse({'exists': False})
 
 #pass the game code to here
 @login_required(login_url='/login/')
 def lobby_view(request, game_code):
-    game = Game.objects.filter(game_code=game_code).all()
+    game = Game.objects.get(game_code=game_code)
     app_user = get_object_or_404(AppUser, base_user=request.user)
-
     if game.game_state == 0:
         if game.hosting_group.group_leader == app_user:
-            return render(request,"game/gamelobby-client.html", {"game" : game})
+            return render(request,"game/gamelobby-client.html", {"game_code" : game_code})
         else:
             return render(request,"game/gamelobby-client.html", {"game_code" : game_code}) # change to other page for 
     if game.game_state == 1:
