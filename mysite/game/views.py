@@ -58,6 +58,7 @@ def add_lobby(request):
 def get_game_data(request):
     code = request.GET.get('code')
     game = Game.objects.filter(game_code=code).all()
+
     group = Group.objects.get(id=data["hosting_group_id"])
     if game and len(group) < game.max_players+1:
         data = (game.values()[0])
@@ -78,46 +79,56 @@ def get_game_data(request):
 #pass the game code to here
 @login_required(login_url='/login/')
 def lobby_view(request, game_code):
-    '''
-    rough outline of what the lobby should look like
-
-    game = Game.objects.filter(game_code=code).all()
+    game = Game.objects.filter(game_code=game_code).all()
+    app_user = get_object_or_404(AppUser, base_user=request.user)
 
     if game.game_state == 0:
-        # add a condition here that will change the state to 1 if condition met
-        return render(request,"game/waiting_for_players.html", {"game_code" : game_code})
-    if lobby state == 1:
-        if user_id == game get group_leader:
-            return HttpResponseRedirect(reverse('game:setting_task_view', {'game_code' : game_code}))
+        if game.hosting_group.group_leader == app_user:
+            return render(request,"game/gamelobby-client.html", {"game" : game})
         else:
-            return render(request,"game/waiting_for_task.html", {"game_code" : game_code})
-    if lobby state == 2:
-        #need a condition for if submisions == max_players change to state 3
-        if user_id == game get group_leader:
-            return render(request,"game/waiting_for_response", {"game_code" : game_code})
+            return render(request,"game/gamelobby-client.html", {"game_code" : game_code}) # change to other page for 
+    if game.game_state == 1:
+        if game.current_round_name != "":
+            game.game_state += 1
+            return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
         else:
-            if user_id not in submission:
-                return HttpResponseRedirect(reverse('game:response_task_view', {'game_code' : game_code}))
+            if app_user == game.hosting_group.group_leader:
+                return HttpResponseRedirect(reverse('game:setting_task_view', {'game_code' : game_code}))
             else:
+                return render(request,"game/waiting_for_task.html", {"game_code" : game_code})
+    if game.game_state == 2:
+        if game.submissions.objects.count() == game.hosting_group.max_players:
+            game.game_state += 1
+            return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
+        else:
+            if app_user == game.hosting_group.group_leader:
                 return render(request,"game/waiting_for_response", {"game_code" : game_code})
-    if lobby state == 3:
-        if user_id == game get group_leader:
-            return HttpResponseRedirect(reverse('game:rank_view', {'game_code' : game_code}))
+            else:
+                if game.submissions.filter(id=user.id).exists():
+                    return render(request,"game/waiting_for_response", {"game_code" : game_code})
+                else:
+                    return HttpResponseRedirect(reverse('game:response_task_view', {'game_code' : game_code}))
+    if game.game_state == 3:
+        if app_user == game.hosting_group.group_leader:
+            return HttpResponseRedirect(reverse('game:ranking_view', {'game_code' : game_code}))
         else:
             return render(request,"game/waiting_for_ranking", {"game_code" : game_code})
-    if lobby state == 4:
-        return render(request,"game/results.html", {"game_code" : game_code})
-        #need a condition here for when moving onto state 5
-    if lobby state == 5:
-        if lobby current round == total rounds:
-            return render display final results (possibly add a button here to delete lobby once all players have clicked it)
+    if game.game_state == 4:
+        if game.submission == None:
+            game.game_state += 1
+            return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
         else:
-            lobby current round += 1
-            lobby current state = 2
+            return render(request,"game/results.html", {"game_code" : game_code})
+        #delete submission when button on results page clicked
+    if game.game_state == 5:
+        if game.current_round_number == game.max_rounds:
+            return render(request,"game/results.html", {"game_code" : game_code})
+            #change html to results page
+        else:
+            game.current_round_number += 1
+            game.game_state = 2
+            game.current_round_name = ""
             return HttpResponseRedirect(reverse('game:lobby_view', {'game_code' : game_code}))
-
-    '''
-    return render(request,"game/gamelobby-client.html", {"username": request.user.username, "game_code": game_code})
 
 #pass the game code to here
 def set_task_view(request, game_code):
@@ -157,21 +168,6 @@ def response_task(request , game_code):
     
     return HttpResponseRedirect(reverse('game:lobby_view'))
 
-'''
-def rank_tasks():
-    code for ranking tasks here
-
-'''
-
-
-
-
-'''
-def members(request):
-    template = loader.get_template('join_lobby.html')
-    return render(request,"game/gamelobby.html")
-'''
-
 # /game url
 @login_required(login_url='/login/')
 def members(request):
@@ -183,10 +179,6 @@ def get_lobby_code(request):
     if request.method == "POST":
         code = request.POST["enter-code"]
         return code
-
-def test_get_variable(request):
-    output = "pupper"
-    return HttpResponse(request.POST[output])
 
 def player_lobbys(request):
     app_user = get_object_or_404(AppUser, base_user=request.user)
