@@ -1,38 +1,19 @@
-body, html {
-  background-image: url(forum-background.jpeg);
-  width: 95%;
-  position: relative;
-  left: 5%;
-  top: 10%;
-  font-size: 1rem;
-  font-family: poppins, sans-serif;
-  display: flex;
-  overflow-x: hidden;
-}
-
-.header{
-  position: absolute;
-  top: 0%;
-  left: 0%;
-}
-
 main {
-  position: relative;
-  display: flex;
-}
-
-.container {
-  margin: 1%;
-  position: relative;
+  background-color: rgba(255, 255, 255, .4);
+  border-radius: 4px;
+  display: grid;
   align-items: center;
-  display: flex;
-  /* height: 30%; */
-  gap: 1.8rem;
+  padding: 5%;
 }
-
-.uni-background {
-  background-image: url(forum-background.jpeg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.container1 {
+  padding: 0% 0% 5% 0%;
+  align-items: center;
+  color: black;
+}
+.button {
+  background-color: rgb(87, 255, 110);
+  padding: 1% 4%;
+  color: black;
+  font: 1rem sans-serif;
+  border-radius: 2px;
 }
