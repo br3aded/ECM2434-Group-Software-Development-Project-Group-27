@@ -79,7 +79,7 @@ def get_game_data(request):
 #pass the game code to here
 @login_required(login_url='/login/')
 def lobby_view(request, game_code):
-    game = Game.objects.filter(game_code=game_code).all()
+    game = Game.objects.get(game_code=game_code)
     app_user = get_object_or_404(AppUser, base_user=request.user)
 
     if game.game_state == 0:
