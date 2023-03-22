@@ -6,12 +6,8 @@ from django.utils import timezone
 
 ROUND_POINTS_PER_USER = 100
 
-
 #Note for all ManyToMany relations, the django M2M field is stored in
 #what would be the destination side of the arrow in the ER diagram
-
-#TODO:
-#Add total round counter as derived attribute in Game
 
 class Game(models.Model):
     GAME_STATES = ((0, "waitingForPlayers"),
@@ -26,13 +22,12 @@ class Game(models.Model):
     game_state = models.IntegerField(choices=GAME_STATES, default=0)
     max_rounds = models.IntegerField(default=5)
 
-    #active_task = models.ForeignKey(Task)
-    active_task_number = models.IntegerField(default=0) #defacto foreign key
-    #keeper_id = models.ForeignKey(AppUser, on_delete=models.CASCADE)
-    hosting_group = models.ForeignKey(Group, null=True, on_delete=models.SET_NULL)
-    submissions = models.ManyToManyField(AppUser,through="Submission",related_name="game_submissions")
+    current_round_number = models.IntegerField(default=0)
+    current_round_name = models.CharField(max_length=64, default="Task")
     
-    #users_playing = models.ManyToManyField(AppUser,through="Playing",related_name="users_playing")
+    hosting_group = models.ForeignKey(Group, null=True, on_delete=models.SET_NULL)
+    
+    submissions = models.ManyToManyField(AppUser,through="Submission",related_name="game_submissions")
 
     @property
     def points_per_round(self):
@@ -41,15 +36,6 @@ class Game(models.Model):
 
     def __str__(self):
         return self.game_name
-
-class Task(models.Model):
-    game_id = models.ForeignKey(Game, on_delete=models.CASCADE) 
-    task_number = models.IntegerField() #Effective PK. This is a weak entity on Game
-
-    task_name = models.CharField(max_length=128, default="Task")
-    
-    class Meta:
-        unique_together = ("game_id", "task_number")
 
 class Submission(models.Model):
     user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE) 
@@ -60,3 +46,5 @@ class Submission(models.Model):
     
     class Meta:
         unique_together = ("user_id", "game_id")
+
+

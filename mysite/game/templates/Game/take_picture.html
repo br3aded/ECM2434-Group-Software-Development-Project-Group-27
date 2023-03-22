@@ -21,6 +21,8 @@
       <script type="text/javascript">
           document.getElementById("submitimage").onclick = function () {
           storeImage(getCanvasImage());
+          var url = "{% url 'game:what ever page you need to redirect from here' game_code=game_code %}";
+          //please use this url above and change to what page you need to go to next , see take_picture.html
           location.href = "/game/test";
         };
         </script>
