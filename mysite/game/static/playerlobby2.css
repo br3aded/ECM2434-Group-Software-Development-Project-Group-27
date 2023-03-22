@@ -1,0 +1,67 @@
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.display {
+  max-width: 1000px;
+  background: white;
+  padding: 25px 30px;
+  border-radius: 20px;
+  display: grid;
+  grid-gap: 20px;
+  align-items: center;
+}
+
+.display .title{
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+}
+
+.display .title::before{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  background: linear-gradient(135deg, #71b7e6, var(--colour-primary));
+}
+
+.display li {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  align-items: center;
+  justify-items: end;
+  margin-bottom: 10px;
+}
+
+.lobby-name {
+  grid-column: 1 / span 1;
+}
+
+.join-button {
+  grid-column: 2 / span 1;
+  display: flex;
+  justify-content: center;
+}
+  
+.cell button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+.cell button:hover {
+  background-color: #3e8e41;
+}
