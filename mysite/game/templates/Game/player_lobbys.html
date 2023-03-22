@@ -27,31 +27,54 @@
                 </div>
               </div>
       
-              <div class="sidebar">
-                <a href="/home/">
-                  <span class="material-icons-sharp">person_outline</span>
-                  <h3>Home</h3>
-                </a>
-                <a href="/game/" class="active">
-                  <span class="material-icons-sharp">sports_esports</span>
-                  <h3>Game</h3>
-                </a>
-                <a href="/logout/">
-                  <span class="material-icons-sharp">grid_view</span>
-                  <h3>Logout</h3>
-                </a>
-              </div>
+            <div class="sidebar">
+              <a href="/home/">
+                <span class="material-icons-sharp">person_outline</span>
+                <h3>Home</h3>
+              </a>
+              <a href="/game/" class="active">
+                <span class="material-icons-sharp">sports_esports</span>
+                <h3>Game</h3>
+              </a>
+              <a href="/game/create_lobby">
+                <span class="material-icons-sharp">add_business</span>
+                <h3>Create Lobby</h3>
+              </a>
+              <a href="/game/player_lobbys" >
+                <span class="material-icons-sharp">view_list</span>
+                <h3>View Lobby</h3>
+              </a>
+              <a href="/logout/">
+                <span class="material-icons-sharp">logout</span>
+                <h3>Logout</h3>
+              </a>
+            </div>
             </aside>
             <main>
               <div class="display">
                 <div class="title">Lobby List:</div>
+                <div class="grid-titles">
+                  <div class="lobby-name right-margin" style="grid-column: 1; margin-right: 12.5px">Name</div>
+                  <div class="lobby-name right-margin" style="grid-column: 2; margin-right: 5px;">Code </div>
+                  <div class="lobby-name right-margin" style="grid-column: 3; margin-right: 10px">Players</div>
+                  <div class="lobby-name right-margin" style="grid-column: 4">State</div>
+                </div>
                 {% if lobby_list %}
                 <ul>
                   {% for lobby in lobby_list %}
                   <li>
-                    <div class="lobby-name">{{lobby.game_name}}</div>
-                    <div class="lobby-id">{{lobby.game_name}}</div>
+                    <div class="lobby-name right-margin">{{lobby.game_name}}</div>
+                    <div class="lobby-code right-margin">{{lobby.game_code}}</div>
+                    <div class="lobby-rounds right-margin">{{lobby.hosting_group.all_members|length}}/{{lobby.hosting_group.max_players}}</div>
+
+                    {% if lobby.game_state == 0 %}
+                      <div class="lobby-state right-margin"> Waiting </div>
+                    {% else %}
+                      <div class="lobby-state right-margin"> Playing </div>
+                    {% endif %}
+
                     <div class="join-button"><a class="cell" href="{% url 'game:lobby_view' game_code=lobby.game_code %}"><button>Join</button></a></div>
+
                   </li>
                   {% endfor %}
                 </ul>

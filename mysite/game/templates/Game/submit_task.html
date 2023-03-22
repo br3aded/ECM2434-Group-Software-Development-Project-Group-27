@@ -8,7 +8,7 @@
         <title> Taskmaster </title>
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
         <link rel="stylesheet" href="{% static 'submit-task.css' %}">
-        <link rel="stylesheet" href="{% static 'sidebar1.css' %}">
+        <link rel="stylesheet" href="{% static 'sidebar3.css' %}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <meta name="author" content="Kwadwo Oppong-Mensah" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +35,14 @@
               <a href="/game/" class="active">
                 <span class="material-icons-sharp">sports_esports</span>
                 <h3>Game</h3>
+              </a>
+              <a href="/game/create_lobby">
+                <span class="material-icons-sharp">add_business</span>
+                <h3>Create Lobby</h3>
+              </a>
+              <a href="/game/player_lobbys" >
+                <span class="material-icons-sharp">view_list</span>
+                <h3>View Lobby</h3>
               </a>
               <a href="/logout/">
                 <span class="material-icons-sharp">logout</span>

@@ -4,9 +4,10 @@ const enterCodeInput = document.getElementById('enter-code');
 enterCodeInput.addEventListener('input', () => {
     let code = enterCodeInput.value;
     if (code.length >= 5) {
-        console.log(code);
-        // Send an AJAX request to a Django view
         
+        // Send an AJAX request to a Django view
+        code = code.toUpperCase()
+        console.log(code);
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
