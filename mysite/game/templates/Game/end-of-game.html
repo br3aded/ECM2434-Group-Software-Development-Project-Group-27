@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+
+        <title> Taskmaster </title>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
+        <link rel="stylesheet" href="{% static 'sidebar2.css' %}">
+        <link rel="stylesheet" href="{% static 'end-game.css' %}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <meta name="author" content="isaac" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="container">
+            <aside>
+                <div class="top">
+                  <div class="logo">
+                      <img src="{% static 'favicon.png'%}">
+                      <h2>Task master</h2>
+                  </div>
+                  <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                  </div>
+                </div>
+        
+                <div class="sidebar">
+                  <a href="/home/">
+                    <span class="material-icons-sharp">person_outline</span>
+                    <h3>Home</h3>
+                  </a>
+                  <a href="/game/" class="active">
+                    <span class="material-icons-sharp">sports_esports</span>
+                    <h3>Game</h3>
+                  </a>
+                  <a href="/logout/">
+                    <span class="material-icons-sharp">logout</span>
+                    <h3>Logout</h3>
+                  </a>
+                </div>
+              </aside>
+              <main>
+                <div class="wrapper">
+                    <div class="lboard_section">
+                        <div class="lboard_tabs">
+                            <div class="tabs">
+                                <ul>
+                                    <li class="active" data-li="today">Leaderboard</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="lboard_wrap">
+                            <div class="lboard_item today">
+                                <div class="lboard_mem">
+                                    <div class="name_bar">
+                                        <p><span>1.</span>name</p>
+                                        <div class="bar_wrap">
+                                            <div class="inner_bar" style="width:95%">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="points">
+                                        180 points
+                                    </div>
+                                </div>
+                                <div class="lboard_mem">
+                                    <div class="name_bar">
+                                        <p><span>2.</span>name</p>
+                                        <div class="bar_wrap">
+                                            <div class="inner_bar" style="width:80%">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="points">
+                                        140 points
+                                    </div>
+                                </div>
+                                <div class="lboard_mem">
+                                    <div class="name_bar">
+                                        <p><span>3.</span>name</p>
+                                        <div class="bar_wrap">
+                                            <div class="inner_bar" style="width:60%">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="points">
+                                        100 points
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+              </main>
+              <div class="right">
+                <div class="top">
+                    <button id="menu-btn">
+                      <span class="material-icons-sharp">menu</span>
+                    </button>
+                    <div class="profile">
+                      <div class="info">
+                        <h3>{{username}}</h3>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+        </div>
+    </body>
+</html>
