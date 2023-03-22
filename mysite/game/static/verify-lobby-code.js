@@ -6,7 +6,7 @@ enterCodeInput.addEventListener('input', () => {
     if (code.length >= 5) {
         
         // Send an AJAX request to a Django view
-        code = code.toUpperCase()
+        code = code.toUpperCase();
         console.log(code);
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
