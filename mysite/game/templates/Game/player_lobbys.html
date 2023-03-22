@@ -9,7 +9,7 @@
         <meta name="author" content="Kelsey Holdgate, isaac" />
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'playerlobby.css'%}">
+        <link rel="stylesheet" href="{% static 'playerlobby2.css'%}">
         <link rel="stylesheet" href="{% static 'sidebar1.css'%}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -44,19 +44,19 @@
             </aside>
             <main>
               <div class="display">
-                  {% if lobby_list %}
-                  <ul>
+                <div class="title">Lobby List:</div>
+                {% if lobby_list %}
+                <ul>
                   {% for lobby in lobby_list %}
-                  <tr>
-                      <th> {{lobby.game_name}} </th>
-                      <!--Display number of users in lobby -->
-                      <th><a class = "cell" href="{% url 'game:lobby_view' game_code=lobby.game_code %}"> <button>Join</button></a></th>
-                      <!--this line above will have to be changed when lobby view is finished-->
+                  <li>
+                    <div class="lobby-name">{{lobby.game_name}}</div>
+                    <div class="join-button"><a class="cell" href="{% url 'game:lobby_view' game_code=lobby.game_code %}"><button>Join</button></a></div>
+                  </li>
                   {% endfor %}
-                  </ul>
-              {% else %}
-                  <p>You don't have any active lobbys</p>
-              {% endif %}
+                </ul>
+                {% else %}
+                <p>You don't have any active lobbies</p>
+                {% endif %}
               </div>
             </main>
             <div class="right">

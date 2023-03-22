@@ -14,10 +14,26 @@ main{
     border-radius: 20px;
   }
 
+  .game-display .title{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .game-display .title::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    background: linear-gradient(135deg, #71b7e6, var(--colour-primary));
+  }
+
   .game-display .icon-container{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   .button-container {
@@ -27,8 +43,15 @@ main{
 }
 
 .icon-container .info{
-    margin: 20px 0 12px 0;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 12px 0;
     font-weight: 500;
+    align-items: center;
+}
+
+.icon-container .info .name-plate{
+  margin-bottom: 10px;
 }
 
 .user-button {

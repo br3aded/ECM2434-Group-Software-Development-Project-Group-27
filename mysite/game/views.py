@@ -219,4 +219,8 @@ def take_picture(request,game_code):
 
 
 def test(request):
-    return render(request, 'game/test.html', )
+    return render(request, 'game/test.html')
+
+def end_game(request):
+    return render(request, 'game/end-of-game.html')
+
