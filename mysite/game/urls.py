@@ -18,7 +18,8 @@ urlpatterns = [
     path('', views.members, name='game'),
     path('end_game', views.end_game, name='end_game'),
     path('inc_gamestate', views.inc_gamestate, name='inc_gamestate'),
-     path('waiting_for_response', views.inc_gamestate, name='waiting_for_response'),
+    path('waiting_for_response', views.inc_gamestate, name='waiting_for_response'),
+    path('ready_up', views.ready_up, name='ready_up'),
 
     #urls with <str:game_code> display the game code of the game currently being played
 ]

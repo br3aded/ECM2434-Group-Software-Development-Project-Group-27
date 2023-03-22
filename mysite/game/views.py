@@ -240,3 +240,9 @@ def inc_gamestate(request):
     print(game.game_state)
     return JsonResponse({'exists': True})
 
+def ready_up(request):
+    print("fire")
+    game_code = (request.GET.get('code')).upper().replace(" ", "")
+    
+    game = Game.objects.get(game_code=game_code)
+    return JsonResponse({'exists': True}) 
