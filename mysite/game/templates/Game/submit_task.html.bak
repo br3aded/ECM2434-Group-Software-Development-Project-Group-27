@@ -58,7 +58,7 @@
               <div class="container1">
                 <h2>Submission</h2>
                 <label for="img">Select image:</label>
-                <form id= "imageData" action="/game/submit_task/{{ game_code }}" enctype=multipart/form-data method="POST">
+                <form id= "imageData" action="/game/submit_task" enctype=multipart/form-data method="POST">
                   {% csrf_token %}
                   <label for="id_submission">Submission:</label>
                   <input type="file" name="submission" accept="image/*" required="" id="id_submission">
