@@ -50,6 +50,7 @@
                   {% for lobby in lobby_list %}
                   <li>
                     <div class="lobby-name">{{lobby.game_name}}</div>
+                    <div class="lobby-id">{{lobby.game_name}}</div>
                     <div class="join-button"><a class="cell" href="{% url 'game:lobby_view' game_code=lobby.game_code %}"><button>Join</button></a></div>
                   </li>
                   {% endfor %}
@@ -73,5 +74,6 @@
               </div>
           </div>
         </div>
+        <script src="{% static 'sidebar.js'%}"></script>
     </body>
 </html>
