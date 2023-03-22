@@ -54,7 +54,9 @@ class Task(models.Model):
 class Submission(models.Model):
     user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE) 
     game_id = models.ForeignKey(Game, on_delete=models.CASCADE) 
-    submission = models.BinaryField(null=True)
+    # submission = models.BinaryField(null=True, editable=True)
+    submission = models.ImageField(null=True, editable=True)
+    
     
     class Meta:
         unique_together = ("user_id", "game_id")

@@ -4,11 +4,12 @@ import random
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.urls import reverse
-from .models import Game , Group , Task
+from .models import Game , Group , Task , Submission
+from . import forms
 from user.models import AppUser
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -190,7 +191,14 @@ def player_lobbys(request):
 
 #pass the game code to here
 def submit_task(request):
-    return render(request, 'game/submit_task.html')
+    if request.method == "POST":
+        form = forms.createSubmission(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('./test')
+    else:
+        form = forms.createSubmission()
+    return render(request, 'game/submit_task.html', { 'form': form })
 
 #pass the game code to here
 def take_picture(request):
@@ -198,4 +206,4 @@ def take_picture(request):
 
 #pass the game code to here
 def test(request):
-    return render(request, 'game/test.html')
+    return render(request, 'game/test.html', )

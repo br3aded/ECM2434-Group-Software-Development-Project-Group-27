@@ -50,16 +50,13 @@
               <div class="container1">
                 <h2>Submission</h2>
                 <label for="img">Select image:</label>
-                <input type="file" id="imgsub" name="img" accept="image/*">
-                <button class="button" id="submitImage">Submit</button>
-                <!-- <script type="text/javascript">
-                  document.getElementById("submitImage").onclick = function () {
-                    storeImage(getSelectedImage());
-                    submit = Submission(submission= retrieveImage());
-                    submit.save();
-                    location.href = '/game/test';
-                  }
-                  </script> -->
+                <form id= "imageData" action="/game/submit_task" enctype=multipart/form-data method="POST">
+                  {% csrf_token %}
+                  {{ form }}
+                  <input class="button" type="submit" value="Submit">
+                  <!-- <input type="file" id="imgsub" name="img" accept="image/*"> -->
+                </form>
+                <!-- <button class="button" id="submitImage">Submit</button> -->
               </div>
               
               <div class="container1">
