@@ -25,7 +25,8 @@
           <button id="takepic">Take Picture</button>
           <script type="text/javascript">
             document.getElementById("takepic").onclick = function () {
-            location.href = "/game/take_picture";
+            var url = "{% url 'game:take_picture' game_code=game_code %}";
+            location.href = url;
             };
           </script>
       </div>

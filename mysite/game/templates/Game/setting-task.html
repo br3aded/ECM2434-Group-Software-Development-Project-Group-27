@@ -43,7 +43,7 @@
         </aside>
         <main id="main" class="main">
           <section id="main-content" class="content-block uni-background">
-            <form class="form" id="set_task" action="set_task" method="post">
+            <form class="form" id="set_task" action="{% url 'game:set_task' game_code=game_code %}" method="post">
               {% csrf_token %}
                 <div class="title"> Set Task</div>
                 <div class="task-description">
@@ -51,14 +51,14 @@
                     <span class="details">Select your task here!</span>
                     <select name="eco-tasks" id="eco-tasks">
                       {% for task in tasks %}
-                      <option value="task1">{{task}}</option>
+                      <option value="{{task}}">{{task}}</option>
                       {% endfor %}
-                      </select>
+                    </select>
                   </div>
                   <div class="input-box">
-                    <span class="details">Task Description</span>
-                    <input type="text" id="task-desc" name="task description">
-                  </div>
+                    <span class="details">Task description</span>
+                    <input type="text" id="Task desc" name="Task desc">
+                </div>
                   <div class="button">
                     <input type="submit" value="Set">
                   </div>
