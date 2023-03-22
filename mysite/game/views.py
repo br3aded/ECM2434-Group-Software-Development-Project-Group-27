@@ -96,11 +96,11 @@ def lobby_view(request, game_code):
             if app_user == game.hosting_group.group_leader:
                 return HttpResponseRedirect(reverse('game:setting_task_view', kwargs={'game_code' : game_code}))
             else:
-                return render(request,"game/waiting_for_task.html", kwargs={"game_code" : game_code})
+                return render(request,"game/waiting_for_task.html", {"game_code" : game_code})
 
     if game.game_state == 2:
         #checks if all the players have submitted response to tasks
-        if (game.submissions.all()).count() == game.hosting_group.max_players:
+        if (game.submissions.all()).count() == game.hosting_group:
             game.game_state = 3
             game.save()
             return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
@@ -114,7 +114,7 @@ def lobby_view(request, game_code):
                     return render(request,"game/waiting_response.html", {"game_code" : game_code})
                 else:
                     #else redirect to view for submiting tasks
-                    return HttpResponseRedirect(reverse('game:submit_task', {'game_code' : game_code}))
+                    return HttpResponseRedirect(reverse('game:submit_task', kwargs={'game_code' : game_code}))
     #loads correct pages for game state 3 based on if the user is host or not
 
     if game.game_state == 3:
