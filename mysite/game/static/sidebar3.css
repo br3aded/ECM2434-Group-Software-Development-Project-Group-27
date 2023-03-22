@@ -183,23 +183,36 @@ h5 {
   
     aside{
       position: fixed;
-      left: -100%;
+      left: 0;
       background: white;
       width: 12rem;
       z-index: 3;
       box-shadow: 1rem 3rem 4rem var(--box-shadow);
-      height: 80vh;
+      height: 100vh;
       padding-right: 1.8rem;
       display: none;
       animation: showMenu, 400ms ease forwards;
     }
+
+    @keyframes showMenu {
+      to{
+        left: 0;
+      }
+    }
+
+    aside .sidebar{
+      height: 85vh;
+    }
   
     aside .logo{
       margin-left: 1rem;
+      display: flex;
+      align-items: center;
     }
   
     aside .logo h2{
-      display: inline;
+      display: flex;
+      justify-content: center;
     }
   
     aside .sidebar h3{
@@ -219,6 +232,7 @@ h5 {
     aside .close{
       display: inline-block;
       cursor: pointer;
+      margin-left: 10px;
     }
   
     main{

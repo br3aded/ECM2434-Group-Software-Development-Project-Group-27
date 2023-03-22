@@ -6,7 +6,7 @@ app_name = 'game'
 urlpatterns = [
     path('create_lobby', views.create_lobby, name='create_lobby'),
     path('add_lobby',views.add_lobby ,name='add_lobby'),
-    path('lobby/<str:game_code>',views.lobby_view,name='lobby_view'), #should include game code in lobby name
+    path('lobby/<str:game_code>',views.lobby_view,name='lobby_view'), 
     path('setting_task/<str:game_code>',views.set_task_view,name='setting_task_view'),
     path('set_task/<str:game_code>', views.set_task , name = 'set_task'),
     path('add_user', views.add_user, name='add_user'),
@@ -18,4 +18,6 @@ urlpatterns = [
     path('', views.members, name='game'),
     path('end_game', views.end_game, name='end_game'),
     path('inc_gamestate', views.inc_gamestate, name='inc_gamestate'),
+
+    #urls with <str:game_code> display the game code of the game currently being played
 ]

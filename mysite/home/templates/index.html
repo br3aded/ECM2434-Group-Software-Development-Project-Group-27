@@ -43,9 +43,9 @@
         </aside>
         <main id="main" class="main">
           <section id="landing-page" class="content-block">
-              <img src="{% static 'favicon-large.png' %}" class="large-logo center" draggable="false">
+              <img src="{% static 'favicon-large.png' %}" class="large-logo center" style="top: 50%" draggable="false">
 
-              <div class="button-container center" style="top: 70%">
+              <div class="button-container center" style="top: 90%">
                   <div id="create-account" class="user-button disable-select" onmousedown="dim(this.id)"
                                                                            onmouseup="undim(this.id)" 
                                                                            onmouseleave="undim(this.id)"
@@ -70,7 +70,7 @@
       </div>
       </div>
         
-
+        <script src="{% static 'sidebar.js'%}"></script>
         <script src="{% static 'page-logic.js' %}"></script>
         <script src="{% static 'button-dim.js' %}"></script>
     </body>
