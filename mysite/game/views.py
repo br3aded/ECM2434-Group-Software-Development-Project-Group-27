@@ -77,50 +77,49 @@ def lobby_view(request, game_code):
     #gets game with passed game code and currently logged in user
     game = Game.objects.get(game_code=game_code)
     app_user = get_object_or_404(AppUser, base_user=request.user)
-    print(app_user)
     #loads correct pages for game state 0 based on is the user is a host or not
     if game.game_state == 0:
         if game.hosting_group.group_leader == app_user:
             return render(request,"game/gamelobby-client.html", {"game_code" : game_code})
         else:
             return render(request,"game/gamelobby-client no start.html", {"game_code" : game_code}) # change to other page for 
-
+    #loads correct pages for game state 1 based on if the user is host or not
     if game.game_state == 1:
         #checks to see if a task has been set , if true game state is iterated
-        print(game.current_round_name)
         if game.current_round_name != "":
             game.game_state = 2
             game.save()
             return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
         else:
             if app_user == game.hosting_group.group_leader:
+                #view used for setting tasks
                 return HttpResponseRedirect(reverse('game:setting_task_view', kwargs={'game_code' : game_code}))
             else:
+                #page for waiting screen
                 return render(request,"game/waiting_for_task.html", {"game_code" : game_code})
-
+    #loads correct pages for game state 2 based on if the user is host or not
     if game.game_state == 2:
         #checks if all the players have submitted response to tasks
-        if (game.submissions.all()).count() == game.hosting_group:
+        if (game.submissions.all()).count() == (game.hosting_group.group_members.all()).count():
             game.game_state = 3
             game.save()
             return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
         else:
             #if game host render waiting screen
             if app_user == game.hosting_group.group_leader:
-                return render(request,"game/waiting_response.html", {"game_code" : game_code})
+                return render(request,"game/waiting_for_response.html", {"game_code" : game_code})
             else:
-                submisssions = app_user.submission_set.all()
-                if submisssions.exists():
-                    return render(request,"game/waiting_response.html", {"game_code" : game_code})
+                #if user has already submitted render waiting screen
+                if game.submissions.filter(AppUser=app_user).exists():
+                    return render(request,"game/waiting_for_response.html", {"game_code" : game_code})
                 else:
                     #else redirect to view for submiting tasks
-                    return HttpResponseRedirect(reverse('game:submit_task', kwargs={'game_code' : game_code}))
+                    return HttpResponseRedirect(reverse('game:response_task_view', kwargs={'game_code' : game_code}))
     #loads correct pages for game state 3 based on if the user is host or not
-
     if game.game_state == 3:
         if app_user == game.hosting_group.group_leader:
             #redirects to ranking view for game master
-            return HttpResponseRedirect(reverse('game:ranking_view', {'game_code' : game_code}))
+            return HttpResponseRedirect(reverse('game:ranking_view', kwargs={'game_code' : game_code}))
         else:
             #renders waiting page for players
             return render(request,"game/waiting_for_ranking.html", {"game_code" : game_code})
@@ -139,14 +138,13 @@ def lobby_view(request, game_code):
         #if the round is the final round load end of game results page
         if game.current_round_number == game.max_rounds:
             return render(request,"game/results.html", {"game_code" : game_code})
-            #change html to results page
         else:
             #starts a new round
             game.current_round_number += 1
             game.game_state = 2
             game.current_round_name = ""
             game.save()
-            return HttpResponseRedirect(reverse('game:lobby_view', {'game_code' : game_code}))
+            return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
 
 #view used to render set task page
 @login_required(login_url='/login/')
@@ -205,18 +203,17 @@ def player_lobbys(request):
     #renders player_lobbys page with a list of associated game objects
     return render(request,"game/player_lobbys.html", {'lobby_list' : games})
 
-#pass the game code to here
-def submit_task(request, game_code):
+#used to submit images
+@login_required(login_url='/login/')
+def submit_task(request):
     if request.method == "POST":
-        game = Game.objects.filter(game_code=game_code).first()
-        user = get_object_or_404(AppUser, base_user=request.user)
-        submission = Submission(game_id = game,
-                                user_id = user,
-                                submission = request.FILES['submission'])
-        submission.save()
-        return HttpResponseRedirect('../lobby/' + game_code)
+        form = forms.createSubmission(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('./test')
     else:
-        return render(request, 'game/submit_task.html', {'game_code' : game_code})
+        form = forms.createSubmission()
+    return render(request, 'game/submit_task.html', { 'form': form })
 
 #renders the page used to take pictures
 @login_required(login_url='/login/')
