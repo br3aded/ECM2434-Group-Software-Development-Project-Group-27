@@ -205,17 +205,18 @@ def player_lobbys(request):
     #renders player_lobbys page with a list of associated game objects
     return render(request,"game/player_lobbys.html", {'lobby_list' : games})
 
-#used to submit images
-@login_required(login_url='/login/')
+#pass the game code to here
 def submit_task(request, game_code):
     if request.method == "POST":
-        form = forms.createSubmission(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('./test')
+        game = Game.objects.filter(game_code=game_code).first()
+        user = get_object_or_404(AppUser, base_user=request.user)
+        submission = Submission(game_id = game,
+                                user_id = user,
+                                submission = request.FILES['submission'])
+        submission.save()
+        return HttpResponseRedirect('../lobby/' + game_code)
     else:
-        form = forms.createSubmission()
-    return render(request, 'game/submit_task.html', { 'form': form })
+        return render(request, 'game/submit_task.html', {'game_code' : game_code})
 
 #renders the page used to take pictures
 @login_required(login_url='/login/')
