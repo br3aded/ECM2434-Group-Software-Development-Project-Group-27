@@ -207,7 +207,7 @@ create_lobby(/create_lobby) - this view is used to render the createlobby.html t
 
 add_lobby(/add_lobby) -  this is called from within createlobby.html and creates a new Game model for the details the user has entered it then renders the lobby view
 
-get_game_data(/get_game_data) -  this is used when joining a lobby through game code and retrevies all the data related to a game lobby and returns a JsonResponse
+add_player(/add_player) -  this is used when joining a lobby through game code and retrevies all the data related to a game lobby and returns a JsonResponse
 
 lobby_view(/lobby/<str:game_code>) - this is where all the correct view and pages are rendered based on the game state and is where the main functionality of game code is contained
 
