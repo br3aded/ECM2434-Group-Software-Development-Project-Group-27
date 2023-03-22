@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.urls import reverse
-from .models import Game , Group , Task , Submission
+from .models import Game , Group , Submission
 from . import forms
 from user.models import AppUser
 from datetime import datetime
