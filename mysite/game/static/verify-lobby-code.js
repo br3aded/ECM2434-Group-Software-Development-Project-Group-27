@@ -13,13 +13,13 @@ enterCodeInput.addEventListener('input', () => {
                 const response = JSON.parse(xhr.responseText);
                 if (response.exists) {
                     // Code exists in the Game model, redirect to lobby_view
-                    window.location.href = '/game/lobby?code=' + code;
+                    window.location.href = `/game/lobby/${code}`;
                 } else {
                     // Code does not exist in the Game model, do nothing
                 }
             }
         };
-        xhr.open('GET', `/game/get_game_data?code=${code}`);
+        xhr.open('GET', `/game/add_user?code=${code}`);
         xhr.send();
     }
 });

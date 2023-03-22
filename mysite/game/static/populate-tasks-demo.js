@@ -25,7 +25,7 @@ xhr.onreadystatechange = () => {
 let username_header = document.getElementById("username");
 let username = username_header.innerHTML;
 console.log(username);
-xhr.open('GET', `/game/get_game_data?code=${code}`);
+xhr.open('GET', `/game/add_user?code=${code}`);
 xhr.send();
 
 function populateMaxPlayers() {
