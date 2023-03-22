@@ -35,6 +35,14 @@
               <span class="material-icons-sharp">sports_esports</span>
               <h3>Game</h3>
             </a>
+            <a href="/game/create_lobby">
+              <span class="material-icons-sharp">add_business</span>
+              <h3>Create Lobby</h3>
+            </a>
+            <a href="/game/player_lobbys" >
+              <span class="material-icons-sharp">view_list</span>
+              <h3>View Lobby</h3>
+            </a>
             <a href="/logout/">
               <span class="material-icons-sharp">logout</span>
               <h3>Logout</h3>
@@ -48,16 +56,15 @@
                 <div id="player-container" class="icon-container center" style="top: 50%">
                   <div id="info" class="info">
                     <div id="name" class="name-plate"> name </div>
-                    <div id="code" class="name-plate"> code </div>
+                    <div id="code" class="name-plate"> {{game_code}} </div>
                     <div id="host" class="name-plate"> Host: You </div>
                     <div id="host" class="name-plate"> Waiting... </div>
                   </div>
                 </div>
                 <div id="user-options" class="button-container center" style="top: 80%">
-                  <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
+                  <div id="next" class="user-button disable-select" onmousedown="dim(this.id)"
                                                                             onmouseup="undim(this.id)" 
-                                                                            onmouseleave="undim(this.id)"
-                                                                            onclick="window.location.href = 'setting_task'"> Start
+                                                                            onmouseleave="undim(this.id)"> Start Game
                   </div>
                 </div>
               </div>
@@ -79,9 +86,9 @@
       </div>
         
 
-        <script src="{% static 'page-logic.js' %}"></script>
         <script src="{% static 'button-dim.js' %}"></script>
-        <!-- <script src="{% static 'main.js' %}"></script> -->
-        <script src="{% static 'populate-lobby.js' %}"></script>
+        <!-- <script src="{% static 'main.js' %}"></script> 
+        <script src="{% static 'populate-lobby.js' %}"></script>-->
+        <script src="{% static 'increment-state.js' %}"></script>
     </body>
 </html>

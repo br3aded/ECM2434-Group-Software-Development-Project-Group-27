@@ -34,18 +34,35 @@ main {
 
 .display li {
   display: grid;
-  grid-template-columns: 1fr 150px;
+  grid-template-columns: 50px 50px  50px  1fr 150px;
   align-items: center;
-  justify-items: end;
+
+  text-align: center;
   margin-bottom: 10px;
+}
+
+.right-margin {
+  margin-right: 5px;
 }
 
 .lobby-name {
   grid-column: 1 / span 1;
 }
 
-.join-button {
+.lobby-code {
   grid-column: 2 / span 1;
+}
+
+.lobby-rounds {
+  grid-column: 3 / span 1;
+}
+
+.lobby-state {
+  grid-column: 4 / span 1;
+}
+
+.join-button {
+  grid-column: 5 / span 1;
   display: flex;
   justify-content: center;
 }
@@ -64,4 +81,13 @@ main {
 
 .cell button:hover {
   background-color: #3e8e41;
+}
+
+.grid-titles {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 160px;
+  align-items: center;
+  margin-bottom: 10px;
 }

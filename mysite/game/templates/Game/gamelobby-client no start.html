@@ -7,10 +7,10 @@
 
         <title> Taskmaster </title>
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon-large.png' %}" />
-        <link rel="stylesheet" href="{% static 'sidebar1.css' %}">
-        <link rel="stylesheet" href="{% static 'default1.css' %}">
+        <link rel="stylesheet" href="{% static 'sidebar2.css' %}">
+        <link rel="stylesheet" href="{% static 'gamelobby1.css' %}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-        <meta name="author" content="Matthew Wood" />
+        <meta name="author" content="Isaac Ng" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
@@ -50,28 +50,20 @@
           </div>
         </aside>
         <main id="main" class="main">
-          <section id="main-content" class="content-block">
-              <form id="options" class="options-container center"> 
-                  {% csrf_token %}
-                  <input type="text" id="enter-code" class="enter-code" name="enter-code" placeholder="Enter code" maxlength="5"><br>
-              </form>
-          
-            <div id="user-options" class="button-container center" style="top: 60%">
-                <div id="create-game" class="user-button disable-select" onmousedown="dim(this.id)"
-                                                                          onmouseup="undim(this.id)" 
-                                                                          onmouseleave="undim(this.id)"
-                                                                          onclick="window.location.href = 'create_lobby'"> CREATE GAME 
-                <a href="createlobby.html"></a>
+          <section id="main-content" class="content-block uni-background">
+              <div id="game-display" class="game-display">
+                <div class="title">Lobby:</div>
+                <div id="player-container" class="icon-container center" style="top: 50%">
+                  <div id="info" class="info">
+                    <div id="name" class="name-plate"> name </div>
+                    <div id="code" class="name-plate"> {{game_code}} </div>
+                    <div id="host" class="name-plate"> Host: You </div>
+                    <div id="host" class="name-plate"> Waiting... </div>
+                  </div>
                 </div>
-
-                <div id="view-games" class="user-button disable-select" onmousedown="dim(this.id)"
-                                                                          onmouseup="undim(this.id)" 
-                                                                          onmouseleave="undim(this.id)"
-                                                                          onclick = "window.location.href = 'player_lobbys'"> VIEW GAMES 
-                <a href="player_lobbys.html"></a>
-                </div>
-            </div>
+              </div>
           </section>
+          <footer id="footer" class="footer"></footer>
       </main>
       <div class="right">
         <div class="top">
@@ -88,8 +80,9 @@
       </div>
         
 
-        <script> src="{% static 'page-logic.js' %}"</script>
         <script src="{% static 'button-dim.js' %}"></script>
-        <script src="{% static 'verify-lobby-code.js' %}"></script>
+        <!-- <script src="{% static 'main.js' %}"></script> 
+        <script src="{% static 'populate-lobby.js' %}"></script>-->
+        <script src="{% static 'increment-state.js' %}"></script>
     </body>
 </html>

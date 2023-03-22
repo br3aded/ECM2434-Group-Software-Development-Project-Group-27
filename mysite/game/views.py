@@ -76,28 +76,30 @@ def lobby_view(request, game_code):
         if game.hosting_group.group_leader == app_user:
             return render(request,"game/gamelobby-client.html", {"game_code" : game_code})
         else:
-            return render(request,"game/gamelobby-client.html", {"game_code" : game_code}) # change to other page for 
+            return render(request,"game/gamelobby-client no start.html", {"game_code" : game_code}) # change to other page for 
     if game.game_state == 1:
         if game.current_round_name != "":
             game.game_state += 1
+            game.save()
             return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
         else:
             if app_user == game.hosting_group.group_leader:
-                return HttpResponseRedirect(reverse('game:setting_task_view', {'game_code' : game_code}))
+                return HttpResponseRedirect(reverse('game:setting_task_view', kwargs={'game_code' : game_code}))
             else:
-                return render(request,"game/waiting_for_task.html", {"game_code" : game_code})
+                return render(request,"game/waiting_for_task.html", kwargs={"game_code" : game_code})
     if game.game_state == 2:
         if game.submissions.objects.count() == game.hosting_group.max_players:
             game.game_state += 1
+            game.save()
             return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
         else:
             if app_user == game.hosting_group.group_leader:
-                return render(request,"game/waiting_for_response", {"game_code" : game_code})
+                return render(request,"game/waiting_for_response", kwargs={"game_code" : game_code})
             else:
                 if game.submissions.filter(id=user.id).exists():
-                    return render(request,"game/waiting_for_response", {"game_code" : game_code})
+                    return render(request,"game/waiting_for_response", kwargs={"game_code" : game_code})
                 else:
-                    return HttpResponseRedirect(reverse('game:response_task_view', {'game_code' : game_code}))
+                    return HttpResponseRedirect(reverse('game:response_task_view', kwargs={'game_code' : game_code}))
     if game.game_state == 3:
         if app_user == game.hosting_group.group_leader:
             return HttpResponseRedirect(reverse('game:ranking_view', {'game_code' : game_code}))
@@ -106,6 +108,7 @@ def lobby_view(request, game_code):
     if game.game_state == 4:
         if game.submission == None:
             game.game_state += 1
+            game.save()
             return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
         else:
             return render(request,"game/results.html", {"game_code" : game_code})
@@ -118,6 +121,7 @@ def lobby_view(request, game_code):
             game.current_round_number += 1
             game.game_state = 2
             game.current_round_name = ""
+            game.save()
             return HttpResponseRedirect(reverse('game:lobby_view', {'game_code' : game_code}))
 
 #pass the game code to here
@@ -205,4 +209,13 @@ def test(request):
 
 def end_game(request):
     return render(request, 'game/end-of-game.html')
+
+def inc_gamestate(request):
+    game_code = (request.GET.get('code')).upper().replace(" ", "")
+    print(game_code)
+    game = Game.objects.get(game_code=game_code)
+    game.game_state += 1
+    game.save()
+    print(game.game_state)
+    return JsonResponse({'exists': True})
 

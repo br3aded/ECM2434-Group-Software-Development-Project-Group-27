@@ -17,6 +17,7 @@
 
 .lboard_section ul{
     display: flex;
+    flex-direction: horizontal;
 }
 
 .lboard_section ul li{
@@ -123,3 +124,4 @@
   .cell button:hover {
     background-color: #3e8e41;
   }
+
