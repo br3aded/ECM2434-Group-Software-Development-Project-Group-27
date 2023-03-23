@@ -16,10 +16,14 @@ urlpatterns = [
     path('game/', views.members, name='game'),
     path('player_lobbys', views.player_lobbys,name='player_lobbys'),
     path('', views.members, name='game'),
-    path('end_game', views.end_game, name='end_game'),
+    path('end_game<str:game_code>', views.end_game, name='end_game'),
     path('inc_gamestate', views.inc_gamestate, name='inc_gamestate'),
     path('waiting_for_response', views.inc_gamestate, name='waiting_for_response'),
     path('ready_up', views.ready_up, name='ready_up'),
+    path('ranking_view<str:game_code>', views.ranking_view, name='ranking_view'),
+    path('remove_submission<str:game_code>', views.remove_submission, name='remove_submission'),
+    path('add_points', views.add_points, name='add_points'),
+    
 
     #urls with <str:game_code> display the game code of the game currently being played
 ]

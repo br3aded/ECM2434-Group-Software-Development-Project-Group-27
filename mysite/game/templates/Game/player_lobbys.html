@@ -65,7 +65,7 @@
                   <li>
                     <div class="lobby-name right-margin">{{lobby.game_name}}</div>
                     <div class="lobby-code right-margin">{{lobby.game_code}}</div>
-                    <div class="lobby-rounds right-margin">{{lobby.hosting_group.all_members|length}}/{{lobby.hosting_group.max_players}}</div>
+                    <div class="lobby-rounds right-margin">{{lobby.hosting_group.all_members|length|add:"-1"}}/{{lobby.hosting_group.max_players}}</div>
 
                     {% if lobby.game_state == 0 %}
                       <div class="lobby-state right-margin"> Waiting </div>

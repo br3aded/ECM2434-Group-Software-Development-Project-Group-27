@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+:root {
+  --colour-primary: #3dc92b;
+  --colour-info-dark: #7d8da1;
+  --color-light: rgba(132, 139, 200, 0.18);
+  --padding-1: 1.2rem;
+  --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+.ranking-container {
+    width: 450px;
+    height: 700px;
+    background: white;
+    border-radius: 20px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(8, 80px);
+}
+
+.ranking-content {
+    width: 450px;
+    height: 700px;
+    background: linear-gradient(135deg, #71b7e6, var(--colour-primary));
+    border-radius: 20px;
+}
+
+.image-row {
+    display: grid;
+    grid-template-columns: 310px 60px 60px;
+    width: 100%;
+    height: 60px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+    background-color: #3dc92b;
+}
+
+.arrow-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.image-icon {
+    height: 60px;
+    text-align: center;
+    color: white;
+}
+
+.rank-name-plate {
+    font-size: 40px;
+    text-align: center;
+    color: white;
+    background: linear-gradient(135deg, #71b7e6, var(--colour-primary));
+}
+
+.rank-title {
+    height: 100%;
+    font-size: 40px;
+}
+
+.info-container {
+    width: 0px;
+    height: 0px;
+}
+
+.submit {
+    
+}

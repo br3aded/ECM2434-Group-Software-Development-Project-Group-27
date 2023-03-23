@@ -61,48 +61,26 @@
 
                         <div class="lboard_wrap">
                             <div class="lboard_item today">
-                                <div class="lboard_mem">
-                                    <div class="name_bar">
-                                        <p><span>1.</span>name</p>
-                                        <div class="bar_wrap">
-                                            <div class="inner_bar" style="width:95%">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="points">
-                                        180 points
-                                    </div>
-                                </div>
-                                <div class="lboard_mem">
-                                    <div class="name_bar">
-                                        <p><span>2.</span>name</p>
-                                        <div class="bar_wrap">
-                                            <div class="inner_bar" style="width:80%">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="points">
-                                        140 points
-                                    </div>
-                                </div>
-                                <div class="lboard_mem">
-                                    <div class="name_bar">
-                                        <p><span>3.</span>name</p>
-                                        <div class="bar_wrap">
-                                            <div class="inner_bar" style="width:60%">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="points">
-                                        100 points
-                                    </div>
-                                </div>
-                                
+                              {% regroup submissions by points_earned as submissions_by_points %}
+                              {% for group in submissions_by_points|dictsortreversed:"grouper" %}
+                                  {% for u in group.list %}
+                                      <div class="lboard_mem">
+                                          <div class="name_bar">
+                                              <p><span></span>{{u.user_id}}</p>
+                                              <div class="bar_wrap">
+                                                  <div class="inner_bar" style="width: calc(100% / 1);">
+                              
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="points">
+                                              {{u.points_earned}} points
+                                          </div>
+                                      </div>
+                                  {% endfor %}
+                              {% endfor %}
                             </div>
-                            <div class="join-button"><a id="next" class="cell" href=""><button>Ready for next round</button></a></div>
+                            <div class="join-button"><a id="next" class="cell" href="/game/"><button>Continue</button></a></div>
                         </div>
                     </div>
                 </div>
@@ -121,7 +99,8 @@
                   </div>
               </div>
         </div>
+        <div id="code" class="info-container">{{game_code}}</div>
         <script src="{% static 'sidebar.js'%}"></script>
-        <script src="{% static 'readyup.js'%}"></script>
+        <script src="{% static 'results.js'%}"></script>
     </body>
 </html>
