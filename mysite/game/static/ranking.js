@@ -1,22 +1,50 @@
-// Input fields
-var field1 = document.getElementById("1");
-var field2 = document.getElementById("2");
-var field3 = document.getElementById("3");
+const elem = document.getElementById('code');
 
-const fields = [field1, field2, field3]
+let code = elem.innerHTML;
+console.log(code)
+// Send an AJAX request to a Django view
 
-// Pictures
+document.getElementById("add").addEventListener('click', () => {
+    const xhr = new XMLHttpRequest();
+    console.log("click")
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            response = JSON.parse(xhr.responseText);
+            if (response.exists) {
+                // Code exists in the Game model, redirect to lobby_view
+                console.log("working")
+                
 
-var pic1 = document.getElementById("a1");
-var pic2 = document.getElementById("a1");
-var pic3 = document.getElementById("a1");
+            } else {
+                // Code does not exist in the Game model, do nothing
+            }
+        }
+    }
 
-// Ranking
+    // Promises may be a better solution
 
-function sort() {
-    let values = []
-    fields.forEach(elem => {
-        values.push(elem.value);
-    })
-    window.location.href = `/game/results?a=${values[0]}&b=${values[1]}&c=${values[2]}`;
-}
+    let elem = document.getElementById("container");
+    let counter = 0;
+
+    function makeAjaxCall() {
+    let child = elem.children[counter];
+    let c = child.querySelector("#name");
+
+    let p = child.querySelector("#points");
+
+    if (c) {
+        console.log(c.innerHTML);
+        console.log(counter)
+        xhr.open('GET', `/game/add_points?code=${code}&user=${c.innerHTML}&points=${p.value}&counter=${counter}`);
+        xhr.send();
+    }
+    counter++;
+    if (counter < elem.children.length) {
+        setTimeout(makeAjaxCall, 200);
+    }
+
+    }
+
+    makeAjaxCall()
+});
+

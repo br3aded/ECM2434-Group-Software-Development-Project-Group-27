@@ -12,8 +12,10 @@ from django.urls import reverse
 from .models import Game , Group , Submission
 from . import forms
 from user.models import AppUser
+from home.models import GroupMembers
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 
 #@login_required prevents users from accessing page without having logged in and will redirected to login page if they are not
 
@@ -75,15 +77,15 @@ def add_user(request):
 @login_required(login_url='/login/')
 def lobby_view(request, game_code):
     #gets game with passed game code and currently logged in user
-    game = Game.objects.get(game_code=game_code)
+    game = Game.objects.get(game_code=game_code.replace(" ",""))
     app_user = get_object_or_404(AppUser, base_user=request.user)
     print(app_user)
     #loads correct pages for game state 0 based on is the user is a host or not
     if game.game_state == 0:
         if game.hosting_group.group_leader == app_user:
-            return render(request,"game/gamelobby-client.html", {"game_code" : game_code})
+            return render(request,"game/gamelobby-client.html", {"game_code" : game_code, "game_name": game.game_name})
         else:
-            return render(request,"game/gamelobby-client no start.html", {"game_code" : game_code}) # change to other page for 
+            return render(request,"game/gamelobby-client no start.html", {"game_code" : game_code, "game_name": game.game_name}) # change to other page for 
 
     if game.game_state == 1:
         #checks to see if a task has been set , if true game state is iterated
@@ -100,7 +102,7 @@ def lobby_view(request, game_code):
 
     if game.game_state == 2:
         #checks if all the players have submitted response to tasks
-        if (game.submissions.all()).count() == game.hosting_group:
+        if (game.submissions.all()).count() == game.hosting_group.group_members.all().count():
             game.game_state = 3
             game.save()
             return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
@@ -109,8 +111,8 @@ def lobby_view(request, game_code):
             if app_user == game.hosting_group.group_leader:
                 return render(request,"game/waiting_response.html", {"game_code" : game_code})
             else:
-                submisssions = app_user.submission_set.all()
-                if submisssions.exists():
+                submisssions = game.submissions.filter(base_user=app_user)
+                if submisssions.count() > 0:
                     return render(request,"game/waiting_response.html", {"game_code" : game_code})
                 else:
                     #else redirect to view for submiting tasks
@@ -118,27 +120,31 @@ def lobby_view(request, game_code):
     #loads correct pages for game state 3 based on if the user is host or not
 
     if game.game_state == 3:
+        print(game.game_state)
         if app_user == game.hosting_group.group_leader:
-            #redirects to ranking view for game master
-            return HttpResponseRedirect(reverse('game:ranking_view', {'game_code' : game_code}))
+            return HttpResponseRedirect(reverse('game:ranking_view', kwargs={'game_code' : game_code}))
         else:
             #renders waiting page for players
-            return render(request,"game/waiting_for_ranking.html", {"game_code" : game_code})
+            return render(request,"game/waiting_ranking.html", {"game_code" : game_code})
     #loads correct pages for game state 4 based on if the user is host or not
     if game.game_state == 4:
         #checks to see if all players have viewed results when the player clicks the ready up button on the page there previous submission is deleted
-        if game.submission == None:
+        print(request.user)
+        Submission.objects.filter(game_id=game.id, user_id=app_user).delete()
+        if game.submissions.count() <= 0:
             game.game_state = 5
             game.save()
             return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
         else:
             #returns results screen
-            return render(request,"game/ranking.html", {"game_code" : game_code})
+            return HttpResponseRedirect(reverse('game:end_game', kwargs={'game_code' : game_code}))
     #loads correct pages for game state 5 based on if the user is host or not
     if game.game_state == 5:
+        print(game.game_state)
         #if the round is the final round load end of game results page
         if game.current_round_number == game.max_rounds:
-            return render(request,"game/results.html", {"game_code" : game_code})
+            game.delete()
+            return render(request,"game/join_lobby.html")
             #change html to results page
         else:
             #starts a new round
@@ -171,13 +177,13 @@ def set_task(request, game_code):
         dropdown = request.POST["eco-tasks"]
         input_box = request.POST["Task desc"]
         #if input box is empty used dropdown box
-        if input_box == None:
+        if input_box == "":
             task_name = dropdown
         #if input box isnt empty used input box text
         else:
             task_name = input_box
         #adds task to assocaited game model
-        game = Game.objects.get(game_code=game_code)
+        game = Game.objects.get(game_code=game_code.replace(" ",""))
         game.current_round_name = task_name
         game.save()
     return HttpResponseRedirect(reverse('game:lobby_view' , kwargs={'game_code' : game_code}))
@@ -227,22 +233,57 @@ def take_picture(request,game_code):
 def test(request):
     return render(request, 'game/test.html')
 
+@login_required(login_url='/login/')
+def ranking_view(request, game_code): 
+    game = Game.objects.filter(game_code=game_code).first()
+    submissions = Submission.objects.filter(game_id=game.id)
+    return render(request, 'game/ranking.html', {'game_code' : game_code, 'submissions': submissions})
+
 #renders page used in final rankings
 @login_required(login_url='/login/')
-def end_game(request):
-    return render(request, 'game/end-of-game.html')
+def end_game(request, game_code):
+    game = Game.objects.filter(game_code=game_code).first()
+    groupfield = GroupMembers.objects.filter(group_id=game.hosting_group.id).all()
+    return render(request, 'game/end-of-game.html', {'game_code' : game_code, 'submissions': groupfield})
 
 def inc_gamestate(request):
     game_code = (request.GET.get('code')).upper().replace(" ", "")
-    print(game_code)
     game = Game.objects.get(game_code=game_code)
     game.game_state = 1
     game.save()
     print(game.game_state)
     return JsonResponse({'exists': True})
 
+def add_points(request):
+    User = get_user_model()
+    user = User.objects.get(username=request.GET.get('user').replace(" ", ""))
+    game_code = (request.GET.get('code')).upper().replace(" ", "")
+    game = Game.objects.get(game_code=game_code)
+    print(user)
+    groupfield = GroupMembers.objects.get(user_id=user.id, group_id=game.hosting_group.id)
+    groupfield.points_earned += game.hosting_group.group_members.count() - int(request.GET.get('points')) + 1
+    groupfield.save()
+    print(groupfield.points_earned)
+
+    print("counter", request.GET.get('counter') )
+    if request.GET.get('counter') == str(3):
+        game.game_state = 4
+        game.save()
+
+    print(game.game_state)
+
+    return JsonResponse({'exists': True})
+
+def remove_submission(request, game_code):
+    user = request.user
+    game = Game.objects.filter(game_code=game_code).first()
+    if (user == game.hosting_group.group_leader): return JsonResponse({'exists': True})
+
+    #game.submissions.filter(user_id = user).all().delete()
+
+    return JsonResponse({'exists': True})
+
 def ready_up(request):
-    print("fire")
     game_code = (request.GET.get('code')).upper().replace(" ", "")
     
     game = Game.objects.get(game_code=game_code)

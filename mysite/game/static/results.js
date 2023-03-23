@@ -1,5 +1,3 @@
-// Author: Matthew Wood
-
 const elem = document.getElementById('code');
 
 let code = elem.innerHTML;
@@ -15,14 +13,14 @@ document.getElementById("next").addEventListener('click', () => {
             if (response.exists) {
                 // Code exists in the Game model, redirect to lobby_view
                 console.log("working")
-                window.location.href = `/game/lobby/${code.trim()}`
 
             } else {
                 // Code does not exist in the Game model, do nothing
             }
         }
     }
-    xhr.open('GET', `/game/inc_gamestate?code=${code}`);
+
+    xhr.open('GET', `/game/remove_submission?code=${code}`);
     xhr.send();
 });
 
