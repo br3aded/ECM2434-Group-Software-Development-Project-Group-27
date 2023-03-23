@@ -1,4 +1,4 @@
-### Group 27
+### Group 27 Eco-taskmaster
 ___
 
 The group members are:
@@ -11,7 +11,7 @@ The group members are:
 6. OPPONG-MENSAH, Kwadwo 
 
 
-This is a submission for Sprint 1. There are three types of document that you will find the following places.
+This is a submission for Sprint 2. There are three types of document that you will find the following places.
 
 ## PROCESS DOCUMENTS
 Our process documents are managed in the trello platform. The link to our project page is below. We (specific username that added) have added mattcollison2 to the board so it is visible.
@@ -40,6 +40,8 @@ Technical documents are broken down into front end and back end etc.
 
 ## PRODUCT DOCUMENTS
 Our product documents are primarily in the form of a product UI. Below is a link to our latest version.
+
+public link: [https://eco-taskmaster.10dletfrab6e.eu-gb.codeengine.appdomain.cloud/home/] (note this cloud version is 1 pull request behind submitted source code)
 
 
 The UI and design documents for the client have also been archived under the link below:
