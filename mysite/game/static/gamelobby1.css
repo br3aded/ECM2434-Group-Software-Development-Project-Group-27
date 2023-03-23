@@ -119,7 +119,7 @@ main{
   
     aside{
       position: fixed;
-      left: -100%;
+      left: 0;
       background: white;
       width: 12rem;
       z-index: 3;
