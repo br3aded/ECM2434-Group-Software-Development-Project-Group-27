@@ -129,7 +129,9 @@ def lobby_view(request, game_code):
     #loads correct pages for game state 4 based on if the user is host or not
     if game.game_state == 4:
         #checks to see if all players have viewed results when the player clicks the ready up button on the page there previous submission is deleted
-        if game.submissions == None:
+        print(request.user)
+        Submission.objects.filter(game_id=game.id, user_id=app_user).delete()
+        if game.submissions.count() <= 0:
             game.game_state = 5
             game.save()
             return HttpResponseRedirect(reverse('game:lobby_view', kwargs={'game_code' : game_code}))
@@ -138,9 +140,11 @@ def lobby_view(request, game_code):
             return HttpResponseRedirect(reverse('game:end_game', kwargs={'game_code' : game_code}))
     #loads correct pages for game state 5 based on if the user is host or not
     if game.game_state == 5:
+        print(game.game_state)
         #if the round is the final round load end of game results page
         if game.current_round_number == game.max_rounds:
-            return render(request,"game/end-of-game.html", {"game_code" : game_code})
+            game.delete()
+            return render(request,"game/join_lobby.html")
             #change html to results page
         else:
             #starts a new round
@@ -261,6 +265,7 @@ def add_points(request):
     groupfield.save()
     print(groupfield.points_earned)
 
+    print("counter", request.GET.get('counter') )
     if request.GET.get('counter') == str(3):
         game.game_state = 4
         game.save()

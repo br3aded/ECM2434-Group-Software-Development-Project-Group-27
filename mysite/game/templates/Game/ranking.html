@@ -56,7 +56,7 @@
                 {% for s in submissions %}
                 <div id="rank" class="image-row"> 
                     <div id="name" class="rank-name-plate"> {{s.user_id}} </div>
-                    <div class="image-icon" width="30px" height="30px" style="background-image: url('/{{s.submission}}'); background-size: cover;">
+                    <div class="image-icon" width="30px" height="30px" style="background-image: url('/media/{{s.submission}}'); background-size: cover;">
                     </div>
                     <input id="points" type="text" class="image-icon" placeholder="enter" maxlength="1" style="font-size: 20px; background: linear-gradient(135deg, #71b7e6, var(--colour-primary));"></input>
                 </div>

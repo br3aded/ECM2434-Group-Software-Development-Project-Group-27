@@ -42,7 +42,7 @@ document.getElementById("add").addEventListener('click', () => {
     if (counter < elem.children.length) {
         setTimeout(makeAjaxCall, 200);
     }
-    window.location.href=`/game/lobby/${code}`;
+
     }
 
     makeAjaxCall()
